@@ -1,0 +1,44 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "R for Household Consumption and Expenditure Surveys"
+  subtitle: "Nutrition Data Analysis"
+  author: "Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Louise E. Ander"
+  date: "16/10/2023"
+  repo-url: https://github.com/dzvoti/mapsNutritionR/
+  repo-actions: [edit]
+  # downloads: [pdf, epub]
+  sharing: [twitter, facebook]
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - introR.qmd
+    - hcesNutR.qmd
+    # - summary.qmd
+    # - references.qmd
+  sidebar:
+    tools:
+      - icon: cloud-arrow-down
+        href: https://dzvoti.github.io/mapsNutritionR/mapsNutritionR-datazip
+        aria-label: Download data
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    number-depth: 1
+    toc-title: "On this page"
+  pdf:
+    documentclass: scrreprt
+
+editor: source
+
+# Do not evaluate code chunks
+eval: false
+callout-icon: false
+
+
+
