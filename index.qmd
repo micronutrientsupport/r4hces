@@ -1,0 +1,20 @@
+# Preface {.unnumbered}
+
+## About this manual {.unnumbered}
+This manual is designed for absolute beginners who are interested in using R and RStudio for nutrition analysis of household consumption and expenditure surveys(HCES). The manual is an adaptation of materials for statistical analysis of HCES developed by the [Micronutrient Action Policy Support(MAPS) Project](www.maps.support) and made available to all for use, without warranty or liability. The MAPS project is funded by the Bill and Melinda Gates Foundation. 
+
+## Acknowledgements {.unnumbered}
+We would like to thank the following people for their contributions to this manual:
+[Liberty Mlambo](), [Lucia Sergovia de la Revilla](), [Thomas Codd](),[Gareth Osman](), [Kevin Tang](), [Gareth Osman](),,[Tineka Blake](),[Edaward Joy](),[Louise E. Ander]()
+
+
+## Who is this manual for? {.unnumbered}
+The goal of this manual is to provide a comprehensive introduction to these powerful technologies and to teach you how to use them to better understand your data and collaborate with others on your project.
+
+Throughout this manual, you will learn how to install and set up R and RStudio on your computer, as well as how to use them to perform data analysis, create visualizations, and manage your code. The manual includes step-by-step instructions, examples, and practice exercises to help you master these technologies.
+
+Whether you are a researcher, data scientist, or statistician, this manual will provide you with the skills and knowledge you need to start using R and RStudio for HCES analysis, to better understand your data and collaborate with others on your project.
+
+It is important to note that this manual is not a comprehensive guide to R and RStudio but rather an introduction, designed to give you the foundational knowledge to start working with these technologies. There are many other resources available for learning more about these technologies, including online tutorials, forums, and documentation.
+
+We hope you find this manual helpful and that it empowers you to work with these powerful tools.
