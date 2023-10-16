@@ -1,0 +1,109 @@
+# Introduction
+
+Welcome to the training manual on using R, RStudio, Git, and GitHub for Household Consumption and Expenditure surveys. This manual is designed for absolute beginners and aims to provide a comprehensive introduction to these powerful technologies.
+
+## Software requirements
+
+First, we will cover R, which is a powerful and versatile programming language that is widely used for data analysis, statistical modeling, and data visualization.
+
+-   It is an open-source software that can be freely downloaded and used by anyone. R is widely used in academia, industry, and government, and is becoming increasingly popular among data scientists and analysts.
+-   It is a great tool for those who have been using other statistics tools like Excel, SAS, SPSS and want to take their data analysis skills to the next level.
+
+This training will provide an introduction to the basics of R and will give you the skills you need to start working with data in R..
+
+Next, we will introduce RStudio, which is a popular integrated development environment (IDE) for R.
+
+-   RStudio provides a user-friendly interface for working with R and makes it easy to work with R packages, which are collections of pre-written R code that can be used to perform specific tasks.
+-   With RStudio, you will be able to write, test, and debug your R code, and easily share your work with others.
+
+![source: https://moderndive.netlify.app/1-getting-started.html](images/Screenshot%202023-03-26%20145411.png)
+
+This manual will provide step-by-step instructions for installing and setting up R and RStudio on your computer. We will also go over basic concepts and commands for working with each technology, as well as provide examples of how to use them in different contexts. With this manual, you will have the skills and knowledge you need to start using these powerful technologies to better understand your data and collaborate with others on your project.
+
+## Downloading and Installing R and Rstudio
+
+![](images/Screenshot%202023-03-26%20143935.png)
+
+### Downloading and Installing R
+
+![](images/Screenshot%202023-03-26%20142832.png)
+
+To download R, you can visit the official R website at <https://cran.r-project.org/>. On the website, you will see links to download the latest version of R for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install R on your computer.
+
+Downloading and installing R:
+
+::: {.callout-tip collapse="true" icon="false"}
+#### Instructions for downloading and Installing R
+
+Step 1:
+
+![](images/Screenshot%202023-03-26%20141343.png)
+
+Step 2:
+
+![](images/Screenshot%202023-03-26%20141930.png)
+
+Step 3:
+
+![](images/Screenshot%202023-03-26%20142324.png)
+
+Step 4:
+
+![](images/Screenshot%202023-03-26%20142439.png)
+
+Step 5:
+
+![](images/Screenshot%202023-03-26%20142532.png)
+
+Step 6:
+
+![](images/Screenshot%202023-03-26%20142547.png)
+
+Step 7:
+
+![](images/Screenshot%202023-03-26%20142735.png)
+
+Step 8:
+
+![](images/Screenshot%202023-03-26%20142832.png)
+:::
+
+### Downloading and Installing RStudio
+
+To download RStudio, you can visit the official RStudio website at <https://rstudio.com/products/rstudio/download/>. On the website, you will see links to download the latest version of RStudio for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install RStudio on your computer. ![](images/Screenshot%202023-03-26%20144336.png)
+
+::: {.callout-note collapse="true" icon="false"}
+#### Instructions for downloading and Installing Rstudio
+
+Step 1: Navigate to <https://posit.co/download/rstudio-desktop/>
+
+![](images/Screenshot%202023-03-26%20143935.png)
+
+Step 2:
+
+![](images/Screenshot%202023-03-26%20144556.png)
+
+Step 3:
+
+![](images/Screenshot%202023-03-26%20144625.png)
+
+Step 4:
+
+![](images/Screenshot%202023-03-26%20144743.png)
+:::
+
+Please note that these are general instructions for a Microsoft Windows operating system, and depending on your system setup and security settings, some steps might be slightly different. Also, you will need to make sure that you have administrative access or permission to install the software on your computer.
+
+You can also refer to the software website instruction or online tutorials that are specific to your operating system and setup.
+
+From here we will use the term R to refer to R and Rstudio or vice-versa.
+
+![Source: https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html](images/rstudio-panes-labeled.jpeg)
+
+## Recommended setup while using this book
+
+Step 1: Download the training files from the following link: <https://dzvoti.github.io/mapsR/mapsR-Training.zip>
+
+Step 2: Unzip the file and save it in a folder on your computer.
+
+Step 3: Open RStudio create a new project using an existing folder. Select the folder where you saved the training files.
