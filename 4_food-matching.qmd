@@ -1,0 +1,60 @@
+---
+title: "Food Matching Framework"
+format: 
+  html:
+     toc: true
+     theme: presentation/simple.scss
+     embed-resources: true
+editor: source
+---
+
+```{r}
+#| include: false
+
+# Loading library
+library(dplyr)
+
+```
+
+
+
+## 4. Harmonising the Food Composition Tables
+
+When all the FCTs are standardised, we can use them all together, hence if a food item is missing in Tanzania FCT, 2008, then a similar food item will be found in another FCT. 
+
+### 4.1. Food matching
+
+After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the NPS-DSS 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called "food dictionary". As depicted in the @fig-matching.
+
+
+![](presentation/images/food-matching.png){#fig-matching}
+
+
+
+:::{.callout-note}
+
+## Activity 2: Thinking about food matches between HCES food list and food composition.
+
+:::
+
+
+```{r}
+
+
+```
+
+
+ 1. Do you think that the food matches selected represents well what it is consumed in Tanzania?
+ 2. If not, what other foods would you add/remove/change to? 
+ 3. For the foods without matches, can you think of what food items you would use?
+ 4. Could you identify any food matches in the Tanzania FCT, 2008 that will be a good match for those foods that have no matches? 
+ 5. What nutrients are important for each of the foods selected? 
+
+
+
+## Further Readings
+
+<br/>
+
+- Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.
+- ‘FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome’. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.

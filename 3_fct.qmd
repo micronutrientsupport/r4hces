@@ -8,9 +8,126 @@ editor: source
 
 # Introduction
 
+
+### 1. Selecting food composition data
+
+#### 1.1. Selecting the food composition data for use with the survey. 
+
+When selecting what [food composition data]{.dark-blue} will be used, we need to answer some of the following questions:
+
+1. Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?). 
+2. FCT availability & missing values (e.g., are relevant foods and nutrients reported?)
+3. Data quality and reporting (e.g., what are the method of analysis and metadata available?)
+
+##### 1.1.1. Relevancy for the study/context (e.g., geographically and culturally close). 
+
+:::{.callout-note}
+## Question 1
+What FCTs do you know from the region of interest? And, what FCT would you use for your study?
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 1
+
+There are more than 19FCTs in the sub-Saharan region. 
+
+**Tanzania FCT, 2008** > Western Africa FCT, 2019 > Kenya FCT, 2018 > [USDA FCT, 2019 > UK FCT, 2020]{.yellow}. Other specific FCTs like uFish and/or uPulses may be used as well. 
+
+:::
+
+After selecting the most relevant FCT(s), we need to check whether it contains the information we need for the objective of our study. 
+
+##### 1.1.2. FCT availability & missing values (e.g., relevant foods and nutrients are reported)
+
+Here, we need to check if the FCT(s) that we have selected contains the foods reported consumed in the household survey and the nutrients that we will be evaluating in our study. 
+
+#TODO: Can we do this interactive?
+:::{.callout-note}
+## Question 2
+How many foods are reported in the Tanzania FCT?
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 2
+378
+
+:::
+
+:::{.callout-note}
+## Question 3
+What nutrients and other food components are reported? 
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 3
+We need to report certain nutrients, do you know which ones? (Vitamin A, thiamine, riboflavin, niacin, folate, vitamin B6, vitamin B12, iron, and zinc) 
+
+:::
+
+:::{.callout-note}
+## Question 4
+What nutrients and other important food components are missing? 
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 4
+Information of edible portion and water (moisture) content is missing. 
+
+:::
+
+
+After, we have checked that most of the foods and nutrients that we need are reported in the FCT(s) selected, we need to check the quality of the data provided, as it would condition the results of our analysis. 
+
+##### 1.1.3. Data quality and reporting (e.g., method of analysis, good metadata)
+
+General quality checks are: the level of detail in the food description, the methods used for nutrient values compilation, and the documentation and degree of detail.
+
+Other quality checks that can be performed are: calculating sum of proximate and re-calculating the values of: Carbohydrates available by difference, energy, etc. 
+
+
+:::{.callout-note}
+## Question 5
+Why are those components important for the food matching process? 
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 5
+
+Water content is essential to differentiate foods, and to identify if food are dry/fresh. In addition, for calculating SOP, re-calculating some food components, and it is vital for imputing values when necessary. 
+
+Edible portion is necessary to calculate the part of the foods that people are consuming, and this is usually context specific. Hence, it should be reported in the national FCT. 
+
+:::
+
+
+:::{.callout-note}
+
+## Question 6
+What FCTs would you use for your study?
+
+:::
+
+:::{.callout-tip collapse="true"}
+## Answer 6
+
+There is not correct answer because the choice is study, context and objective specific. For example, for the IHS4, we chose: MW19>KE18>WA19>UK21>US19.
+
+We excluded TZ06 because we found data inconsistencies and low availability of metadata, we also excluded UG12 because the underlying data is mainly "borrowed" from the US19. 
+
+:::
+
+
+However some of those questions can only be answered, or would be easily answered by, having the FCT/FCBD in a accessible format. 
+
+
 ## Objective
 
-This document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repositiory is documented in this folder (documentation).
+This document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repository is documented in this folder (documentation).
 
 For easy navigation and use of this script it is recommended to use Rstudio. In RStudio please click the "Show Document Outline" button to the right of the source button, at the top right of this window. This will allow for easier navigation of the script.
 
