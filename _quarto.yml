@@ -13,15 +13,20 @@ book:
   sharing: [twitter, facebook]
   chapters:
     - index.qmd
-    - intro.qmd
-    - introR.qmd
-    - hcesNutR.qmd
+    # - intro.qmd
+    - 1_introR.qmd
+    # - 1_data_types.qmd
+    - data_structures.qmd
+    # - 1_data_wrangling_and_io.qmd
+    # - 2_hcesNutR.qmd
+    # - 3_fct.qmd
+    # - 4_food-matching.qmd
     # - summary.qmd
     # - references.qmd
   sidebar:
     tools:
       - icon: cloud-arrow-down
-        href: https://dzvoti.github.io/mapsNutritionR/mapsNutritionR-datazip
+        href: https://dzvoti.github.io/hces4R/hces-datazip
         aria-label: Download data
 
 bibliography: references.bib

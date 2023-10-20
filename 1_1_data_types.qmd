@@ -1,0 +1,1229 @@
+# Data Visualisation
+
+## Plots and Graphs
+
+The objective of this section is to provide information on the topic under consideration, along with examples and exercises. You should be able to work through it in R studio. This section requires some packages to be loaded.
+
+## Loading libraries
+
+```{r}
+
+library(ggplot2) # data visualisation
+library(dplyr) # data manipulation
+
+```
+
+## Loading the data
+
+To demostrate the visuals, let us load a dataframe called `'data_temp'` that has three columns `soil_temp`, `soil_moisture` and `site`.
+
+```{r}
+
+data_temp <- read.csv(here::here("data", "soil-test.csv"))
+
+```
+
+
+The **specific objective** of the material in this script is to introduce you to different graphic used in R. By the end you should have a better understanding of some basic concepts regarding data visualisation, and should be better-placed to start developing and editing scripts yourself. The particular topics we shall cover are:
+
+1)  Univariate graphs
+2)  Multivariate graphs
+3)  Controlling layout
+4)  Printing graphs
+
+## Univariate graphs
+
+In this section, we look at graphics that we may create with a single variable. This includes histograms, boxplots, bar charts, as well as `QQ plots`. These are usually important in checking the distribution of variables in your dataset or checking the residuals of a fitted model.
+
+### Histogram
+
+
+```{r eval=TRUE}
+
+# Generating the base for the plot
+
+data_temp %>% 
+  ggplot()
+
+# Creating the histogram
+
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture))
+
+```
+
+#### Changing colour of a histogram
+
+::: {.callout-warning collapse="true"}
+
+## Colour names (click to expand)
+
+This is done by adding argument `fill ="color"`. There are various options of colors that can be used. You can check the various options of colors you can use by typing `colors()`.
+
+```{r eval=TRUE}
+colors()
+```
+:::
+
+The color name is placed in quotation marks. Let us make our histogram dark blue.
+
+
+```{r eval=TRUE}
+
+# Changing  colour of the histogram
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), fill = "darkblue")
+
+```
+
+
+This produces a histogram with blue bars, an x-axis labelled `"moisture"` and the title `"histogram of moisture"`. All these three can be changed to your preference by adding extra arguments to the `ggplot()` function.
+
+Changing name of `x-axis`: This is done by adding argument `xlab("name of axis")`. Note that the name of axis is in quotation marks. Lets assume these data is moisture data.
+
+
+```{r eval=TRUE}
+
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), fill = "darkblue") + 
+  xlab("moisture (g)") 
+
+```
+
+::: callout-tip
+Note the `"solidus"` or `/` inbetween the name of the variable (Temperature) and the units. This is good practice for presenting units in axis labels, favoured by many publishers. The quantities on some axis labels have dimensions which are ratios, like kg per ha. This can be done `"kg/ha"` but that is not good scientific practice, particularly if you are using the solidus to indicate units as above. It is better to follow the `"ha"` with a power `"-1"`. In R we can do this as follows (of course your data won't be realistic for this example!)
+:::
+
+```{r eval=TRUE}
+
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), fill = "darkblue") + 
+  xlab(expression("kg ha"^-1))
+
+```
+
+#### Changing main title
+
+This is done by adding argument `ggtitle("name of main title")`. Note that the name of axis is in quotation marks. Lets assume these data is soil moisture data.
+
+```{r eval=TRUE}
+
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), fill = "darkblue") + 
+  xlab(expression("kg ha"^-1))  +
+  ggtitle("histogram of soil moisture") 
+
+```
+
+You can also change other features like the contour of the bins or the width. 
+
+```{r eval=TRUE}
+
+# Changing bin width of the histogram
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), binwidth = 0.5) + 
+  xlab(expression("kg ha"^-1))  +
+  ggtitle("histogram of soil moisture") 
+
+# Changing outline colour of the histogram
+data_temp %>% 
+  ggplot() +
+  geom_histogram(aes(soil_moisture), colour = "green") + 
+  xlab(expression("kg ha"^-1))  +
+  ggtitle("histogram of soil moisture") 
+
+```
+
+::: callout-note
+## Exercise
+
+i) generate a red histogram. Label the histogram appropriately, assuming that these are data for `Maize yield in kilograms per hectare` for Chitedze experimental station.
+
+:::
+
+
+### QQ plots
+
+The second type of plot we can look at is the `qqplot`. This plot is used to check normality of data. The argument used is `stat_qq()`, and it needs to specify the `sample=variable`.
+
+```{r eval=TRUE}
+
+#Starting with the empty plot
+data_temp %>% 
+  ggplot() 
+
+#QQ plot
+data_temp %>% 
+  ggplot() +
+  stat_qq(aes(sample = soil_moisture))
+
+```
+
+The argument for this function is the soil moisture data. The sample quantiles are just the data values, plotted in increasing order. The theoretical quantiles are the corresponding values for an ordered set of the same number of variables with the standard normal distribution (mean zero variance 1). This means that, if the data are normal, the `qq plot` should lie on a straight line. The `stat_qq_line` command adds this line to the plot to help your interpretation.
+
+```{r eval=TRUE}
+
+#QQ plot + QQ line
+data_temp %>% 
+  ggplot() +
+  stat_qq(aes(sample = soil_moisture)) +
+  stat_qq_line(aes(sample = soil_moisture))
+
+```
+
+You can add a plot title using `"ggtitle = ""` as in "histogram and you can change the `qqline` color if you so wish by adding the `col=""` argument.
+
+```{r eval=TRUE}
+
+#QQ plot + QQ line
+data_temp %>% 
+  ggplot() +
+  stat_qq(aes(sample = soil_moisture)) +
+  stat_qq_line(aes(sample = soil_moisture), colour = "red") +
+  ggtitle("Soil moisture QQ-plot")
+
+```
+
+::: callout-note
+## Exercise: qq plot
+
+i) generate a `qq plot` with a 1:1 line.
+ii) Label it appropriately assuming that these are data for Maize yield in kilograms per hectare for Chitedze experimental station.
+:::
+
+### Box plot
+
+Box plots give summary of the minimum, first quartile, median, third quartile inter quartile range, maximum and outlier values in your dataset. They are used for univariate data but can be split based on a factorial variable e.g gender. The function that is used to call for a boxplot is `geom_boxplot()` and the argument is vector data. let us try ploting using the data we generated earlier.
+
+```{r eval=TRUE}
+boxplot(data_temp$soil_moisture)
+```
+
+```{r eval=TRUE}
+
+#Starting with the empty plot
+data_temp %>% 
+  ggplot() 
+
+#Boxplot
+data_temp %>% 
+  ggplot() +
+  geom_boxplot(aes(soil_moisture))
+
+#Boxplot - changing the orientation
+data_temp %>% 
+  ggplot() +
+  geom_boxplot(aes(soil_moisture)) +
+  coord_flip() 
+
+
+```
+
+You can choose to label your box plot with main title, color and label the axis similar to what we did for histograms. This time however, we label y-axis using ylab argument.
+
+```{r eval=TRUE}
+
+#Boxplot - changing the orientation
+data_temp %>% 
+  ggplot() +
+  geom_boxplot(aes(soil_moisture), colour = "dark blue") +
+  coord_flip() +
+  xlab("moisture (g)") +
+  ggtitle("boxplot of soil moisture") 
+```
+
+The thick black line in the centre of the boxplot corresponds to the median value of the data (half the values are smaller, half are larger). The bottom of the box (the blue shaded area) is the first quartile of the data, Q1 (25% of the values are smaller), and the top of the box is the third quartile of the data, Q3 (25% of the values are larger).
+
+In exploratory data analysis we call the quantity H = Q3-Q1 the "h-spread". R calculates what are known as "inner fences" of the data which are at `Q1-1.5*H` and `Q3+1.5*H` The "whiskers" above and below the box join the Q1 to the smallest data value inside the inner fences, and Q3 to the largest value inside the inner fences. If there are values outside the inner fences then these appear as points on the plot.
+
+It is possible to produce a graph in which separate boxplots are produced for different levels of a factor. As an example, let's assume that some values in data come from soil collected at Liempe, other are from Domboshava, and others in Chitedze. The values are stored in the variable called`"site"`.
+
+We then want to plot our data split by the corresponding site we have sampled. We use the function `geom_boxplot()` but this time we add a new variable.
+
+```{r eval=TRUE}
+
+#Boxplot - by site
+  data_temp %>% ggplot() +
+  geom_boxplot(aes(soil_moisture, site))
+
+#Boxplot - by site
+data_temp %>% 
+  ggplot() +
+  geom_boxplot(aes(soil_moisture, site), colour = "dark blue") +
+  coord_flip() +
+  xlab("moisture (g)") +
+  ggtitle("boxplot of soil moisture") 
+
+
+```
+
+
+::: callout-note
+## Exercise: Box plot
+
+Using the data create:
+
+i)  three boxplots one for all the site data combined and
+ii) another plot that seperates the sites boxplots.
+iii) label the boxplots appropriately.
+iv) are there any outliers in your data?
+:::
+
+### Bar plot
+
+This allows us to create a bar chart where the heights of the bars are based on the values given by the vector input. The argument that is used to call for a barplot is `geom_bar()` and the argument is our site data. There are additional options for giving names to each of the bars, for instance, and for coloring the bars, as you have seen for other earlier plots. This function usually works well when you have tabular data. The simplest form for the function `geom_bar()` is given below.
+
+```{r eval=TRUE}
+
+#Bar plot
+  data_temp %>% ggplot() +
+  geom_bar(aes(site))
+
+table(site)
+
+```
+
+You can check the results by using the function `table()`, which provide you a count per each variable. 
+
+Also, you can choose to add labels to barplot as earlier mentioned for the previous plots. You can as well change the color of the bars.
+
+```{r eval=TRUE}
+
+ data_temp %>% ggplot() +
+  geom_bar(aes(site)) +
+  xlab("Sites") +
+  ylab("count") +
+  ggtitle("Number of samples per site") 
+
+```
+
+You can also change the axis, by using the `ylim()` function
+
+```{r eval=TRUE}
+
+# Changing limits and colour
+ data_temp %>% ggplot() +
+  geom_bar(aes(site),  fill = "light blue") +
+  ylim(0,45)+
+  xlab("Sites") +
+  ylab("count") +
+  ggtitle("Number of samples per site") 
+
+ data_temp %>% ggplot() +
+  geom_bar(aes(site, fill = site)) +
+  ylim(0,45)+
+  xlab("Sites") +
+  ylab("count") +
+  ggtitle("Number of samples per site") 
+
+ 
+```
+
+You can also change the colour by each site, that will provide a distinct colour for each site. 
+
+```{r eval=TRUE}
+
+# Changing limits and colour by site
+
+ data_temp %>% ggplot() +
+  geom_bar(aes(site, fill = site)) +
+  ylim(0,45)+
+  xlab("Sites") +
+  ylab("count") +
+  ggtitle("Number of samples per site") 
+
+ 
+```
+
+::: callout-note
+## Exercise: Bar plot
+
+i)  Create a bar plot to show the frequency of the three soil types in the sample,
+ii) label it and adjust the axis and colour appropriately.
+:::
+
+## Multivariate graphs
+
+In this section, we look at graphics that we may create with multiple variables. They are important in checking how two or more variables relate to each other.
+
+### Plots
+
+The simplest scatter plot is done using the `geom_point()` function which takes in two arguments. The first argument represents the `x-axis` while the second argument is the vector of `y-axis`. 
+
+```{r}
+
+# The data points per site (x, y)
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(site, soil_temp)) 
+
+```
+
+
+From the scatter plot, you will notice that, by default,it added axis labels that are simply the names of the objects we passed i.e `soil_moisture` and `site` and there is no title. All of these things, can be added as previous graphs.
+
+The list below shows arguments that can be added to the plot function as discussed already:
+
+-   xlab("site")
+-   ylab("temp")
+-   ggtitle("Temperature variations by different site")
+
+```{r eval=TRUE}
+
+ # The data points per site (x, y)
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(site, soil_temp), colour = "red") +
+  xlab("site") + ylab("temp") +
+  ggtitle("Temperature variations by different site")
+
+```
+
+
+
+### Plot Symbols
+
+In the graphics that we have created so far, we have mostly left the plotting symbol as the default, black, unfilled circle. However, We can change the symbol by using the argument `shape`.
+
+You can change the plotting symbol by asigning a numeric value using = sign. There are two categories of symbols. Those that range from 0 to 20 and from 21 to 25. For the symbols that range from 21 to 25, in addition to being able to set the color, we can also set the fill. The fill of the shapes is actually set with the argument bg, but just like with the argument col, we can assign any color value.
+
+```{r eval=TRUE}
+
+ # The data points per site (x, y)
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(site, soil_temp), shape = 17, colour = "red") +
+  xlab("site") + ylab("temp") +
+  ggtitle("Temperature variations by different site")
+
+```
+
+Let us change the fill color of the symbol by using the bg argument. Remember that we can only use this when the symbol used ranges from 21 to 25.
+
+```{r eval=TRUE}
+
+ # The data points per site (x, y)
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(site, soil_temp), shape = 23, colour = "red", fill = "black") +
+  xlab("site") + ylab("temp") +
+  ggtitle("Temperature variations by different site")
+
+```
+
+We can also set the size of the symbols. We do this with the argument `size`.  This argument is simply a numeric value indicating how bigger(or smaller) than the usual size we want our points. 
+
+```{r eval=TRUE}
+
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(site, soil_temp), 
+             shape = 23,   
+             colour = "red",
+             fill = "black", 
+             size =1) +
+  xlab("site") + ylab("temp") +
+  ggtitle("Temperature variations by different site")
+
+```
+
+::: callout-note
+## Exercise 3.6
+
+i)  Update plots with different symbols, fill colors and symbol size. You can use any symbol and fill color of your choice.
+
+::: callout-tip
+Note: not all symbol types accept changing fill color.
+:::
+:::
+
+### Plot types
+
+The plot we have created so far are `scatterplots`. We can however, use alternative plot types. These may include line plot, step plot and lines with points among others. We can switch our plot to any of these graphics by using the `'type'` argument. We pass to this argument one of a series of letters with default is `p`, to indicate points, but we can also have l, b, c, o,h, s and n.
+
+Let us generate plot types `l`, using the `days` and `temp` vector.
+
+```{r eval=TRUE}
+plot(y=temp, x=days,type="l")
+```
+
+::: callout-note
+## Exercise 3.7
+
+i)  Create different types of plots using the `days` and vector data you created.
+ii) Create different types of plot using the days and .
+:::
+
+### Scatterplots
+
+From the dataframe `data_temp`, we can plot the data by the different sites on the same plot using `colour`.
+
+```{r eval=TRUE}
+
+# Add the data points
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(soil_moisture, soil_temp, colour=site)) 
+
+```
+
+::: callout-note
+## Exercise 3.8
+
+From your plot in Exercise 3.7 ,Update plots to differentiate the species using symbol type and color, fill colors and symbol size. You can use any symbol and fill color of your choice.
+
+::: callout-tip
+Note: not all symbol types accept changing fill color.
+:::
+:::
+
+
+
+### Adding Legend to plot
+
+Adding a legend to your plot will make your plot easy to translate. From the plot in the previous section, it is not clear what the different colors or shapes represent. A legend provides information for this.The function to use is `theme()` combined with `legend.position()`.
+
+The first argument to this function is the position of the legend on your plot. This can be done either by using `X` and `Y` co-ordinate location or a single string of the form `"bottom"`, `"top"`, `"left"`, `"topleft"` among others.
+
+We then need to specify the legend text using `legend.text` argument. This is a vector of text that will be used to label the legend. The order of the text in the vector should correspond to the order of the points in the plot.
+
+We then specify colors, points, and so on, for data added maintaining the ordering.
+
+Lets create the legend for the plot of `soil moisture` vs `temperature` at the sites `liempe`, `chitedze` and `domboshava`. Note that a plot must already be active for legend to be used.
+
+```{r eval=TRUE}
+
+# Change the legend
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(soil_moisture, soil_temp, shape=site, colour=site)) +
+   theme(legend.position = "bottom")
+
+```
+
+One can alternatively use the x,y position on the plot to position the legend
+
+```{r eval=TRUE}
+
+# Change the legend
+data_temp %>% 
+  ggplot() +
+  geom_point(aes(soil_moisture, soil_temp, shape=site, colour=site)) +
+  theme(legend.position = c(.7, .8)) 
+
+```
+
+
+
+::: callout-note
+## Exercise 3.9
+
+From your previous plot in exercise 3.8, add a legend to the Updated plot that differentiate the species using symbol type and color, fill colors and symbol size.
+:::
+
+### Controlling graphical layout
+
+When we create plots, we may want to present them on the same page for easy comparison. This can be done in two ways, firsly, using the `par()` function and secondly, using `layout()` function.
+
+#### Using `par()` function
+
+We can set up a graphics device using the `mfrow` argument in the `par()` function. The argument is a vector of the number of rows and columns into which our device should be split. When we then create graphics, they will be entered into the device across the rows, starting in the top left of the grid.
+
+As an example, suppose that we have some random data that we want to plot as a histogram, boxplot, QQ plot, and against its index. Since we have four plots, We set this up as a 2\*2 grid plot area, using the `par()`.
+
+```{r}
+par(mfrow = c(2, 2))
+```
+
+This sets up an empty 2\*2 plot area. As you start ploting, the plots will start filling up the plot area. Let us do this by ploting `histogram`, `boxplot`, `QQ plot`, and against its index.
+
+```{r eval=TRUE}
+par(mfrow = c(2, 2))
+
+x <- rnorm(100)
+hist(x)
+boxplot(x)
+qqnorm(x)
+plot(x)
+
+```
+
+Once you have set up the plotting area, it will remain active untill you set it back to the default by setting mfrow argument to c(1,1).
+
+```{r eval=TRUE}
+par(mfrow = c(1, 1))
+```
+
+Sometimes when putting graphs together in a panel like this you might find that the individual graphs need adjustments to their format. For example, the `y-axis` labels `"Frequency"` and `"Sample quantiles"` in the example above are perhaps too close to the edge of the panel. The `par` command with argument `"mar"` for margins will adjust this by adjusting the margins for each individual graph to `5 lines (bottom)`, `5 lines (left side)`, `3 lines (top)` and `2 lines (right side)`.
+
+```{r eval=TRUE}
+par(mar=c(5,5,3,3))  
+```
+
+Try calling this par command after `par(mfrow=c(2,2))`in the example above to see its effect, and experiment with different numbers of lines in the margin. The default setting is c(5, 4, 4, 2) + 0.1 which shows that you can make finer adjustments to the margins than whole numbers of lines.
+
+```{r eval=TRUE}
+par(mfrow=c(2,2)) 
+par(mar=c(5,5,3,3))
+
+x <- rnorm(100)
+hist(x)
+boxplot(x)
+qqnorm(x)
+plot(x)
+```
+
+#### Using layout() function
+
+This allows finer control of the layout of our graphics. It allows you to control the width and height of each of the columns in our graphics device. The main argument is a matrix that specifies the locations for each graphic. Each graphic is represented by an integer value and appears in the grid in all regions where that value appears.
+
+As an example, suppose we want to plot four graphics, as in the previous section, but we want the first histogram to take up the entire first row and the other three graphics to appear underneath in one row. In that case, we would create the following matrix
+
+```{r eval=TRUE}
+mat <- rbind(1, 2:4)
+```
+
+Thus, the first graphic would fill all cells containing the value 1, in this case, the entire first row. The second graphic would appear in the position of the 2, and so on. To set this as our layout, we pass it to the layout() function, followed by the graphics in order. Let us first generate random numbers to work with.
+
+```{r eval=TRUE}
+x <- rnorm(100)
+
+layout(mat)
+
+hist(x)
+boxplot(x)
+qqnorm(x)
+plot(x)
+```
+
+::: callout-note
+## Exercise 3.10
+
+Using the `iris` data, generate
+
+i)  `histogram` of `Sepal Length`,
+ii) `boxplot` of `Petal Length`,
+iii) `qq plot` of `Petal Width` and
+iv) a plot of `Sepal Length` against `Petal Length` on the same plot area with equal dimensions.
+:::
+
+::: callout-note
+## Exercise 3.11
+
+Adjust, the plot in the previous exercise so that histogram occupies the whole bottom of the plot area and the other three occupy the top of the plot area in equal dimensions.
+:::
+
+### Saving/Printing plots
+
+Now that we have known how to create graphics, one thing remaining is to print out the ouput. A number of graphics devices are available, including **PDF**, **PNG**, **JPEG**, and **bitmap**. If we do not specify the device to use, the default device will be opened, and in R this is the Plot tab.
+
+To print a graph to **pdf** ,**png** and **jpeg**, one must create the device before ploting the graph. This is done by using the functions
+
+```{r eval=FALSE}
+pdf("name.pdf")
+png("name.pgn")
+jpeg("name.jpeg") 
+```
+
+The argument for these functions is the desired name of the document in quotation marks e.g. `pdf("myFirstGraphic.pdf")`. When this function is run, the plot tab in R will not appear but a pdf of the graph will be produced in the working directory.
+
+Let us create a histogram of 100 random numbers and save it as a pdf document.
+
+```{r eval=FALSE}
+# Create a pdf device
+pdf("myFirstGraphic.pdf")
+
+# Create a histogram of 100 random numbers
+hist(rnorm(100))
+
+# Close the device
+dev.off() 
+```
+
+Remember to close the device when done using the `dev.off()` function, otherwise all your graphics onwards will be pdf documents and not any other device e.g the R plot tab.
+
+::: callout-note
+## Exercise 3.12
+
+Print the plot you generated in EXERCISE to a PDF, PNG and JPEG giving it an appropriate name. Remember to close the device
+:::
+
+
+## Script for Base R
+
+
+### Histogram
+
+The function that is used to produce a histogram is the `hist()` function. A number of arguments are used in the `hist()` function.
+
+Before you go further, recall that you can produce random numbers from a normal distribution by the use of the function `rnorm()`. We use this to simulate some random temperature data
+
+```{r eval=TRUE}
+# generates a vector of 100 numbers with mean 0 and standard deviation 1
+temperature<-rnorm(100,mean=0,sd=1)  
+
+# explore the data
+print(temperature)
+
+#we can use the hist() function to make a histogram of these data 
+hist(temperature)
+
+```
+
+```{r}
+
+hist(temperature, xlab="Temperature /?C")  
+```
+
+
+In R, there is a an embedded dataset called iris. This is a famous biological data set with measurements on flowers of different species of iris , often used in multivariate statistics. You can call this data by simply typing "iris" in the console or on a script.
+
+Iris contains data for `Sepal Length`, `Sepal Width`, `Petal Length` and `Petal Width`. These variables are presented in the columns of the data set, and each row corresponds to a particular individual flower. You can see the exact variable names in the data set with the command
+
+```{r eval=TRUE}
+names(iris)
+```
+
+You can refer to a particular variable in the data set as follows
+
+```{r eval=TRUE}
+iris[,"Sepal.Length"] # notice the subsetting!
+```
+
+.. so, for example, to plot a histogram of Sepal Length, run the hist command as follows
+
+```{r eval=TRUE}
+hist(iris[,"Sepal.Length"])
+```
+
+Using these data, create a plot that shows the relation between the Sepal Length and Petal Length. label the plot and adjust axis limits appropriately
+
+
+# Custom Functions 
+## Introduction to functions
+
+Functions are a fundamental concept in programming and R is no exception. They allow you to encapsulate a set of instructions or an algorithm, which you can then reuse multiple times in your code. In this section, we will learn how to create and use functions in R.
+
+Before we start, it's a good idea to make your code more readable by adding some color to it. In RStudio, you can do this by going to the `menu`: `Tools` > `Global Options` > `Code` > `Display` > `Rainbow Parentheses` (Click apply). This will make it easier to see the start and end of functions.
+
+Is it looking more colourful now?
+```{r eval=FALSE,echo=TRUE}
+str(list(unique(liempe_data$Month)))
+```
+  
+<!-- #TODO: Insert picture here
+Let's take a look at the 'function-syntax.png' image in your folder -->
+
+###  Name
+The name of a function should be descriptive of what it does. It is good practice to use a verb (a "doing word") as functions DO things. For example, a function that calculates the median of a dataset could be named `"calculate_median"`. Here are some examples of good and bad function names:
+
+:::{.callout-important}
+| Good | Bad |
+|---|---|
+| validate_data | validation |
+| calculate_likelihood |  likelihood_calculation|
+| maximise_function | function_maximum |
+:::
+
+It's also important to follow a consistent naming convention, such as `snake_case` or `camelCase`. You can find more information on this in the Tidyverse style guide: [https://style.tidyverse.org/functions.html](https://style.tidyverse.org/functions.html)
+
+
+### Arguments
+
+Arguments are the input variables that you pass to a function. A function can have no arguments, one argument, or multiple arguments. For example:
+  
+A function with no arguments 
+```{r eval=FALSE,echo=TRUE}
+function() 
+```  
+
+A function with one argument, i.e. a dataframe, x
+```{r eval=FALSE,echo=TRUE}
+function(x)
+```
+
+A function with two arguments, i.e. a dataframe, x and a list, y
+```{r eval=FALSE,echo=TRUE}
+function(x, y)
+```
+    
+            
+### Function Body
+  
+The function body is the set of instructions or algorithm that you would like your function to execute. It is enclosed in curly braces `{}`. Here's a base R example:   
+
+```{r eval=FALSE,echo=TRUE}            
+calculate_sum_median <- function(x){
+     y <- sum(x$column1, x$column2)
+     z <- median(y)
+     return (z)
+   }
+```
+In this example, the function takes a dataframe as an argument and calculates the sum of two columns, then calculates the median of the sum.
+
+Here is an example of how you can re-write the above function using the Tidyverse syntax:
+
+```{r eval=FALSE,echo=TRUE}   
+library(tidyverse)
+calculate_sum_median <- function(x){
+    x %>% 
+    select(column1, column2) %>% 
+    summarize(sum = sum(column1 + column2)) %>% 
+    pull(sum) %>% 
+    median()
+}
+
+```
+
+In this example, we first load the Tidyverse library, and then define our function `calculate_sum_median()` , which takes in the dataframe `"x"` as an argument. Inside the function, we use the pipe operator`(%>%)` to chain together several Tidyverse functions to achieve the same result as the previous example.
+
+We first select the columns `"column1"` and `"column2"` using the `select()` function, then we use the `summarize()` function to calculate the sum of these two columns and store it in a new variable `"sum"`. We then use the `pull()` function to extract the value of `"sum"` and finally, we use the `median()` function to calculate the median of this value.
+
+Note that in this example, the function doesn't return any value as we are using the pipe operator, the final result is the median of the sum of `column1` and `column2`, so you don't need to use return statement.
+
+### Return value 
+The return value is the value that you'd like the function to return. In the example above, the function returns the median of the sum of the two columns. It's important to always return a value and not rely on the automatic function capability of R to return the last value.
+
+To call a function, you simply need to invoke it by its name and pass in any necessary arguments. For example:
+
+```{r eval=FALSE,echo=TRUE}   
+calculate_sum_median(x)
+```
+
+Now let's see how we can use this function on a subset of the Liempe data:
+
+```{r eval=FALSE,echo=TRUE}   
+liempe_data <- read.csv("liempe-climate-data.csv")
+
+calculate_sum_median <- function(liempe_data){
+  y <- sum(liempe_data$tmp, liempe_data$rainfall)
+  z <- median(y)
+  return(z)
+}
+```
+
+Here is an example of how you can re-write the above function using the Tidyverse syntax:
+
+```{r eval=FALSE,echo=TRUE}  
+library(tidyverse)
+
+liempe_data <- read_csv("liempe-climate-data.csv")
+
+calculate_sum_median <- function(liempe_data){
+  liempe_data %>% 
+    select(tmp, rainfall) %>% 
+    summarize(sum = sum(tmp + rainfall)) %>% 
+    pull(sum) %>% 
+    median()
+}
+```
+In this example, we first load the Tidyverse library, then we read in the `"liempe-climate-data.csv"` using the `read_csv()` function from readr package, which is part of the Tidyverse.
+
+We then define our function `calculate_sum_median()` , which takes in the dataframe "liempe_data" as an argument. Inside the function, we use the pipe operator`(%>%)` to chain together several Tidyverse functions to achieve the same result as the previous example.
+
+We first select the columns `"tmp"` and `"rainfall"` using the `select()` function, then we use the `summarize()` function to calculate the sum of these two columns and store it in a new variable `"sum"`. We then use the `pull()` function to extract the value of `"sum"` and finally, we use the `median()` function to calculate the median of this value.
+
+Note that in this example, the function doesn't return any value as we are using the pipe operator, the final result is the median of the sum of tmp and rainfall, so you don't need to use return statement.
+
+And then what... 
+
+We have to `"invoke"` or `"call"` the function
+
+```{r}  
+calculate_sum_median(x)
+```
+
+Wonderful! Now shall we try those previous steps together on a subset of the Liempe data?
+
+```{r}  
+liempe_data <- read.csv("liempe-climate-data.csv")
+```
+
+:::{.callout-note}
+## Question?
+What are the set of instructions you would like to execute? 
+:::
+
+
+```{r} 
+y <- sum(liempe_data$tmp, liempe_data$rainfall)
+z <- median(y) 
+```
+
+:::{.callout-tip}
+**BE SURE** to remove these values from your global environment! 
+:::
+
+Let's turn that into a function 
+
+1) Name (Function declaration and curly brackets)
+1) Function arguments 
+1) Function body 
+1) Return statement   
+
+Remember our previous function? 
+
+```{r eval=FALSE,echo=TRUE} 
+calculate_sum_median <- function(x){
+  y <- sum(x$column1, x$column2)
+  z <- median(y)
+  return(z)
+}
+```
+  
+Let's use this same function and change it to facilitate our dataset below: 
+
+```{r eval=FALSE,echo=TRUE} 
+calculate_sum_median <- function(liempe_data){
+  y <- sum(liempe_data$tmp, liempe_data$rainfall)
+  z <- median(y)
+  return(z)
+}
+```
+As with everything in R (programming), you can write the same thing in many ways! How about we write same function subsetting the dataset using brackets?
+
+```{r}     
+calculate_sum_mean <- function(liempe_data) {
+  y <- mean(liempe_data[, "rainfall"])
+  z <- mean(liempe_data[, "tmp"])
+  return(z)
+}
+```
+
+
+```{r eval=FALSE,echo=TRUE} 
+calculate_sum_mean(liempe_data)
+```
+Now, let's invoke the function:
+
+```{r eval=FALSE,echo=TRUE}    
+median_temp_rain <- calculate_sum_median(liempe_data)
+```
+
+```{r eval=FALSE,echo=TRUE} 
+We can also check this answer using a function we used before! 
+summary(y)
+```
+
+:::{.callout-tip}
+## Tip!: Function indentation 
+
+-  This is how you can indent your function. `Ctl` + `I` (Windows)
+-  Check what `Ctrl` + `Shift` + `A` does
+-  Also try Shift `tab` to remove any indentation
+:::
+      
+## Writing your own functions
+
+Let's get started on creating your own custom functions. Let's partner up, for some pair programming - it's even more fun together!
+
+:::{.callout-note collapse="true"}
+### Exercise 1: Create a two argument function and return one variable
+
+Possible solution: 
+
+```{r eval=FALSE,echo=TRUE} 
+# Create the function
+squareAddition <- function(x, y){
+  x_squared <- x^2
+  y_squared <- y^2
+  sum_of_squares <- x_squared + y_squared
+  return(sum_of_squares)
+} 
+
+#Check that the functioon works
+result_square <- squareAddition(5,7) 
+```
+:::
+
+:::{.callout-note}
+
+### Exercise 2: Create a one argument function
+1)  How would you create a function that inputs the liempe dataframe, 
+    a)  calculates both the mean rainfall and 
+    a)  the mean temperature for all observations, 
+    a)  and then returns only the mean temperature?
+1)  How would you then invoke/call the function and assign it to a variable? 
+:::
+
+
+
+:::{.callout-note}
+### Exercise 3 : Create a function that inputs two arguments
+1)  How would you create a function that inputs two arguments: the liempe dataframe and a number (x), then;
+    a)  Calculates the mean temperature of the dataset 
+    a)  Squares the number (x)
+    a)  Adds the temperature mean and the squared number together
+    a)  Returns the value
+1)  How would you then invoke/call the function and assign it to a variable?  
+:::
+
+:::{.callout-tip collapse="true"}
+## Exercise 3 (Possible solution ) : Create a function that inputs two arguments
+
+```{r eval=FALSE,echo=TRUE} 
+squareAdditionMultiple <- function(x, y){
+  x_squared <- x^2
+  y_squared <- y^2
+  sum_of_squares <- x_squared + y_squared
+  return(list(x_squared = x_squared, 
+              y_squared = y_squared,
+              sum_of_squares = sum_of_squares))
+  } 
+h
+
+result_square_all <- squareAdditionMultiple(5,7) 
+
+x_squared <- result_square_all$x_squared
+y_squared <- result_square_all$y_squared
+sum_of_squares <- result_square_all$sum_of_squares
+```
+
+:::
+
+
+:::{.callout-note}
+### Exercise 4: Two argument function / return multiple variables 
+
+1. How would you create a function that takes two arguments; the liempe dataset and a year, 
+    a)  then calculates the mean rainfall and 
+    a)  the mean temperature for the given year, returning the year, mean rainfall and mean temperature.
+
+:::{.callout-tip}
+## Tip! Perhaps you may like to subset the data first.
+i.e. Remember the subset function: 
+```{r eval=FALSE,echo=TRUE} 
+subset(liempe_data, Year == year_of_interest)
+```
+:::
+
+2. How would you then invoke/call the function and assign it to avariable?
+3. How would you access all three variables, the mean rainfall, temperature and the year?  
+
+:::
+
+Great job!!! You are now a fully fledged creator of functions! Now I hope that you will go on to automate and create functions in your code, especially for those computations that you repeatedly run. Start simple, with what you learnt today and before you know it you'll become more confident to program in a 'functional' style! 
+
+ # Reading/Importing Data
+
+## Introduction
+
+The objective of this section is to provide information on the topic under consideration, along with examples and exercises.  You should be able to work through it in R or R studio.  
+
+This section is concerned with how we get numbers into R, and then write numbers out again.  By the end you should have a better understanding of the R scripts, and should be better-placed to start developing and editing scripts yourself. The particular topics we shall cover are:
+
+1)  Reading simple data files into R
+1)  Writing data out of R
+1)  Reading data from Excel files
+
+
+In most applications of R we need to start by reading in data from a file which has been created elsewhere, perhaps using an editor, a spreadsheet or as output from a particular piece of equipment or software. In this script we explore some options for doing this.
+
+
+## Setting the working directory
+
+Before you read data into R, you must ensure that R knows where to look for the data on your computer.  It is possible to give a full path to the file, but is usually most convenient to set the folder with the data as the working directory.  This can be done using the `"Change directory.."`
+option from the `"Session"` drop down menu when the R console is active. Or from the `"File browser"` three dots `...` (click to `navigate` to folder), and then `"More"` icon drop down to set working directory
+Alternatively you can use the `"setwd"` (set working directory) command as follows:
+
+Three ways of setting a working directory:
+
+1)  `setwd`: you need to know the working directory path, which I find complicated
+
+```{r}
+setwd("C:/Users/sbzhp/OneDrive - The University of Nottingham/Documents/Basic R and Summary Statistics/Intro_to_R/Tanz_Training")
+```
+
+2)  Use the Session tool on the Tool bar: Session etc.
+
+3) Use the File Browser of RStudio:
+-  Navigate to the folder you want to set as working directory
+-  Then `"click"` on the `"More"` tab (has a cog/wheel next to it)
+-  Then `"Click"` on `"Set as Working Directory"`
+
+You can derive the full path to the file/working directory using `"getwd"` function:
+
+```{r}
+getwd()
+```
+
+:::{.callout-tip}
+Note that this is a path to the directory on my computer. Edit it to give the correct path to the directory where you are working.  Also note that R uses forward slashes, `/`, in directory paths
+rather than the more common backslash.
+:::
+
+## Reading simple data files into R
+
+The `read.table` function is one of the most commonly used functions for reading data. It can be used for reading data in simple ascii formats suchas `.txt` files, or `.dat` files produced by many applications.  If you want to read in data from a `.csv` file (comma-separated values), as is commonly output from an Excel spreadsheet, then you can use the variant `read.csv` command. 
+
+`read.table` or `read.csv` assume that the data are organized in columns in the file, one column for each variable, and one row corresponds to a single observation (e.g. an experimental plot or a soil core) for which we may have several factor labels, and several variables measured. 
+
+`read.table` or `read.csv` has a few important arguments:
+
+-  `file`: the name of the file which you want to read.  At its simplest this is just a file name, in double quotes, (`"data.dat"`, for example), when this file is present in the working directory but there are more complex options.
+
+```{r}
+# See ?read.table for details
+?read.table
+```
+
+-  `header`: this is a logical argument so it takes value T (`true`) if the firstrow of the file is a header with names of the variables in columns, and `F` otherwise.
+
+These two arguments are often all that you will need, for small files. There are some other useful ones, for example:
+
+-  `skip`: the number of lines to skip from the beginning (e.g if you don't want to look at the first 100 lines of the file.
+
+-  `stringsAsFactors`: should character variables be coded as factors?  This
+will ensure that R treats any variables which have letters in them (e.g. "A1")
+as factors (i.e. labels for levels of a categorical variable such as
+variety or cultivation method).  Recent releases of R do not do this by
+default, so this argument can be very useful.  If you wanted all character
+variables to be treated as factors then include `stringsAsFactors=T` in the 
+command.
+
+
+We use `read.table` to create a data frame from the contents of a file `Variety_yileds.txt`.
+
+```{r eval=TRUE}
+data.df<-read.delim("data/Variety_yields.csv",header=T,stringsAsFactors=T)
+head(data.df)
+```
+
+We use `read.table` to create a data frame from the contents of a file 
+`Cashmore_soil.dat`.
+
+```{r eval=TRUE}
+data.df <- read.table("data/Cashmore_soil.dat",header=T,stringsAsFactors=T)
+head(data.df)
+```
+
+
+
+:::{.callout-tip}
+Make sure that the file name in the editor matches the file name in the directory!!
+:::
+
+We use read.csv to create a data frame from the contents of a file `yielddata.csv`.
+```{r}
+data.df <- read.csv("data/yielddata.csv",header=T,stringsAsFactors=T)
+head(data.df)
+```
+The data frame is now ready for use.  It can be helpful to examine the data frame
+with various R tools before proceeding to any analyses.  For example, 
+
+```{r}
+str(data.df) 
+```
+
+`str` function describes the structure of the data frame.  It tells you the number of rows 
+(observations) in the data.frame and the number of columns (variables) that it contains.
+It also tells you the kind of data each variable comprises (recall that a data frame can
+contain different data structures).
+
+This example data frame contains data from a field experiment 
+It was a Split-split design carried out in 2016/2017 season, with 
+pd (planting date) as main plot; 
+variety (maize) as sub plot; 
+nrate (nitrogen fertilizer rate) as sub-sub plot; 
+x_100_grain_wt (100 seed grain weight)
+
+The following commands can also be useful:
+
+```{r}
+names(data.df)	    # displays the names of the variables in the dataframe
+head(data.df) 	    # displays the first 6 rows of the dataframe
+tail(data.df) 	    # displays last 6 rows of the dataframe
+head(data.df,10) 	# displays 10 rows of the dataframe
+nrow(data.df) 	    # displays the number of rows
+ncol(data.df) 	    # displays number of columns
+```
+
+When you are happy with the content and structure of the data frame, then you can
+access variables from within it with R commands.  A very simple way to access a 
+variable in a dataframe is by the "dollar notation" i.e. `$`, given the name of the variable.  
+
+
+For example, to produce a set of summary plots of the 100-grain weights in 
+the data frame created above, using the `"summaplot"` command from CEPHaStat
+we do the following:
+
+```{r eval=TRUE}
+# load required library
+source("data/custom_functions/CEPHaStat_2.R")
+```
+
+:::{.callout-tip}
+## Note: `CEPHaStat` is a script of functions prepared beforehand.
+The script is saved in the working directory from where it is "sourced"
+:::
+
+```{r}
+summaplot(data.df$x_100_grain_wt)
+```
+
+note that you refer to the vector of data using:
+
+(i) the name of the dataframe i.e. `data.df`, 
+(ii) a `$` sign and 
+(iii) the variable name, with no spaces i.e. `x_100_grain_wt`
+
+
+You can create a new variable within a data frame using the `<-` assign operator. 
+For example, to create a new variable which is the hundred grain weight in `mg`, 
+you just multiply the original values (in grams) by 1000
+
+```{r}
+data.df$x_100_grain_wt_mg <- data.df$x_100_grain_wt*1000
+```
+
+you can now see that the data frame contains an additional variable
+
+```{r eval=TRUE}
+head(data.df)
+```
+
+## Exercise : Reading data from a file
+:::{.callout-note}
+## Exercise : Reading data from a file
+
+1) Use `read.csv` to read the soil data in the file `"Cashmore_soil.csv"` into an R
+dataframe, making sure that character variables are read in as factors.
+
+The variables in the data file are:
+
+| Variable name   | Description |
+|------|-------------|
+| `GWC_T` `GWC_S`   |gravimetric water content of the topsoil (_T) and subsoil.|
+| `pH_T` `pH_S`   |pH of the topsoil and subsoil|
+| `OM_T` `OM_S`   |organic matter content of the topsoil and subsoil|
+| `Soil_Series`   |the soil series (soil class)|
+
+2) Examine the structure of the data set
+```{r}
+str( )
+```
+3) Make summary plots of the continuous soil variables
+4) Make a new variable in the data frame which is the `log` of the gravimetric
+water content of the subsoil, and make a summary plot of it. 
+
+:::{.callout-tip}
+Recall that the R function `"log"` will return the natural logarithm thus `y<-log(x)`.
+:::
+
+:::
+
+## Exercise : Reading data from a file
+:::{.callout-note}
+## Homework Exercise : Reading data from a file
+The data are also provided in an ascii file `"Cashmore_soil.dat"`.  Use the
+`read.table` command to convince yourself that these are the same data!
+
+:::
+
+
