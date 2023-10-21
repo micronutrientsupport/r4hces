@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R for Household Consumption and Expenditure Surveys - 4&nbsp; Data Import,Wrangling and Export</title>
+<title>R for Household Consumption and Expenditure Surveys - 5&nbsp; Data I/O and Wrangling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data_structures.html" rel="prev">
+<link href="./data_visualisation.html" rel="next">
+<link href="./packages_and_functions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -132,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -181,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_introR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -196,7 +197,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></a>
+  <a href="./packages_and_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages and Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">data_visualisation.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
   </div>
 </li>
     </ul>
@@ -208,22 +224,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-import" id="toc-data-import" class="nav-link active" data-scroll-target="#data-import">Data Import</a></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data Wrangling</a>
+  <li><a href="#data-inputimport" id="toc-data-inputimport" class="nav-link active" data-scroll-target="#data-inputimport"><span class="toc-section-number">5.1</span>  Data Input/Import</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><span class="toc-section-number">5.2</span>  Data Wrangling</a>
   <ul class="collapse">
-  <li><a href="#import-the-data" id="toc-import-the-data" class="nav-link" data-scroll-target="#import-the-data">Import the data</a></li>
-  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link" data-scroll-target="#subsetting-data">Subsetting data</a></li>
-  <li><a href="#subsetting-data-frames" id="toc-subsetting-data-frames" class="nav-link" data-scroll-target="#subsetting-data-frames">Subsetting data frames</a></li>
-  <li><a href="#subsetting-columns" id="toc-subsetting-columns" class="nav-link" data-scroll-target="#subsetting-columns">Subsetting columns</a></li>
-  <li><a href="#subsetting-rows" id="toc-subsetting-rows" class="nav-link" data-scroll-target="#subsetting-rows">Subsetting rows</a></li>
+  <li><a href="#import-the-data" id="toc-import-the-data" class="nav-link" data-scroll-target="#import-the-data"><span class="toc-section-number">5.2.1</span>  Import the data</a></li>
+  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link" data-scroll-target="#subsetting-data"><span class="toc-section-number">5.2.2</span>  Subsetting data</a></li>
+  <li><a href="#subsetting-data-frames" id="toc-subsetting-data-frames" class="nav-link" data-scroll-target="#subsetting-data-frames"><span class="toc-section-number">5.2.3</span>  Subsetting data frames</a></li>
+  <li><a href="#subsetting-columns" id="toc-subsetting-columns" class="nav-link" data-scroll-target="#subsetting-columns"><span class="toc-section-number">5.2.4</span>  Subsetting columns</a></li>
+  <li><a href="#subsetting-rows" id="toc-subsetting-rows" class="nav-link" data-scroll-target="#subsetting-rows"><span class="toc-section-number">5.2.5</span>  Subsetting rows</a></li>
   </ul></li>
-  <li><a href="#chaining-operations-using-the-pipe-operator" id="toc-chaining-operations-using-the-pipe-operator" class="nav-link" data-scroll-target="#chaining-operations-using-the-pipe-operator">Chaining operations using the pipe operator</a>
+  <li><a href="#chaining-operations-using-the-pipe-operator" id="toc-chaining-operations-using-the-pipe-operator" class="nav-link" data-scroll-target="#chaining-operations-using-the-pipe-operator"><span class="toc-section-number">5.3</span>  Chaining operations using the pipe operator</a>
   <ul class="collapse">
-  <li><a href="#change-the-data-type-of-a-column" id="toc-change-the-data-type-of-a-column" class="nav-link" data-scroll-target="#change-the-data-type-of-a-column">Change the data type of a column</a></li>
-  <li><a href="#create-a-new-column" id="toc-create-a-new-column" class="nav-link" data-scroll-target="#create-a-new-column">Create a new column</a></li>
-  <li><a href="#vectorised-operations" id="toc-vectorised-operations" class="nav-link" data-scroll-target="#vectorised-operations">Vectorised operations</a></li>
-  <li><a href="#enriching-data" id="toc-enriching-data" class="nav-link" data-scroll-target="#enriching-data">Enriching data</a></li>
-  <li><a href="#grouping-and-summarising-data" id="toc-grouping-and-summarising-data" class="nav-link" data-scroll-target="#grouping-and-summarising-data">Grouping and Summarising Data</a></li>
+  <li><a href="#change-the-data-type-of-a-column" id="toc-change-the-data-type-of-a-column" class="nav-link" data-scroll-target="#change-the-data-type-of-a-column"><span class="toc-section-number">5.3.1</span>  Change the data type of a column</a></li>
+  <li><a href="#create-a-new-column" id="toc-create-a-new-column" class="nav-link" data-scroll-target="#create-a-new-column"><span class="toc-section-number">5.3.2</span>  Create a new column</a></li>
+  <li><a href="#vectorised-operations" id="toc-vectorised-operations" class="nav-link" data-scroll-target="#vectorised-operations"><span class="toc-section-number">5.3.3</span>  Vectorised operations</a></li>
+  <li><a href="#enriching-data" id="toc-enriching-data" class="nav-link" data-scroll-target="#enriching-data"><span class="toc-section-number">5.3.4</span>  Enriching data</a></li>
+  <li><a href="#grouping-and-summarising-data" id="toc-grouping-and-summarising-data" class="nav-link" data-scroll-target="#grouping-and-summarising-data"><span class="toc-section-number">5.3.5</span>  Grouping and Summarising Data</a></li>
+  <li><a href="#data-outputexport" id="toc-data-outputexport" class="nav-link" data-scroll-target="#data-outputexport"><span class="toc-section-number">5.3.6</span>  Data Output/Export</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/data_wrangling_and_io.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
@@ -233,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></h1>
 </div>
 
 
@@ -249,8 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>Up to this point we were creating data to manipulate in R. In this section we will learn how to import data into R, manipulate it and export it. We will use the <code>readr</code> and <code>haven</code> packages to import data into R, the <code>dplyr</code> package to manipulate data and the <code>readr</code> package to export data from R. We will also use the <code>here</code> package to manage file paths.</p>
-<section id="data-import" class="level2">
-<h2 class="anchored" data-anchor-id="data-import">Data Import</h2>
+<section id="data-inputimport" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="data-inputimport"><span class="header-section-number">5.1</span> Data Input/Import</h2>
 <p>There are many ways to import data into R. In this section we will look at how to import data from a CSV file, an Excel file and Stata file. In the sample data folder there are <code>*.csv</code> files and stata files <code>*.dta</code>. Foe example to import the health data from a survey stored in <code>hh_mod_a_filt_vMAPS.dta</code> stored in the <code>mwi-ihs5-sample-data</code> folder within our working directory we run:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the haven package</span></span>
@@ -335,16 +352,16 @@ Tip
 </div>
 <p>After importing files they are usually stored in memory as dataframes/tibbles. We can check the class of an object using the <code>class()</code> function. For example, to check the class of the <code>ihs5_roster</code> object, we would type <code>class(ihs5_roster)</code>. We can also check the structure of an object using the <code>str()</code> function. For example, to check the structure of the <code>ihs5_roster</code> object, we would type <code>str(ihs5_roster)</code>. We want to make sure that the data is imported correctly before we start manipulating it.</p>
 </section>
-<section id="data-wrangling" class="level2">
-<h2 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h2>
+<section id="data-wrangling" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">5.2</span> Data Wrangling</h2>
 <p>The <code>dplyr</code> package from the <code>tidyverse</code> package is our data wrangling tool of choice. It provides a set of functions for manipulating dataframes e.g.&nbsp;renaming columns, conditional removal of rows, creation of other columns and so on. We will load and manipulate the <code>consumption</code> module of our hypothetical Malawi IHS5 survey data. The data is stored in the <code>mwi-ihs5-sample-data</code> folder within our working directory and is called <code>HH_MOD_G1_vMAPS.dta</code>. We will use the <code>here</code> package to manage file paths.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># data manipulation</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># data import</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file paths</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="import-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="import-the-data">Import the data</h3>
+<section id="import-the-data" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="import-the-data"><span class="header-section-number">5.2.1</span> Import the data</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"HH_MOD_G1_vMAPS.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -367,11 +384,11 @@ Excercise
 </div>
 </div>
 </section>
-<section id="subsetting-data" class="level3">
-<h3 class="anchored" data-anchor-id="subsetting-data">Subsetting data</h3>
+<section id="subsetting-data" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="subsetting-data"><span class="header-section-number">5.2.2</span> Subsetting data</h3>
 </section>
-<section id="subsetting-data-frames" class="level3">
-<h3 class="anchored" data-anchor-id="subsetting-data-frames">Subsetting data frames</h3>
+<section id="subsetting-data-frames" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="subsetting-data-frames"><span class="header-section-number">5.2.3</span> Subsetting data frames</h3>
 <p>There are a number of functions that can be used to extract subsets of R objects in tidyverse syntax. The most important are the following from the <code>dplyr</code> package:</p>
 <ul>
 <li>filter() allows you to select a subset of rows in a data frame.</li>
@@ -382,22 +399,52 @@ Excercise
 <li>pull() allows you to extract a single column from a data frame as a vector.</li>
 </ul>
 </section>
-<section id="subsetting-columns" class="level3">
-<h3 class="anchored" data-anchor-id="subsetting-columns">Subsetting columns</h3>
+<section id="subsetting-columns" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="subsetting-columns"><span class="header-section-number">5.2.4</span> Subsetting columns</h3>
 <p>This data that we loaded is a randomly generated immitation of the Malawi Intergrated Household Survey 2018-2019 described <a href="https://microdata.worldbank.org/index.php/catalog/3818/study-description">here</a>. This data contains responses on <code>total consumption</code> as well as disaggregation of the sources of these foods.In this book we will process only the `total consumption.</p>
-<p>Remember we said that our data is loaded in memory? Seeing that the <code>ihs5_consumption</code> data contains columns we do not need let us subset it. The <code>select</code> function in dplyr is very useful for this. For example to keep only the columns with household identifiers and food names, units and quantity of consumption we keep the following columns in our data;“case_id”,“HHID”,“hh_g01”,“hh_g01_oth”,“hh_g02”,“hh_g03a”,“hh_g03b”,“hh_g03b_label”,“hh_g03b_oth”,“hh_g03c”,“hh_g03c_1”.</p>
+<p>Remember we said that our data is loaded in memory? Seeing that the <code>ihs5_consumption</code> data contains columns we do not need let us subset it. The <code>select</code> function in dplyr is very useful for this. For example to keep only the columns with household identifiers and food names, units and quantity of consumption we keep the following columns in our data; “case_id”, “HHID”, “hh_g01”, “hh_g01_oth”, “hh_g02”, “hh_g03a”, “hh_g03b”, “hh_g03b_label”, “hh_g03b_oth”, “hh_g03c”, “hh_g03c_1”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_subset <span class="ot">&lt;-</span> <span class="fu">select</span>(ihs5_consumption, case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_subset <span class="ot">&lt;-</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        ihs5_consumption,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        case_id,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        HHID,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        hh_g01,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        hh_g01_oth,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        hh_g02,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        hh_g03a,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        hh_g03b,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        hh_g03b_label,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        hh_g03b_oth,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        hh_g03c,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        hh_g03c_1</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The syntax for most tidyverse functions is <code>function (data,columns)</code>. Notice that we stored the subsetting operation in a new object called <code>ihs5_consumption_subset</code>? This is generally frowned upon unless we intend to use the original dataset for separate operations. Storing the subset in a new object will use up more memory to store the 2 objects. We can overwrite the original object by typing:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">select</span>(ihs5_consumption, case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">select</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    ihs5_consumption,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    case_id,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    HHID,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    hh_g01,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    hh_g01_oth,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    hh_g02,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    hh_g03a,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    hh_g03b,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    hh_g03b_label,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    hh_g03b_oth,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    hh_g03c,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    hh_g03c_1</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next let us give the columns more meaningful names. We can do this using the <code>rename</code> function. For example, to rename the <code>hh_g01</code> column to <code>consumedYN</code> and <code>hh_g02</code> to <code>food_item</code>, we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">rename</span>(ihs5_consumption, <span class="at">consumedYN =</span> hh_g01, <span class="at">food_item =</span> hh_g02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(ihs5_consumption,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">consumedYN =</span> hh_g01,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">food_item =</span> hh_g02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice how our operations only affect the specific columns we specify? This is because the <code>select</code> and <code>rename</code> functions are smart and intiutive.</p>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
@@ -430,17 +477,30 @@ Tip
 <p>Solution:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the data to start from scratch</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"HH_MOD_G1_vMAPS.dta"</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">rename</span>(ihs5_consumption, <span class="at">consumedYN =</span> hh_g01, <span class="at">food_item =</span> hh_g02, <span class="at">food_item_other =</span> hh_g01_oth, <span class="at">consumption_quantity =</span> hh_g03a, <span class="at">consumption_unit =</span> hh_g03b, <span class="at">consumption_unit_label =</span> hh_g03b_label, <span class="at">consumption_unit_oth =</span> hh_g03b_oth, <span class="at">consumption_subunit_1 =</span> hh_g03c, <span class="at">consumption_subunit_2 =</span> hh_g03c_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"HH_MOD_G1_vMAPS.dta"</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        ihs5_consumption,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumedYN =</span> hh_g01,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">food_item =</span> hh_g02,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">food_item_other =</span> hh_g01_oth,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_quantity =</span> hh_g03a,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit =</span> hh_g03b,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit_label =</span> hh_g03b_label,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit_oth =</span> hh_g03b_oth,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_subunit_1 =</span> hh_g03c,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_subunit_2 =</span> hh_g03c_1</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="subsetting-rows" class="level3">
-<h3 class="anchored" data-anchor-id="subsetting-rows">Subsetting rows</h3>
+<section id="subsetting-rows" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="subsetting-rows"><span class="header-section-number">5.2.5</span> Subsetting rows</h3>
 <p>We can also subset rows using the <code>filter</code> function. For example, to keep only the rows where <code>consumedYN</code> is equal to <code>1</code>, we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data</span></span>
@@ -449,14 +509,37 @@ Tip
 <p>Notice how we are using the logical operator <code>==</code> to test each row whether the value of <code>consumedYN</code> is equal to <code>1</code>? This is called a conditional statement as we discussed in the previous sections.</p>
 </section>
 </section>
-<section id="chaining-operations-using-the-pipe-operator" class="level2">
-<h2 class="anchored" data-anchor-id="chaining-operations-using-the-pipe-operator">Chaining operations using the pipe operator</h2>
+<section id="chaining-operations-using-the-pipe-operator" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="chaining-operations-using-the-pipe-operator"><span class="header-section-number">5.3</span> Chaining operations using the pipe operator</h2>
 <p>We can chain operations using the pipe operator <code>%&gt;%</code> or <code>|&gt;</code>. This is useful when we want to perform multiple operations on a dataset. For example, to read, subset the data and rename the columns in one operation, we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read, subset and rename the data</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"HH_MOD_G1_vMAPS.dta"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">consumedYN =</span> hh_g01, <span class="at">food_item =</span> hh_g02, <span class="at">food_item_other =</span> hh_g01_oth, <span class="at">consumption_quantity =</span> hh_g03a, <span class="at">consumption_unit =</span> hh_g03b, <span class="at">consumption_unit_label =</span> hh_g03b_label, <span class="at">consumption_unit_oth =</span> hh_g03b_oth, <span class="at">consumption_subunit_1 =</span> hh_g03c, <span class="at">consumption_subunit_2 =</span> hh_g03c_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"HH_MOD_G1_vMAPS.dta"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        case_id,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        HHID,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        hh_g01,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        hh_g01_oth,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        hh_g02,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        hh_g03a,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        hh_g03b,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        hh_g03b_label,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        hh_g03b_oth,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        hh_g03c,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        hh_g03c_1</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumedYN =</span> hh_g01,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">food_item =</span> hh_g02,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">food_item_other =</span> hh_g01_oth,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_quantity =</span> hh_g03a,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit =</span> hh_g03b,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit_label =</span> hh_g03b_label,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_unit_oth =</span> hh_g03b_oth,</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_subunit_1 =</span> hh_g03c,</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_subunit_2 =</span> hh_g03c_1</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We deliberately used both the pipe operators <code>%&gt;%</code> and <code>|&gt;</code> to show that they are the same. The %&gt;% is the most popular of the <code>tidyverse</code> pipes from the <code>magrittr</code> package. Recent versions (circa 2020) intoduced the native <code>R</code> pipe <code>|&gt;</code>. The pipe operator is useful when we want to perform multiple operations on a dataset without storing the intermediate results in memory. In the above example we only stored the final result in memory. This is useful when we are working with large datasets and want to save memory.</p>
 <div class="callout-warning callout callout-style-default no-icon callout-captioned">
@@ -472,16 +555,16 @@ Warning
 <p>When chaining operations we do not need to specify the data argument in the subsequent functions. This is because the output of the previous function is passed to the next function. If we want to specify the data argument, we can use the <code>.</code> symbol. For example, to specify the data argument in the <code>rename</code> function, we would type:</p>
 </div>
 </div>
-<section id="change-the-data-type-of-a-column" class="level3">
-<h3 class="anchored" data-anchor-id="change-the-data-type-of-a-column">Change the data type of a column</h3>
+<section id="change-the-data-type-of-a-column" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="change-the-data-type-of-a-column"><span class="header-section-number">5.3.1</span> Change the data type of a column</h3>
 <p>The <code>mutate</code> function is used to create new columns from existing columns. It is also used to change the data type of a column. For example, to change the data type of the <code>consumption_quantity</code> column to numeric, we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">food_item_code =</span> <span class="fu">as.character</span>(food_item))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-a-new-column" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-new-column">Create a new column</h3>
+<section id="create-a-new-column" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="create-a-new-column"><span class="header-section-number">5.3.2</span> Create a new column</h3>
 <p>As we mentioned earlier, the <code>mutate</code> function is used to create new columns from existing columns. For example, to create a new column with hh_members (randomly generated) we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
@@ -490,8 +573,8 @@ Warning
 <p>Here we are using the <code>sample</code> function to generate random numbers between 1 and 10. The <code>nrow</code> function returns the number of rows in the <code>ihs5_consumption</code> data. The <code>replace = TRUE</code> argument tells the <code>sample</code> function to sample with replacement. This means that the same number can be sampled more than once. If we want to sample without replacement we would type <code>replace = FALSE</code>.</p>
 <p>We used the <code>sample</code> function a lot during the generation of the sample data used in this book. You can see more on this in the <a href="">data generation</a> section.</p>
 </section>
-<section id="vectorised-operations" class="level3">
-<h3 class="anchored" data-anchor-id="vectorised-operations">Vectorised operations</h3>
+<section id="vectorised-operations" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="vectorised-operations"><span class="header-section-number">5.3.3</span> Vectorised operations</h3>
 <p>The <code>mutate</code> function is also useful for vectorised operations. For example, to create a new column with the consumption per person we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
@@ -511,27 +594,29 @@ Excercise
 </div>
 </div>
 </section>
-<section id="enriching-data" class="level3">
-<h3 class="anchored" data-anchor-id="enriching-data">Enriching data</h3>
+<section id="enriching-data" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="enriching-data"><span class="header-section-number">5.3.4</span> Enriching data</h3>
 <p>We can enrich our data by joining different files using the <code>join</code> function. The most common joins are <code>left_join</code>, <code>right_join</code>, <code>inner_join</code> and <code>full_join</code>.</p>
 <p>The <code>left_join</code> function joins two dataframes by keeping all the rows in the first dataframe and matching the rows in the second dataframe.</p>
 <p>Most joining operations in hces data analysis are <code>left_join</code> operations as we want to keep all the rows in the primary data we are processing and <code>enrich</code> it with matched rows in the other data. For example, to join the <code>ihs5_consumption</code> data with the <code>ihs5_household_identifies</code> contained in <code>hh_mod_a_filt_vMAPS.dta</code> data we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ihs5_household_identifiers <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"hh_mod_a_filt_vMAPS.dta"</span>))</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the data</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_j1 <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(ihs5_household_identifiers, <span class="at">by =</span> <span class="st">"HHID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ihs5_household_identifiers <span class="ot">&lt;-</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"hh_mod_a_filt_vMAPS.dta"</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the data</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_j1 <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(ihs5_household_identifiers, <span class="at">by =</span> <span class="st">"HHID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is an enriched dataset with rows from the <code>ihs5_household_identifiers</code> data that match the <code>HHID</code> column in the <code>ihs5_consumption</code> data. The <code>by</code> argument tells the <code>left_join</code> function which column to use to match the rows. If the column names are the same in both dataframes, we do not need to specify the <code>by</code> argument. For example, to join the <code>ihs5_consumption</code> data with the <code>ihs5_household_identifies</code> contained in <code>hh_mod_a_filt_vMAPS.dta</code> data we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ihs5_household_identifiers <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"hh_mod_a_filt_vMAPS.dta"</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the data</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(ihs5_household_identifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ihs5_household_identifiers <span class="ot">&lt;-</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mwi-ihs5-sample-data"</span>, <span class="st">"hh_mod_a_filt_vMAPS.dta"</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the data</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(ihs5_household_identifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -550,8 +635,8 @@ Excercise
 </div>
 </div>
 </section>
-<section id="grouping-and-summarising-data" class="level3">
-<h3 class="anchored" data-anchor-id="grouping-and-summarising-data">Grouping and Summarising Data</h3>
+<section id="grouping-and-summarising-data" class="level3" data-number="5.3.5">
+<h3 data-number="5.3.5" class="anchored" data-anchor-id="grouping-and-summarising-data"><span class="header-section-number">5.3.5</span> Grouping and Summarising Data</h3>
 <p>We can group data using the <code>group_by</code> function. Grouping data is useful when we want to summarise data. In <code>dplyr</code> the summaries are created from the <code>groups</code> in the data. For eample to summarise the <code>consumption_per_person</code> by <code>food_item</code> we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise the data</span></span>
@@ -565,14 +650,20 @@ Excercise
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise the data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_summary <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(food_item) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">consumption_per_person_mean =</span> <span class="fu">mean</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">consumption_per_person_sd =</span> <span class="fu">sd</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_per_person_mean =</span> <span class="fu">mean</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_per_person_sd =</span> <span class="fu">sd</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To compute summaries across multiple groups we can use the <code>group_by</code> function with multiple arguments. For example, to compute the mean and standard deviation of the <code>consumption_per_person</code> column by <code>food_item</code> and <code>region</code> we would type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise the data</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ihs5_consumption_summary <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">|&gt;</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(food_item, region) <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">consumption_per_person_mean =</span> <span class="fu">mean</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">consumption_per_person_sd =</span> <span class="fu">sd</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_per_person_mean =</span> <span class="fu">mean</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">consumption_per_person_sd =</span> <span class="fu">sd</span>(consumption_per_person, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the next section we will learn how to use plots to visualise our data. A basic example of a plot is a bar chart. For example we can visualise the consumption per person by food item using a bar chart. To do this we will use the <code>ggplot2</code> package from the <code>tidyverse</code> package like so:</p>
 <div class="cell">
@@ -582,28 +673,28 @@ Excercise
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Plot the data</span></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ihs5_consumption <span class="sc">|&gt;</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add plot aesthetics</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> consumption_per_person,<span class="at">group=</span>region)) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> consumption_per_person, <span class="at">group =</span> region)) <span class="sc">+</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add plot type</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here we plotted a boxplot of the <code>consumption_per_person</code> by <code>region</code>.</p>
+<p>Here we plotted a <code>boxplot</code> of the <code>consumption_per_person</code> by <code>region</code>.</p>
+</section>
+<section id="data-outputexport" class="level3" data-number="5.3.6">
+<h3 data-number="5.3.6" class="anchored" data-anchor-id="data-outputexport"><span class="header-section-number">5.3.6</span> Data Output/Export</h3>
+<p>We can export data from R using the <code>write_csv()</code> function from the <code>readr</code> package. For example, to export the <code>ihs5_consumption</code> data to a csv file called <code>ihs5_consumption.csv</code> stored in our working directory we run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Data Export</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>We can export data from R using the <span class="st">`</span><span class="at">write_csv()</span><span class="st">`</span> <span class="cf">function</span> from the <span class="st">`</span><span class="at">readr</span><span class="st">`</span> package. For example, to export the <span class="st">`</span><span class="at">ihs5_consumption</span><span class="st">`</span> data to a csv file called <span class="st">`</span><span class="at">ihs5_consumption.csv</span><span class="st">`</span> stored <span class="cf">in</span> our working directory we run<span class="sc">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We recommend exporting files to csv as this allows interoperability between various software. If you prefer exporting your data to excel, you can use the <code>write_xlsx()</code> function from the <code>writexl</code> package. For example, to export the <code>ihs5_consumption</code> data to an excel file called <code>ihs5_consumption.xlsx</code> stored in our working directory we run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>writexl<span class="sc">::</span><span class="fu">write_xlsx</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.xlsx"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>writexl<span class="sc">::</span><span class="fu">write_xlsx</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.xlsx"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To export the data to a stata file, we can use the <code>write_dta()</code> function from the <code>haven</code> package. For example, to export the <code>ihs5_consumption</code> data to a stata file called <code>ihs5_consumption.dta</code> stored in our working directory we run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"ihs5_consumption.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -746,11 +837,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_structures.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures</span></span>
+      <a href="./packages_and_functions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages and Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./data_visualisation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">data_visualisation.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
