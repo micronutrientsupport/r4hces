@@ -202,7 +202,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></a>
+  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">summary.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
@@ -214,14 +234,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#assignment" id="toc-assignment" class="nav-link active" data-scroll-target="#assignment">Assignment</a></li>
-  <li><a href="#character-data" id="toc-character-data" class="nav-link" data-scroll-target="#character-data">Character data</a></li>
-  <li><a href="#numeric-data" id="toc-numeric-data" class="nav-link" data-scroll-target="#numeric-data">Numeric data</a>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link active" data-scroll-target="#assignment"><span class="toc-section-number">2.1</span>  Assignment</a></li>
+  <li><a href="#character-data" id="toc-character-data" class="nav-link" data-scroll-target="#character-data"><span class="toc-section-number">2.2</span>  Character data</a></li>
+  <li><a href="#numeric-data" id="toc-numeric-data" class="nav-link" data-scroll-target="#numeric-data"><span class="toc-section-number">2.3</span>  Numeric data</a>
   <ul class="collapse">
-  <li><a href="#operations-on-numeric-data" id="toc-operations-on-numeric-data" class="nav-link" data-scroll-target="#operations-on-numeric-data">Operations on numeric data</a></li>
+  <li><a href="#operations-on-numeric-data" id="toc-operations-on-numeric-data" class="nav-link" data-scroll-target="#operations-on-numeric-data"><span class="toc-section-number">2.3.1</span>  Operations on numeric data</a></li>
   </ul></li>
-  <li><a href="#logical-data" id="toc-logical-data" class="nav-link" data-scroll-target="#logical-data">Logical data</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#logical-data" id="toc-logical-data" class="nav-link" data-scroll-target="#logical-data"><span class="toc-section-number">2.4</span>  Logical data</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">2.5</span>  Summary</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/data_types.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -253,8 +273,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li>A datum of type <code>logical</code> takes values <code>TRUE</code> or <code>FALSE</code></li>
 </ul>
-<section id="assignment" class="level2">
-<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<section id="assignment" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="assignment"><span class="header-section-number">2.1</span> Assignment</h2>
 <p>We can store any of these datatypes in an <code>object</code> by assigning the value to that object. For example, we can assign the value <code>Maize</code> to the object <code>food_name</code> as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>food_name <span class="ot">&lt;-</span> <span class="st">"Maize"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -273,8 +293,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>In this book we will use the <code>&lt;-</code> and the <code>=</code> assignment operator. We use the <code>&lt;-</code> when we want to assign a value to an object, and the <code>=</code> when we want to assign a value to an argument in a function. This is a convention that is used by many R programmers. More on functions later.</p>
 </section>
-<section id="character-data" class="level2">
-<h2 class="anchored" data-anchor-id="character-data">Character data</h2>
+<section id="character-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="character-data"><span class="header-section-number">2.2</span> Character data</h2>
 <p>The simplest data type in R is the character. A character is a string of characters, for example, the “Maize” name that we assigned above. The “” indicate that we want to store the string of characters between the “” in the object. If we don’t use the “” then R will look for an object with that name, and if it doesn’t find it, it will throw an error. For example, if we type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>food_name <span class="ot">&lt;-</span> Maize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -295,8 +315,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(food_name3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="numeric-data" class="level2">
-<h2 class="anchored" data-anchor-id="numeric-data">Numeric data</h2>
+<section id="numeric-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="numeric-data"><span class="header-section-number">2.3</span> Numeric data</h2>
 <p>A numeric is a numerical value, such as the food quantity value. We can assign a numeric value to an object as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>food_quantity <span class="ot">&lt;-</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -330,8 +350,8 @@ Exercise
 </ol>
 </div>
 </div>
-<section id="operations-on-numeric-data" class="level3">
-<h3 class="anchored" data-anchor-id="operations-on-numeric-data">Operations on numeric data</h3>
+<section id="operations-on-numeric-data" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="operations-on-numeric-data"><span class="header-section-number">2.3.1</span> Operations on numeric data</h3>
 <p>We can perform operations on numeric data, such as addition, subtraction, multiplication and division. For example, we can create a new numeric object called <code>food_quantity</code> by adding the values of <code>food_quantity_g</code> and <code>food_quantity_mg</code> as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a numeric object called food_quantity_g and assign it the value 15</span></span>
@@ -344,8 +364,8 @@ Exercise
 <p>Just like in maths the operators in R follow operator precedence.However we can use brackets to specify the order of operations.</p>
 </section>
 </section>
-<section id="logical-data" class="level2">
-<h2 class="anchored" data-anchor-id="logical-data">Logical data</h2>
+<section id="logical-data" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="logical-data"><span class="header-section-number">2.4</span> Logical data</h2>
 <p>Logical data takes the values <code>TRUE</code> or <code>FALSE</code>. We can assign a logical value to an object as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>is_staple <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -401,8 +421,8 @@ Exercise
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>food_name <span class="sc">==</span> food_name2 <span class="sc">&amp;</span> food_quantity_g <span class="sc">&gt;</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="summary" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.5</span> Summary</h2>
 <p>Until now we have been storing only one value in an object. We can store multiple values in an object using a vector. We will look at vectors and data structures in the next section.</p>
 
 

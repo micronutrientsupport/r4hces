@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R for Household Consumption and Expenditure Surveys - 6&nbsp; hcesNutR Package</title>
+<title>R for Household Consumption and Expenditure Surveys - 7&nbsp; hcesNutR Package</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data_wrangling_and_io.html" rel="prev">
+<link href="./summary.html" rel="next">
+<link href="./data_visualisation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -132,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -201,12 +202,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></a>
+  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
+  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">summary.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
@@ -218,35 +234,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reporting-bugs" id="toc-reporting-bugs" class="nav-link active" data-scroll-target="#reporting-bugs">Reporting bugs</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#functions-in-the-package" id="toc-functions-in-the-package" class="nav-link" data-scroll-target="#functions-in-the-package">Functions in the package</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
-  <li><a href="#import-and-explore-the-sample-data" id="toc-import-and-explore-the-sample-data" class="nav-link" data-scroll-target="#import-and-explore-the-sample-data">Import and explore the sample data</a>
+  <li><a href="#reporting-bugs" id="toc-reporting-bugs" class="nav-link active" data-scroll-target="#reporting-bugs"><span class="toc-section-number">7.1</span>  Reporting bugs</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation"><span class="toc-section-number">7.2</span>  Installation</a></li>
+  <li><a href="#functions-in-the-package" id="toc-functions-in-the-package" class="nav-link" data-scroll-target="#functions-in-the-package"><span class="toc-section-number">7.3</span>  Functions in the package</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">7.4</span>  Example</a></li>
+  <li><a href="#import-and-explore-the-sample-data" id="toc-import-and-explore-the-sample-data" class="nav-link" data-scroll-target="#import-and-explore-the-sample-data"><span class="toc-section-number">7.5</span>  Import and explore the sample data</a>
   <ul class="collapse">
-  <li><a href="#trim-the-data" id="toc-trim-the-data" class="nav-link" data-scroll-target="#trim-the-data">Trim the data</a></li>
+  <li><a href="#trim-the-data" id="toc-trim-the-data" class="nav-link" data-scroll-target="#trim-the-data"><span class="toc-section-number">7.5.1</span>  Trim the data</a></li>
   </ul></li>
-  <li><a href="#hcesnutr-workflow" id="toc-hcesnutr-workflow" class="nav-link" data-scroll-target="#hcesnutr-workflow">hcesnutR workflow</a>
+  <li><a href="#hcesnutr-workflow" id="toc-hcesnutr-workflow" class="nav-link" data-scroll-target="#hcesnutr-workflow"><span class="toc-section-number">7.6</span>  hcesnutR workflow</a>
   <ul class="collapse">
-  <li><a href="#column-naming-conventions-and-renaming" id="toc-column-naming-conventions-and-renaming" class="nav-link" data-scroll-target="#column-naming-conventions-and-renaming">Column Naming Conventions and Renaming</a></li>
-  <li><a href="#remove-unconsumed-food-items" id="toc-remove-unconsumed-food-items" class="nav-link" data-scroll-target="#remove-unconsumed-food-items">Remove unconsumed food items</a></li>
-  <li><a href="#create-two-columns-from-each-dbllbl-column" id="toc-create-two-columns-from-each-dbllbl-column" class="nav-link" data-scroll-target="#create-two-columns-from-each-dbllbl-column">Create two columns from each dbl+lbl column</a></li>
-  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data cleaning</a></li>
-  <li><a href="#use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" id="toc-use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" class="nav-link" data-scroll-target="#use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code">Use the <code>select</code> and <code>rename</code> functions from the dplyr package to subset the columns containing food item name , food item code, food unit name and food unit code</a></li>
-  <li><a href="#match-survey-food-items-to-standard-food-items" id="toc-match-survey-food-items-to-standard-food-items" class="nav-link" data-scroll-target="#match-survey-food-items-to-standard-food-items">Match survey food items to standard food items</a></li>
-  <li><a href="#match-survey-consumption-units-to-standard-consumption-units" id="toc-match-survey-consumption-units-to-standard-consumption-units" class="nav-link" data-scroll-target="#match-survey-consumption-units-to-standard-consumption-units">Match survey consumption units to standard consumption units</a></li>
-  <li><a href="#add-regions-and-districts-to-the-data" id="toc-add-regions-and-districts-to-the-data" class="nav-link" data-scroll-target="#add-regions-and-districts-to-the-data">Add regions and districts to the data</a></li>
-  <li><a href="#create-a-measure-id-column" id="toc-create-a-measure-id-column" class="nav-link" data-scroll-target="#create-a-measure-id-column">Create a measure id column</a></li>
-  <li><a href="#import-food-conversion-factors." id="toc-import-food-conversion-factors." class="nav-link" data-scroll-target="#import-food-conversion-factors.">Import food conversion factors.</a></li>
+  <li><a href="#column-naming-conventions-and-renaming" id="toc-column-naming-conventions-and-renaming" class="nav-link" data-scroll-target="#column-naming-conventions-and-renaming"><span class="toc-section-number">7.6.1</span>  Column Naming Conventions and Renaming</a></li>
+  <li><a href="#remove-unconsumed-food-items" id="toc-remove-unconsumed-food-items" class="nav-link" data-scroll-target="#remove-unconsumed-food-items"><span class="toc-section-number">7.6.2</span>  Remove unconsumed food items</a></li>
+  <li><a href="#create-two-columns-from-each-dbllbl-column" id="toc-create-two-columns-from-each-dbllbl-column" class="nav-link" data-scroll-target="#create-two-columns-from-each-dbllbl-column"><span class="toc-section-number">7.6.3</span>  Create two columns from each dbl+lbl column</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="toc-section-number">7.6.4</span>  Data cleaning</a></li>
+  <li><a href="#use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" id="toc-use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" class="nav-link" data-scroll-target="#use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code"><span class="toc-section-number">7.6.5</span>  Use the <code>select</code> and <code>rename</code> functions from the dplyr package to subset the columns containing food item name , food item code, food unit name and food unit code</a></li>
+  <li><a href="#match-survey-food-items-to-standard-food-items" id="toc-match-survey-food-items-to-standard-food-items" class="nav-link" data-scroll-target="#match-survey-food-items-to-standard-food-items"><span class="toc-section-number">7.6.6</span>  Match survey food items to standard food items</a></li>
+  <li><a href="#match-survey-consumption-units-to-standard-consumption-units" id="toc-match-survey-consumption-units-to-standard-consumption-units" class="nav-link" data-scroll-target="#match-survey-consumption-units-to-standard-consumption-units"><span class="toc-section-number">7.6.7</span>  Match survey consumption units to standard consumption units</a></li>
+  <li><a href="#add-regions-and-districts-to-the-data" id="toc-add-regions-and-districts-to-the-data" class="nav-link" data-scroll-target="#add-regions-and-districts-to-the-data"><span class="toc-section-number">7.6.8</span>  Add regions and districts to the data</a></li>
+  <li><a href="#create-a-measure-id-column" id="toc-create-a-measure-id-column" class="nav-link" data-scroll-target="#create-a-measure-id-column"><span class="toc-section-number">7.6.9</span>  Create a measure id column</a></li>
+  <li><a href="#import-food-conversion-factors." id="toc-import-food-conversion-factors." class="nav-link" data-scroll-target="#import-food-conversion-factors."><span class="toc-section-number">7.6.10</span>  Import food conversion factors.</a></li>
   </ul></li>
-  <li><a href="#calculate-afeame-and-add-to-the-data" id="toc-calculate-afeame-and-add-to-the-data" class="nav-link" data-scroll-target="#calculate-afeame-and-add-to-the-data"><span class="toc-section-number">7</span>  Calculate AFE/AME and add to the data</a>
+  <li><a href="#calculate-afeame-and-add-to-the-data" id="toc-calculate-afeame-and-add-to-the-data" class="nav-link" data-scroll-target="#calculate-afeame-and-add-to-the-data"><span class="toc-section-number">8</span>  Calculate AFE/AME and add to the data</a>
   <ul class="collapse">
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
-  <li><a href="#import-data-required" id="toc-import-data-required" class="nav-link" data-scroll-target="#import-data-required">Import data required</a></li>
-  <li><a href="#extra-energy-requirements-for-pregnancy" id="toc-extra-energy-requirements-for-pregnancy" class="nav-link" data-scroll-target="#extra-energy-requirements-for-pregnancy">Extra energy requirements for pregnancy</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="toc-section-number">8.1</span>  Assumptions</a></li>
+  <li><a href="#import-data-required" id="toc-import-data-required" class="nav-link" data-scroll-target="#import-data-required"><span class="toc-section-number">8.2</span>  Import data required</a></li>
+  <li><a href="#extra-energy-requirements-for-pregnancy" id="toc-extra-energy-requirements-for-pregnancy" class="nav-link" data-scroll-target="#extra-energy-requirements-for-pregnancy"><span class="toc-section-number">8.3</span>  Extra energy requirements for pregnancy</a></li>
   </ul></li>
-  <li><a href="#process-hh-roster-data" id="toc-process-hh-roster-data" class="nav-link" data-scroll-target="#process-hh-roster-data"><span class="toc-section-number">8</span>  Process HH roster data</a></li>
-  <li><a href="#join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" id="toc-join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" class="nav-link" data-scroll-target="#join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data"><span class="toc-section-number">9</span>  Join the AFE/AME data to our Household Consumption and Expenditure survey data</a></li>
+  <li><a href="#process-hh-roster-data" id="toc-process-hh-roster-data" class="nav-link" data-scroll-target="#process-hh-roster-data"><span class="toc-section-number">9</span>  Process HH roster data</a></li>
+  <li><a href="#join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" id="toc-join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" class="nav-link" data-scroll-target="#join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data"><span class="toc-section-number">10</span>  Join the AFE/AME data to our Household Consumption and Expenditure survey data</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/hcesNutR-package.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -255,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></h1>
 </div>
 
 
@@ -272,12 +288,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>The goal of the hcesNutR project is to create a repository of functions and data that will help with the analysis of the Household Consumption Expenditure Survey (HCES) data. A good source of HCES data is <a href="https://microdata.worldbank.org/">the world bank microdata repository</a>.</p>
 <p>The package contain functions that will help with the analysis of HCES data. The package also contains the sample data used in this book i.e.&nbsp;<a href="dzvoti.github.io/hcesNutR/data/sample_hces.dta">mwi-ihs5-sample-data</a> We will use this sample data to demonstrate the use of the functions in the package, you can download this data after installing the package by running <code>hcesNutR::sample_hces()</code> in your R console. The package is still under development and will be updated regularly.</p>
-<section id="reporting-bugs" class="level2">
-<h2 class="anchored" data-anchor-id="reporting-bugs">Reporting bugs</h2>
+<section id="reporting-bugs" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="reporting-bugs"><span class="header-section-number">7.1</span> Reporting bugs</h2>
 <p>Please report any bugs or issues <a href="www.github.com/dzvoti/hcesNutR/issues">here</a>.</p>
 </section>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<section id="installation" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="installation"><span class="header-section-number">7.2</span> Installation</h2>
 <p>You can install the development version of hcesNutR from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
@@ -288,19 +304,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcesNutR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="functions-in-the-package" class="level2">
-<h2 class="anchored" data-anchor-id="functions-in-the-package">Functions in the package</h2>
+<section id="functions-in-the-package" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="functions-in-the-package"><span class="header-section-number">7.3</span> Functions in the package</h2>
 <p>You can view the functions in the package by running the following code in your R console.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:hcesNutR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="example" class="level2">
-<h2 class="anchored" data-anchor-id="example">Example</h2>
+<section id="example" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="example"><span class="header-section-number">7.4</span> Example</h2>
 <p>This is a basic example which shows you the use of the functions in the package. The example uses the <a href="dzvoti.github.io/hcesNutR/data/sample_hces.dta">sample_hces.dta</a> data that is included in the package. You can download the data by running <code>hcesNutR::sample_hces()</code> in your R console. The data is randomly generated to mimic the structure of the <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">Fifth Integrated Household Survey 2019-2020</a> an HCES of Malawi. The variables and structure of this data is found <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">here</a></p>
 </section>
-<section id="import-and-explore-the-sample-data" class="level2">
-<h2 class="anchored" data-anchor-id="import-and-explore-the-sample-data">Import and explore the sample data</h2>
+<section id="import-and-explore-the-sample-data" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="import-and-explore-the-sample-data"><span class="header-section-number">7.5</span> Import and explore the sample data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data using the haven package from the tidyverse</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span></span>
@@ -312,8 +328,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>() <span class="sc">|&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="trim-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="trim-the-data">Trim the data</h3>
+<section id="trim-the-data" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="trim-the-data"><span class="header-section-number">7.5.1</span> Trim the data</h3>
 <p>In this example we will use <code>hcesNutR</code> functions to demonstrate processing of <code>total</code> consumption data. The <code>total</code> consumption data is the data that contains the total consumption of each food item by each household. The other consumption columns contain values for consumption from sources i.e.&nbsp;gifted, purchased, ownProduced. The workflow for processing these is the same as demonstrated below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim the data to total consumption</span></span>
@@ -328,10 +344,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="hcesnutr-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="hcesnutr-workflow">hcesnutR workflow</h2>
-<section id="column-naming-conventions-and-renaming" class="level3">
-<h3 class="anchored" data-anchor-id="column-naming-conventions-and-renaming">Column Naming Conventions and Renaming</h3>
+<section id="hcesnutr-workflow" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="hcesnutr-workflow"><span class="header-section-number">7.6</span> hcesnutR workflow</h2>
+<section id="column-naming-conventions-and-renaming" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="column-naming-conventions-and-renaming"><span class="header-section-number">7.6.1</span> Column Naming Conventions and Renaming</h3>
 <p>The sample_hces data is in stata format which contains data with short column name codes that have associated “question” labels that explain the contents of the data. To make the column names more interpretable, the package provides the <code>rename_hces</code> function, which can be used to rename the column codes to standard hces names used downstream.</p>
 <p>The <code>rename_hces</code> function uses column names from the <code>standard_name_mappings_pairs</code> dataset within the package. Alternatively, a user can create their own name pairs or manually rename their columns to the <code>standard</code> names.</p>
 <p>It is important to note that all downstream functions in the <code>hcesNutR</code> package work with standard names and will not work with the short column names. Therefore, it is recommended to use the <code>rename_hces()</code> function to ensure that the column names are consistent with the package’s naming conventions.</p>
@@ -347,8 +363,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="remove-unconsumed-food-items" class="level3">
-<h3 class="anchored" data-anchor-id="remove-unconsumed-food-items">Remove unconsumed food items</h3>
+<section id="remove-unconsumed-food-items" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="remove-unconsumed-food-items"><span class="header-section-number">7.6.2</span> Remove unconsumed food items</h3>
 <p>HCES surveys administer a standard questionaire to each household where they are asked to conform whether they consumed the food items on their standard list. If a household did not consume a food item, the value of the ‘consYN’ is set to a constant. The <code>remove_unconsumed</code> function removes all food items that were not consumed by the household. The function takes in a data frame and the name of the column that contains the consumption information. The function also takes in the value that indicates that the food item was consumed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unconsumed food items</span></span>
@@ -363,8 +379,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-two-columns-from-each-dbllbl-column" class="level3">
-<h3 class="anchored" data-anchor-id="create-two-columns-from-each-dbllbl-column">Create two columns from each dbl+lbl column</h3>
+<section id="create-two-columns-from-each-dbllbl-column" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="create-two-columns-from-each-dbllbl-column"><span class="header-section-number">7.6.3</span> Create two columns from each dbl+lbl column</h3>
 <p>The <code>create_dta_labels</code> function creates two columns from each dbl+lbl (double plus label) column. The first column contains the numeric values and the second column contains the labels. The function takes in a data frame and finds all columns that contains the double plus label column. The function returns a data frame with the new columns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split dbl+lbl columns</span></span>
@@ -379,8 +395,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-cleaning" class="level3">
-<h3 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h3>
+<section id="data-cleaning" class="level3" data-number="7.6.4">
+<h3 data-number="7.6.4" class="anchored" data-anchor-id="data-cleaning"><span class="header-section-number">7.6.4</span> Data cleaning</h3>
 <p>Some HCES data surveys split consumption food item or their consumption units into multiple columns. The <code>concatenate_columns</code> function cleans the data by combining the split columns into one column. The function can exclude values from contatenation by specifying the whole or part of values to be excluded.</p>
 <section id="example-1-concatenate-food-item-names" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-concatenate-food-item-names">Example 1: Concatenate food item names</h4>
@@ -423,8 +439,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" class="level3">
-<h3 class="anchored" data-anchor-id="use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code">Use the <code>select</code> and <code>rename</code> functions from the dplyr package to subset the columns containing food item name , food item code, food unit name and food unit code</h3>
+<section id="use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code" class="level3" data-number="7.6.5">
+<h3 data-number="7.6.5" class="anchored" data-anchor-id="use-the-select-and-rename-functions-from-the-dplyr-package-to-subset-the-columns-containing-food-item-name-food-item-code-food-unit-name-and-food-unit-code"><span class="header-section-number">7.6.5</span> Use the <code>select</code> and <code>rename</code> functions from the dplyr package to subset the columns containing food item name , food item code, food unit name and food unit code</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span> sample_hces <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
@@ -445,8 +461,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="match-survey-food-items-to-standard-food-items" class="level3">
-<h3 class="anchored" data-anchor-id="match-survey-food-items-to-standard-food-items">Match survey food items to standard food items</h3>
+<section id="match-survey-food-items-to-standard-food-items" class="level3" data-number="7.6.6">
+<h3 data-number="7.6.6" class="anchored" data-anchor-id="match-survey-food-items-to-standard-food-items"><span class="header-section-number">7.6.6</span> Match survey food items to standard food items</h3>
 <p>The <code>match_food_names</code> function is useful for standardising survey food names. This is feasible due to an internal dataset of standard food item names matched with their corresponding survey food names for supported surveys. Alternatively users can use their own food matching names by passing a csv to the function. See hcesNutR::food_list for csv structure.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span></span>
@@ -464,8 +480,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="match-survey-consumption-units-to-standard-consumption-units" class="level3">
-<h3 class="anchored" data-anchor-id="match-survey-consumption-units-to-standard-consumption-units">Match survey consumption units to standard consumption units</h3>
+<section id="match-survey-consumption-units-to-standard-consumption-units" class="level3" data-number="7.6.7">
+<h3 data-number="7.6.7" class="anchored" data-anchor-id="match-survey-consumption-units-to-standard-consumption-units"><span class="header-section-number">7.6.7</span> Match survey consumption units to standard consumption units</h3>
 <p>The <code>match_food_units_v2</code> function is useful for standardising survey consumption units. This is feasible due to an internal dataset of standard consumption units matched with their corresponding survey consumption units for supported surveys. Alternatively users can download our template from <code>hcesNutR::unit_names_n_codes_df</code> and modify it to use their own consumption unit matching names.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span></span>
@@ -484,8 +500,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="add-regions-and-districts-to-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="add-regions-and-districts-to-the-data">Add regions and districts to the data</h3>
+<section id="add-regions-and-districts-to-the-data" class="level3" data-number="7.6.8">
+<h3 data-number="7.6.8" class="anchored" data-anchor-id="add-regions-and-districts-to-the-data"><span class="header-section-number">7.6.8</span> Add regions and districts to the data</h3>
 <p>Identify the HCES module that contains household identifiers. In some cases this will already be present in the HCES data and should be skipped. From the household identifiers select the ones that are required and add to the data. In this example we will add the region and district identifiers to the data from the hh_mod_a_filt.dta file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import household identifiers from the hh_mod_a_filt.dta file</span></span>
@@ -504,8 +520,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-a-measure-id-column" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-measure-id-column">Create a measure id column</h3>
+<section id="create-a-measure-id-column" class="level3" data-number="7.6.9">
+<h3 data-number="7.6.9" class="anchored" data-anchor-id="create-a-measure-id-column"><span class="header-section-number">7.6.9</span> Create a measure id column</h3>
 <p>The <code>create_measure_id</code> function creates a measure id column that is used to identify the consumption measure of each food item. The function takes in a data frame and the name of the column that contains the consumption information. The function also takes in the value that indicates that the food item was consumed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create measure id column</span></span>
@@ -523,8 +539,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-food-conversion-factors." class="level3">
-<h3 class="anchored" data-anchor-id="import-food-conversion-factors.">Import food conversion factors.</h3>
+<section id="import-food-conversion-factors." class="level3" data-number="7.6.10">
+<h3 data-number="7.6.10" class="anchored" data-anchor-id="import-food-conversion-factors."><span class="header-section-number">7.6.10</span> Import food conversion factors.</h3>
 <p>The available data comes with a `food_conversion fcators file which has conversion fcators that link the food names and units to their corresponding</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import food conversion factors file</span></span>
@@ -559,14 +575,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="calculate-afeame-and-add-to-the-data" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Calculate AFE/AME and add to the data</h1>
-<section id="assumptions" class="level2">
-<h2 class="anchored" data-anchor-id="assumptions">Assumptions</h2>
+<section id="calculate-afeame-and-add-to-the-data" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Calculate AFE/AME and add to the data</h1>
+<section id="assumptions" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">8.1</span> Assumptions</h2>
 <p>Merge HH demographic data with AME/AFE factors Men’s weight: 65kg (assumption) Women’s weight: 55kg (from DHS) PAL: 1.6X the BMR</p>
 </section>
-<section id="import-data-required" class="level2">
-<h2 class="anchored" data-anchor-id="import-data-required">Import data required</h2>
+<section id="import-data-required" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="import-data-required"><span class="header-section-number">8.2</span> Import data required</h2>
 <p>In order to calculate the AFE and AME metrics we require the following data: - Household roster with the sex and age of each individual - Household health - AFE and AME factors</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data of the roster and health modules of the IHS5 survey</span></span>
@@ -592,8 +608,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(cat, ame_spec, afe_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="extra-energy-requirements-for-pregnancy" class="level2">
-<h2 class="anchored" data-anchor-id="extra-energy-requirements-for-pregnancy">Extra energy requirements for pregnancy</h2>
+<section id="extra-energy-requirements-for-pregnancy" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="extra-energy-requirements-for-pregnancy"><span class="header-section-number">8.3</span> Extra energy requirements for pregnancy</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Extra energy requirements for pregnancy and Illness</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pregnantPersons <span class="ot">&lt;-</span> ihs5_health <span class="sc">|&gt;</span></span>
@@ -608,8 +624,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="process-hh-roster-data" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Process HH roster data</h1>
+<section id="process-hh-roster-data" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Process HH roster data</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process the roster data and rename variables to be more intuitive</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>aMFe_summaries <span class="ot">&lt;-</span> ihs5_roster <span class="sc">|&gt;</span></span>
@@ -664,8 +680,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>aMFe_summaries <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="sc">|&gt;</span> DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Join the AFE/AME data to our Household Consumption and Expenditure survey data</h1>
+<section id="join-the-afeame-data-to-our-household-consumption-and-expenditure-survey-data" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Join the AFE/AME data to our Household Consumption and Expenditure survey data</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span> sample_hces <span class="sc">|&gt;</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(aMFe_summaries)</span>
@@ -814,11 +830,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_wrangling_and_io.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Import,Wrangling and Export</span></span>
+      <a href="./data_visualisation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">summary.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
