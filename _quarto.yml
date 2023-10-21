@@ -22,8 +22,8 @@ book:
     - hcesNutR-package.qmd
     # - fct.qmd
     # - food-matching.qmd
-    # - summary.qmd
-    # - references.qmd
+    - summary.qmd
+    - references.qmd
   sidebar:
     tools:
       - icon: cloud-arrow-down
