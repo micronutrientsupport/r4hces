@@ -1,7 +1,7 @@
-# Data Import,Wrangling and Export
+# Data I/O and Wrangling
 Up to this point we were creating data to manipulate in R. In this section we will learn how to import data into R, manipulate it and export it. We will use the `readr` and `haven` packages to import data into R, the `dplyr` package to manipulate data and the `readr` package to export data from R. We will also use the `here` package to manage file paths.
 
-## Data Import
+## Data Input/Import
 There are many ways to import data into R. In this section we will look at how to import data from a CSV file, an Excel file and Stata file. In the sample data folder there are `*.csv` files and stata files `*.dta`. Foe example to import the health data from a survey stored in `hh_mod_a_filt_vMAPS.dta` stored in the `mwi-ihs5-sample-data` folder within our working directory we run:
     
 ```{r eval=TRUE}
@@ -76,11 +76,25 @@ There are a number of functions that can be used to extract subsets of R objects
 ### Subsetting columns
 This data that we loaded is a randomly generated immitation of the Malawi Intergrated Household Survey 2018-2019 described [here](https://microdata.worldbank.org/index.php/catalog/3818/study-description). This data contains responses on `total consumption` as well as disaggregation of the sources of these foods.In this book we will process only the `total consumption.
 
-Remember we said that our data is loaded in memory? Seeing that the `ihs5_consumption` data contains columns we do not need let us subset it. The `select` function in dplyr is very useful for this. For example to keep only the columns with household identifiers and food names, units and quantity of consumption we keep the following columns in our data;"case_id","HHID","hh_g01","hh_g01_oth","hh_g02","hh_g03a","hh_g03b","hh_g03b_label","hh_g03b_oth","hh_g03c","hh_g03c_1".
+Remember we said that our data is loaded in memory? Seeing that the `ihs5_consumption` data contains columns we do not need let us subset it. The `select` function in dplyr is very useful for this. For example to keep only the columns with household identifiers and food names, units and quantity of consumption we keep the following columns in our data; "case_id", "HHID", "hh_g01", "hh_g01_oth", "hh_g02", "hh_g03a", "hh_g03b", "hh_g03b_label", "hh_g03b_oth", "hh_g03c", "hh_g03c_1".
 
 ```{r}
 # Subset the data
-ihs5_consumption_subset <- select(ihs5_consumption, case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1)
+ihs5_consumption_subset <-
+    select(
+        ihs5_consumption,
+        case_id,
+        HHID,
+        hh_g01,
+        hh_g01_oth,
+        hh_g02,
+        hh_g03a,
+        hh_g03b,
+        hh_g03b_label,
+        hh_g03b_oth,
+        hh_g03c,
+        hh_g03c_1
+    )
 ```
 
 The syntax for most tidyverse functions is `function (data,columns)`. Notice that we stored the subsetting operation in a new object called `ihs5_consumption_subset`? This is generally frowned upon unless we intend to use the original dataset for separate operations. Storing the subset in a new object will use up more memory to store the 2 objects. We can overwrite the original object by typing:
@@ -322,7 +336,7 @@ Here we plotted a `boxplot` of the `consumption_per_person` by `region`.
 
 
 
-### Data Export
+### Data Output/Export
 We can export data from R using the `write_csv()` function from the `readr` package. For example, to export the `ihs5_consumption` data to a csv file called `ihs5_consumption.csv` stored in our working directory we run:
 
 ```{r eval=FALSE}
