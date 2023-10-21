@@ -66,12 +66,12 @@ ihs5_consumption <- read_dta(here::here("mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS
 ### Subsetting data frames
 There are a number of functions that can be used to extract subsets of R objects in tidyverse syntax. The most important are the following from the `dplyr` package:
 
-- filter() allows you to select a subset of rows in a data frame.
-- select() allows you to select a subset of columns in a data frame.
-- arrange() allows you to reorder the rows of a data frame.
-- mutate() allows you to create new columns from existing columns.
-- summarise() allows you to collapse many values down to a single summary.
-- pull() allows you to extract a single column from a data frame as a vector.
+-   filter() allows you to select a subset of rows in a data frame.
+-   select() allows you to select a subset of columns in a data frame.
+-   arrange() allows you to reorder the rows of a data frame.
+-   mutate() allows you to create new columns from existing columns.
+-   summarise() allows you to collapse many values down to a single summary.
+-   pull() allows you to extract a single column from a data frame as a vector.
 
 ### Subsetting columns
 This data that we loaded is a randomly generated immitation of the Malawi Intergrated Household Survey 2018-2019 described [here](https://microdata.worldbank.org/index.php/catalog/3818/study-description). This data contains responses on `total consumption` as well as disaggregation of the sources of these foods.In this book we will process only the `total consumption.
@@ -86,14 +86,30 @@ ihs5_consumption_subset <- select(ihs5_consumption, case_id, HHID, hh_g01, hh_g0
 The syntax for most tidyverse functions is `function (data,columns)`. Notice that we stored the subsetting operation in a new object called `ihs5_consumption_subset`? This is generally frowned upon unless we intend to use the original dataset for separate operations. Storing the subset in a new object will use up more memory to store the 2 objects. We can overwrite the original object by typing:
 
 ```{r}
-ihs5_consumption <- select(ihs5_consumption, case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1)
+ihs5_consumption <- select(
+    ihs5_consumption,
+    case_id,
+    HHID,
+    hh_g01,
+    hh_g01_oth,
+    hh_g02,
+    hh_g03a,
+    hh_g03b,
+    hh_g03b_label,
+    hh_g03b_oth,
+    hh_g03c,
+    hh_g03c_1
+)
 ```
 
 Next let us give the columns more meaningful names. We can do this using the `rename` function. For example, to rename the `hh_g01` column to `consumedYN` and `hh_g02` to `food_item`, we would type:
 
 ```{r}
 # Rename the columns
-ihs5_consumption <- rename(ihs5_consumption, consumedYN = hh_g01, food_item = hh_g02)
+ihs5_consumption <-
+    rename(ihs5_consumption,
+           consumedYN = hh_g01,
+           food_item = hh_g02)
 ```
 Notice how our operations only affect the specific columns we specify? This is because the `select` and `rename` functions are smart and intiutive.
 
@@ -115,10 +131,23 @@ Notice how our operations only affect the specific columns we specify? This is b
 Solution:
 ```{r}
 # Reload the data to start from scratch
-ihs5_consumption <- read_dta(here::here("mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta"))
+ihs5_consumption <-
+    read_dta(here::here("mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta"))
 
 # Rename the columns
-ihs5_consumption <- rename(ihs5_consumption, consumedYN = hh_g01, food_item = hh_g02, food_item_other = hh_g01_oth, consumption_quantity = hh_g03a, consumption_unit = hh_g03b, consumption_unit_label = hh_g03b_label, consumption_unit_oth = hh_g03b_oth, consumption_subunit_1 = hh_g03c, consumption_subunit_2 = hh_g03c_1)
+ihs5_consumption <-
+    rename(
+        ihs5_consumption,
+        consumedYN = hh_g01,
+        food_item = hh_g02,
+        food_item_other = hh_g01_oth,
+        consumption_quantity = hh_g03a,
+        consumption_unit = hh_g03b,
+        consumption_unit_label = hh_g03b_label,
+        consumption_unit_oth = hh_g03b_oth,
+        consumption_subunit_1 = hh_g03c,
+        consumption_subunit_2 = hh_g03c_1
+    )
 ```
 :::
 
@@ -131,16 +160,39 @@ We can also subset rows using the `filter` function. For example, to keep only t
 ihs5_consumption <- filter(ihs5_consumption, consumedYN == 1)
 ```
 
-Notice how we are using the logical operator == to test each row whether the value of `consumedYN` is equal to `1`? This is called a conditional statement as we discussed in the previous sections.
+Notice how we are using the logical operator `==` to test each row whether the value of `consumedYN` is equal to `1`? This is called a conditional statement as we discussed in the previous sections.
 
 ## Chaining operations using the pipe operator
 We can chain operations using the pipe operator `%>%` or `|>`. This is useful when we want to perform multiple operations on a dataset. For example, to read, subset the data and rename the columns in one operation, we would type:
 
 ```{r}
 # Read, subset and rename the data
-ihs5_consumption <- read_dta(here::here("mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta")) |>
-    select(case_id, HHID, hh_g01, hh_g01_oth, hh_g02, hh_g03a, hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1) %>%
-    rename(consumedYN = hh_g01, food_item = hh_g02, food_item_other = hh_g01_oth, consumption_quantity = hh_g03a, consumption_unit = hh_g03b, consumption_unit_label = hh_g03b_label, consumption_unit_oth = hh_g03b_oth, consumption_subunit_1 = hh_g03c, consumption_subunit_2 = hh_g03c_1)
+ihs5_consumption <-
+    read_dta(here::here("mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta")) |>
+    select(
+        case_id,
+        HHID,
+        hh_g01,
+        hh_g01_oth,
+        hh_g02,
+        hh_g03a,
+        hh_g03b,
+        hh_g03b_label,
+        hh_g03b_oth,
+        hh_g03c,
+        hh_g03c_1
+    ) %>%
+    rename(
+        consumedYN = hh_g01,
+        food_item = hh_g02,
+        food_item_other = hh_g01_oth,
+        consumption_quantity = hh_g03a,
+        consumption_unit = hh_g03b,
+        consumption_unit_label = hh_g03b_label,
+        consumption_unit_oth = hh_g03b_oth,
+        consumption_subunit_1 = hh_g03c,
+        consumption_subunit_2 = hh_g03c_1
+    )
 ```
 
 We deliberately used both the pipe operators `%>%` and `|>` to show that they are the same. The %>% is the most popular of the `tidyverse` pipes from the `magrittr` package. Recent versions (circa 2020) intoduced the native `R` pipe `|>`. The pipe operator is useful when we want to perform multiple operations on a dataset without storing the intermediate results in memory. In the above example we only stored the final result in memory. This is useful when we are working with large datasets and want to save memory.
@@ -156,6 +208,119 @@ The `mutate` function is used to create new columns from existing columns. It is
 ihs5_consumption <- ihs5_consumption |>
     mutate(food_item_code = as.character(food_item))
 ```
+
+### Create a new column
+As we mentioned earlier, the `mutate` function is used to create new columns from existing columns. For example, to create a new column with hh_members (randomly generated) we would type:
+
+```{r}
+ihs5_consumption <- ihs5_consumption |>
+    mutate(hh_members = sample(1:10, nrow(ihs5_consumption), replace = TRUE))
+```
+
+Here we are using the `sample` function to generate random numbers between 1 and 10. The `nrow` function returns the number of rows in the `ihs5_consumption` data. The `replace = TRUE` argument tells the `sample` function to sample with replacement. This means that the same number can be sampled more than once. If we want to sample without replacement we would type `replace = FALSE`. 
+
+We used the `sample` function a lot during the generation of the sample data used in this book. You can see more on this in the [data generation]() section.
+
+### Vectorised operations
+The `mutate` function is also useful for vectorised operations. For example, to create a new column with the consumption per person we would type:
+
+```{r}
+ihs5_consumption <- ihs5_consumption |>
+    mutate(consumption_per_person = consumption_quantity / hh_members)
+``` 
+
+:::{.callout-note}
+## Excercise
+Suppose this data is from a 7 day recall survey. Create a new column with the consumption per person per day.
+:::
+
+### Enriching data
+We can enrich our data by joining different files using the `join` function. The most common joins are `left_join`, `right_join`, `inner_join` and `full_join`. 
+
+The `left_join` function joins two dataframes by keeping all the rows in the first dataframe and matching the rows in the second dataframe. 
+
+Most joining operations in hces data analysis are `left_join` operations as we want to keep all the rows in the primary data we are processing and `enrich` it with matched rows in the other data. For example, to join the `ihs5_consumption` data with the `ihs5_household_identifies` contained in `hh_mod_a_filt_vMAPS.dta` data we would type:
+
+```{r}
+# Import the data
+ihs5_household_identifiers <-
+    read_dta(here::here("mwi-ihs5-sample-data", "hh_mod_a_filt_vMAPS.dta"))
+
+# Join the data
+ihs5_consumption_j1 <- ihs5_consumption |>
+    left_join(ihs5_household_identifiers, by = "HHID")
+```
+
+The result is an enriched dataset with rows from the `ihs5_household_identifiers` data that match the `HHID` column in the `ihs5_consumption` data. The `by` argument tells the `left_join` function which column to use to match the rows. If the column names are the same in both dataframes, we do not need to specify the `by` argument. For example, to join the `ihs5_consumption` data with the `ihs5_household_identifies` contained in `hh_mod_a_filt_vMAPS.dta` data we would type:
+
+```{r}
+# Import the data
+ihs5_household_identifiers <-
+    read_dta(here::here("mwi-ihs5-sample-data", "hh_mod_a_filt_vMAPS.dta"))
+
+# Join the data
+ihs5_consumption <- ihs5_consumption |>
+    left_join(ihs5_household_identifiers)
+```
+
+:::{.callout-note}
+## Excercise
+1. Compare the results of the two joins.
+2. What is the difference?
+:::
+
+### Grouping and Summarising Data
+We can group data using the `group_by` function. Grouping data is useful when we want to summarise data. In `dplyr` the summaries are created from the `groups` in the data. For eample to summarise the `consumption_per_person` by `food_item` we would type:
+
+```{r}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item) |>
+    summarise(consumption_per_person = mean(consumption_per_person, na.rm = TRUE))
+```
+
+Here we are using the `mean` function to calculate the mean of the `consumption_per_person` column. The `na.rm = TRUE` argument tells the `mean` function to ignore missing values.
+
+We can also compute multiple summaries at once. For example, to compute the mean and standard deviation of the `consumption_per_person` column we would type:
+
+```{r}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item) |>
+    summarise(
+        consumption_per_person_mean = mean(consumption_per_person, na.rm = TRUE),
+        consumption_per_person_sd = sd(consumption_per_person, na.rm = TRUE)
+    )
+```
+
+To compute summaries across multiple groups we can use the `group_by` function with multiple arguments. For example, to compute the mean and standard deviation of the `consumption_per_person` column by `food_item` and `region` we would type:
+
+
+```{r}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item, region) |>
+    summarise(
+        consumption_per_person_mean = mean(consumption_per_person, na.rm = TRUE),
+        consumption_per_person_sd = sd(consumption_per_person, na.rm = TRUE)
+    )
+```
+In the next section we will learn how to use plots to visualise our data. A basic example of a plot is a bar chart. For example we can visualise the consumption per person by food item using a bar chart. To do this we will use the `ggplot2` package from the `tidyverse` package like so:
+
+```{r}
+# Load the ggplot2 package
+library(ggplot2)
+
+#  Plot the data
+ihs5_consumption |>
+    # Add plot aesthetics
+    ggplot(aes(x = region, y = consumption_per_person, group = region)) +
+    # Add plot type
+    geom_boxplot() 
+```
+Here we plotted a `boxplot` of the `consumption_per_person` by `region`. 
+
+
 
 ### Data Export
 We can export data from R using the `write_csv()` function from the `readr` package. For example, to export the `ihs5_consumption` data to a csv file called `ihs5_consumption.csv` stored in our working directory we run:
