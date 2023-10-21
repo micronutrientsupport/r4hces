@@ -15,9 +15,9 @@ book:
     - index.qmd
     # - intro.qmd
     - 1_introR.qmd
-    # - 1_data_types.qmd
+    - data_types.qmd
     - data_structures.qmd
-    # - 1_data_wrangling_and_io.qmd
+    - data_wrangling_and_io.qmd
     # - 2_hcesNutR.qmd
     # - 3_fct.qmd
     # - 4_food-matching.qmd
