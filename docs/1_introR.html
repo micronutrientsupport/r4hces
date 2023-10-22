@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy, Louise E. Ander">
-<meta name="dcterms.date" content="2024-04-10">
 
-<title>R for Household Consumption and Expenditure Surveys</title>
+<title>R for Household Consumption and Expenditure Surveys - 1&nbsp; Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./data_types.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -67,12 +66,11 @@ ul.task-list li input[type="checkbox"] {
 
 <body class="nav-sidebar floating">
 
-
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">R for Household Consumption and Expenditure Surveys</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -116,12 +114,12 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./1_introR.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -134,41 +132,6 @@ ul.task-list li input[type="checkbox"] {
   <a href="./data_structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./packages_and_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages and Functions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fct_standardisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Food Composition Table &amp; Databases: Standardisation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">summary.html</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -178,41 +141,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <li><a href="#software-requirements" id="toc-software-requirements" class="nav-link active" data-scroll-target="#software-requirements">Software requirements</a></li>
+  <li><a href="#downloading-and-installing-r-and-rstudio" id="toc-downloading-and-installing-r-and-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-r-and-rstudio">Downloading and Installing R and Rstudio</a>
   <ul class="collapse">
-  <li><a href="#about-this-manual" id="toc-about-this-manual" class="nav-link" data-scroll-target="#about-this-manual">About this manual</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#who-is-this-manual-for" id="toc-who-is-this-manual-for" class="nav-link" data-scroll-target="#who-is-this-manual-for">Who is this manual for?</a></li>
+  <li><a href="#downloading-and-installing-r" id="toc-downloading-and-installing-r" class="nav-link" data-scroll-target="#downloading-and-installing-r">Downloading and Installing R</a></li>
+  <li><a href="#downloading-and-installing-rstudio" id="toc-downloading-and-installing-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-rstudio">Downloading and Installing RStudio</a></li>
   </ul></li>
+  <li><a href="#recommended-setup-while-using-this-book" id="toc-recommended-setup-while-using-this-book" class="nav-link" data-scroll-target="#recommended-setup-while-using-this-book">Recommended setup while using this book</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/index.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/1_introR.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">R for Household Consumption and Expenditure Surveys</h1>
-<p class="subtitle lead">Nutrition Data Analysis</p>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy, Louise E. Ander </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 10, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -220,27 +171,112 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<section id="about-this-manual" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="about-this-manual">About this manual</h2>
-<p>This manual is designed for absolute beginners who are interested in using R and RStudio for nutrition analysis of household consumption and expenditure surveys(HCES). The manual is an adaptation of materials for statistical analysis of HCES developed by the <a href="https://maps.micronutrient.support/">Micronutrient Action Policy Support(MAPS) Project</a> and made available to all for use, without warranty or liability. The MAPS project is funded by the Bill and Melinda Gates Foundation.</p>
+<p>Welcome to the training manual on using R, RStudio, Git, and GitHub for Household Consumption and Expenditure surveys. This manual is designed for absolute beginners and aims to provide a comprehensive introduction to these powerful technologies.</p>
+<section id="software-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="software-requirements">Software requirements</h2>
+<p>First, we will cover R, which is a powerful and versatile programming language that is widely used for data analysis, statistical modeling, and data visualization.</p>
+<ul>
+<li>It is an open-source software that can be freely downloaded and used by anyone. R is widely used in academia, industry, and government, and is becoming increasingly popular among data scientists and analysts.</li>
+<li>It is a great tool for those who have been using other statistics tools like Excel, SAS, SPSS and want to take their data analysis skills to the next level.</li>
+</ul>
+<p>This training will provide an introduction to the basics of R and will give you the skills you need to start working with data in R..</p>
+<p>Next, we will introduce RStudio, which is a popular integrated development environment (IDE) for R.</p>
+<ul>
+<li>RStudio provides a user-friendly interface for working with R and makes it easy to work with R packages, which are collections of pre-written R code that can be used to perform specific tasks.</li>
+<li>With RStudio, you will be able to write, test, and debug your R code, and easily share your work with others.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2023-03-26 145411.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">source: https://moderndive.netlify.app/1-getting-started.html</figcaption><p></p>
+</figure>
+</div>
+<p>This manual will provide step-by-step instructions for installing and setting up R and RStudio on your computer. We will also go over basic concepts and commands for working with each technology, as well as provide examples of how to use them in different contexts. With this manual, you will have the skills and knowledge you need to start using these powerful technologies to better understand your data and collaborate with others on your project.</p>
 </section>
-<section id="acknowledgements" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>We would like to thank the following people for their contributions to this manual:</p>
-<p><a href="">Liberty Mlambo</a>, <a href="">Lucia Sergovia de la Revilla</a>, <a href="">Thomas Codd</a>,<a href="">Gareth Osman</a>, <a href="">Kevin Tang</a>, <a href="">Tineka Blake</a>, <a href="">Edward Joy</a>, <a href="">Louise E. Ander</a></p>
+<section id="downloading-and-installing-r-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-and-installing-r-and-rstudio">Downloading and Installing R and Rstudio</h2>
+<p><img src="images/Screenshot 2023-03-26 143935.png" class="img-fluid"></p>
+<section id="downloading-and-installing-r" class="level3">
+<h3 class="anchored" data-anchor-id="downloading-and-installing-r">Downloading and Installing R</h3>
+<p><img src="images/Screenshot 2023-03-26 142832.png" class="img-fluid"></p>
+<p>To download R, you can visit the official R website at <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. On the website, you will see links to download the latest version of R for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install R on your computer.</p>
+<p>Downloading and installing R:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Instructions for downloading and Installing R
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Step 1:</p>
+<p><img src="images/Screenshot 2023-03-26 141343.png" class="img-fluid"></p>
+<p>Step 2:</p>
+<p><img src="images/Screenshot 2023-03-26 141930.png" class="img-fluid"></p>
+<p>Step 3:</p>
+<p><img src="images/Screenshot 2023-03-26 142324.png" class="img-fluid"></p>
+<p>Step 4:</p>
+<p><img src="images/Screenshot 2023-03-26 142439.png" class="img-fluid"></p>
+<p>Step 5:</p>
+<p><img src="images/Screenshot 2023-03-26 142532.png" class="img-fluid"></p>
+<p>Step 6:</p>
+<p><img src="images/Screenshot 2023-03-26 142547.png" class="img-fluid"></p>
+<p>Step 7:</p>
+<p><img src="images/Screenshot 2023-03-26 142735.png" class="img-fluid"></p>
+<p>Step 8:</p>
+<p><img src="images/Screenshot 2023-03-26 142832.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
 </section>
-<section id="who-is-this-manual-for" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="who-is-this-manual-for">Who is this manual for?</h2>
-<p>The goal of this manual is to provide a comprehensive introduction to these powerful technologies and to teach you how to use them to better understand your data and collaborate with others on your project.</p>
-<p>Throughout this manual, you will learn how to install and set up R and RStudio on your computer, as well as how to use them to perform data analysis, create visualizations, and manage your code. The manual includes step-by-step instructions, examples, and practice exercises to help you master these technologies.</p>
-<p>Whether you are a researcher, data scientist, or statistician, this manual will provide you with the skills and knowledge you need to start using R and RStudio for HCES analysis, to better understand your data and collaborate with others on your project.</p>
-<p>It is important to note that this manual is not a comprehensive guide to R and RStudio but rather an introduction, designed to give you the foundational knowledge to start working with these technologies. There are many other resources available for learning more about these technologies, including online tutorials, forums, and documentation.</p>
-<p>We hope you find this manual helpful and that it empowers you to work with these powerful tools.</p>
+<section id="downloading-and-installing-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="downloading-and-installing-rstudio">Downloading and Installing RStudio</h3>
+<p>To download RStudio, you can visit the official RStudio website at <a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>. On the website, you will see links to download the latest version of RStudio for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install RStudio on your computer. <img src="images/Screenshot 2023-03-26 144336.png" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Instructions for downloading and Installing Rstudio
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Step 1: Navigate to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+<p><img src="images/Screenshot 2023-03-26 143935.png" class="img-fluid"></p>
+<p>Step 2:</p>
+<p><img src="images/Screenshot 2023-03-26 144556.png" class="img-fluid"></p>
+<p>Step 3:</p>
+<p><img src="images/Screenshot 2023-03-26 144625.png" class="img-fluid"></p>
+<p>Step 4:</p>
+<p><img src="images/Screenshot 2023-03-26 144743.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>Please note that these are general instructions for a Microsoft Windows operating system, and depending on your system setup and security settings, some steps might be slightly different. Also, you will need to make sure that you have administrative access or permission to install the software on your computer.</p>
+<p>You can also refer to the software website instruction or online tutorials that are specific to your operating system and setup.</p>
+<p>From here we will use the term R to refer to R and Rstudio or vice-versa.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rstudio-panes-labeled.jpeg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Source: https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="recommended-setup-while-using-this-book" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-setup-while-using-this-book">Recommended setup while using this book</h2>
+<p>Step 1: Download the training files from the following link: <a href="https://dzvoti.github.io/mapsR/mapsR-Training.zip" class="uri">https://dzvoti.github.io/mapsR/mapsR-Training.zip</a></p>
+<p>Step 2: Unzip the file and save it in a folder on your computer.</p>
+<p>Step 3: Open RStudio create a new project using an existing folder. Select the folder where you saved the training files.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -379,10 +415,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data_types.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Types</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

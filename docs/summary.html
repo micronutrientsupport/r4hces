@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy, Louise E. Ander">
-<meta name="dcterms.date" content="2024-04-10">
 
-<title>R for Household Consumption and Expenditure Surveys</title>
+<title>R for Household Consumption and Expenditure Surveys – summary</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./references.html" rel="next">
+<link href="./hcesNutR-package.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -65,8 +64,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
-
+<body class="nav-sidebar floating fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -116,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -156,12 +154,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fct_standardisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Food Composition Table &amp; Databases: Standardisation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">summary.html</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">summary.html</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -173,75 +166,14 @@ ul.task-list li input[type="checkbox"] {
     </div>
 </nav>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#about-this-manual" id="toc-about-this-manual" class="nav-link" data-scroll-target="#about-this-manual">About this manual</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#who-is-this-manual-for" id="toc-who-is-this-manual-for" class="nav-link" data-scroll-target="#who-is-this-manual-for">Who is this manual for?</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/index.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">R for Household Consumption and Expenditure Surveys</h1>
-<p class="subtitle lead">Nutrition Data Analysis</p>
-</div>
 
 
 
-<div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy, Louise E. Ander </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 10, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<section id="about-this-manual" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="about-this-manual">About this manual</h2>
-<p>This manual is designed for absolute beginners who are interested in using R and RStudio for nutrition analysis of household consumption and expenditure surveys(HCES). The manual is an adaptation of materials for statistical analysis of HCES developed by the <a href="https://maps.micronutrient.support/">Micronutrient Action Policy Support(MAPS) Project</a> and made available to all for use, without warranty or liability. The MAPS project is funded by the Bill and Melinda Gates Foundation.</p>
-</section>
-<section id="acknowledgements" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>We would like to thank the following people for their contributions to this manual:</p>
-<p><a href="">Liberty Mlambo</a>, <a href="">Lucia Sergovia de la Revilla</a>, <a href="">Thomas Codd</a>,<a href="">Gareth Osman</a>, <a href="">Kevin Tang</a>, <a href="">Tineka Blake</a>, <a href="">Edward Joy</a>, <a href="">Louise E. Ander</a></p>
-</section>
-<section id="who-is-this-manual-for" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="who-is-this-manual-for">Who is this manual for?</h2>
-<p>The goal of this manual is to provide a comprehensive introduction to these powerful technologies and to teach you how to use them to better understand your data and collaborate with others on your project.</p>
-<p>Throughout this manual, you will learn how to install and set up R and RStudio on your computer, as well as how to use them to perform data analysis, create visualizations, and manage your code. The manual includes step-by-step instructions, examples, and practice exercises to help you master these technologies.</p>
-<p>Whether you are a researcher, data scientist, or statistician, this manual will provide you with the skills and knowledge you need to start using R and RStudio for HCES analysis, to better understand your data and collaborate with others on your project.</p>
-<p>It is important to note that this manual is not a comprehensive guide to R and RStudio but rather an introduction, designed to give you the foundational knowledge to start working with these technologies. There are many other resources available for learning more about these technologies, including online tutorials, forums, and documentation.</p>
-<p>We hope you find this manual helpful and that it empowers you to work with these powerful tools.</p>
-
-
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -379,10 +311,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./hcesNutR-package.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -24,7 +24,7 @@ library(dplyr)
 
 After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the Integrated Household Survey, Wave 5, 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called "food dictionary". As depicted in the @fig-matching.
 
-![](docs/images/food-matching.png){#fig-matching}
+![](images/food-matching.png){#fig-matching}
 
 ::: callout-note
 ## Activity 2: Thinking about food matches between HCES food list and food composition.
@@ -62,14 +62,14 @@ When all the FCTs are standardised, we can use them all together, hence if a foo
 
 ## Getting the FC Harmonised dataset
 
-Download the following folders: KE18, WA19 & US19?? from [this GitHub repository](). 
+Download the following folders: KE18 & WA19 from [this GitHub repository](). 
 
 ```{r}
 
 
 ```
 
-Each folder has one script with the FCT id followed by "_FCT_FAo_Tags", and a README file. 
+Each folder has one script with the FCT id followed by "_FCT_FAO_Tags", and a README file. 
 
 Then, source the merging script. The merging script run the standardisation scripts, which download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching. 
 

@@ -1,10 +1,11 @@
 # Data Types 
 
 The principal data types in R are `numeric`, `character`, `factor` and `logical`. There are others, but these are the main ones.
-  -  A datum of type `numeric` is a numerical value, such as food quantity value.
-  -  A datum of type `character` is a string of characters, such as the name of food.
-  -  A datum of type `factor` is the label for a food type or categories which we might use in hces analysis.  
-  -  A datum of type `logical` takes values `TRUE` or `FALSE`
+
+-    A datum of type `numeric` is a numerical value, such as food quantity value.
+-    A datum of type `character` is a string of characters, such as the name of food.
+-    A datum of type `factor` is the label for a food type or categories which we might use in hces analysis.  
+-    A datum of type `logical` takes values `TRUE` or `FALSE`
 
 ## Assignment
 We can store any of these datatypes in an `object` by assigning the value to that object.  For example, we can assign the value `Maize` to the object `food_name` as follows:
@@ -49,7 +50,14 @@ food_name <- "Maize"
 We ca perform operations on character data, such as concatenation, which is the joining of two or more strings of characters.  We can do this using the `paste()` function.  For example, we can create a new character object called `food_name3` by concatenating the values of `food_name` and `food_name2` as follows:
 
 ```{r eval=FALSE}
+# Create character vector with value "Maize"
+food_name <- "Maize"
+# Create character vector with value "Meal"
+food_name2 <- "Meal"
+# Concatenate the values of food_name and food_name2 and assign the result to a new character object called food_name3
 food_name3 <- paste(food_name, food_name2)
+# Print the value of food_name3
+print(food_name3)
 ```
 
 ## Numeric data
@@ -68,6 +76,8 @@ food_quantity <- "0.5"
 We can then do simple mathematical manipulations with a numeric value. For example, we can add 0.5 to the value of `food_quantity` as follows:
 
 ```{r eval=FALSE}
+food_quantity <- 0.5
+# Add 0.5 to the value of food_quantity
 food_quantity <- food_quantity + 0.5
 ```
 
@@ -88,7 +98,8 @@ We can perform operations on numeric data, such as addition, subtraction, multip
 # Create a numeric object called food_quantity_g and assign it the value 15
 food_quantity_g <- 15
 
-# Create a numeric object called food_quantity_mg and calculate the value of food_quantity_g in milligrams
+# Create a numeric object called food_quantity_mg and 
+# calculate the value of food_quantity_g in milligrams
 food_quantity_mg <- food_quantity_g * 1000
 ```
 
@@ -104,10 +115,11 @@ Logical values can be returned from oparation e.g. testing for equality.  For ex
 
 
 ```{r eval=FALSE}
-# Create character vector
+# Create character vectors
 food_name <- "Maize"
 food_name2 <- "Maize"
 food_name3 <- "Rice"
+
 # Test equality
 food_name == food_name2
 food_name == food_name3

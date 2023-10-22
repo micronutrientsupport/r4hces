@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mapsNutritionR: A guide to Nutrition Data Analysis with R - 1&nbsp; Introduction</title>
+<title>R for Household Consumption and Expenditure Surveys - 1&nbsp; Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./introR.html" rel="next">
+<link href="./data_types.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -83,9 +83,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">mapsNutritionR: A guide to Nutrition Data Analysis with R</a> 
+      <a href="./">R for Household Consumption and Expenditure Surveys</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://dzvoti.github.io/mapsNutritionR/mapsNutritionR-datazip" title="" class="sidebar-tool px-1"><i class="bi bi-cloud-arrow-down"></i></a>
+    <a href="https://dzvoti.github.io/hces4R/hces-datazip" title="" class="sidebar-tool px-1"><i class="bi bi-cloud-arrow-down"></i></a>
     <a href="https://github.com/dzvoti/mapsNutritionR/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
@@ -124,12 +124,42 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">introR.html</span></a>
+  <a href="./data_types.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hcesNutR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hcesNutR.html</span></a>
+  <a href="./data_structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages_and_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages and Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">summary.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
@@ -141,13 +171,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#software-requirements" id="toc-software-requirements" class="nav-link active" data-scroll-target="#software-requirements">Software requirements</a></li>
-  <li><a href="#downloading-and-installing-r-and-rstudio" id="toc-downloading-and-installing-r-and-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-r-and-rstudio">Downloading and Installing R and Rstudio</a>
+  <li><a href="#software-requirements" id="toc-software-requirements" class="nav-link active" data-scroll-target="#software-requirements"><span class="toc-section-number">1.1</span>  Software requirements</a></li>
+  <li><a href="#downloading-and-installing-r-and-rstudio" id="toc-downloading-and-installing-r-and-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-r-and-rstudio"><span class="toc-section-number">1.2</span>  Downloading and Installing R and Rstudio</a>
   <ul class="collapse">
-  <li><a href="#downloading-and-installing-r" id="toc-downloading-and-installing-r" class="nav-link" data-scroll-target="#downloading-and-installing-r">Downloading and Installing R</a></li>
-  <li><a href="#downloading-and-installing-rstudio" id="toc-downloading-and-installing-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-rstudio">Downloading and Installing RStudio</a></li>
+  <li><a href="#downloading-and-installing-r" id="toc-downloading-and-installing-r" class="nav-link" data-scroll-target="#downloading-and-installing-r"><span class="toc-section-number">1.2.1</span>  Downloading and Installing R</a></li>
+  <li><a href="#downloading-and-installing-rstudio" id="toc-downloading-and-installing-rstudio" class="nav-link" data-scroll-target="#downloading-and-installing-rstudio"><span class="toc-section-number">1.2.2</span>  Downloading and Installing RStudio</a></li>
   </ul></li>
-  <li><a href="#recommended-setup-while-using-this-book" id="toc-recommended-setup-while-using-this-book" class="nav-link" data-scroll-target="#recommended-setup-while-using-this-book">Recommended setup while using this book</a></li>
+  <li><a href="#recommended-setup-while-using-this-book" id="toc-recommended-setup-while-using-this-book" class="nav-link" data-scroll-target="#recommended-setup-while-using-this-book"><span class="toc-section-number">1.3</span>  Recommended setup while using this book</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/mapsNutritionR/edit/main/intro.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -171,9 +201,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Welcome to the training manual on using R, RStudio, Git, and GitHub for Household Consumption and Expenditure surveys. This manual is designed for absolute beginners and aims to provide a comprehensive introduction to these powerful technologies.</p>
-<section id="software-requirements" class="level2">
-<h2 class="anchored" data-anchor-id="software-requirements">Software requirements</h2>
+<p>Welcome to the training manual on using R, RStudio, Git, and GitHub for Household Consumption and Expenditure surveys. This manual is designed for absolute beginners and aims to provide a comprehensive introduction to these powerful technologies for use in Nutrition analysis.</p>
+<section id="software-requirements" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="software-requirements"><span class="header-section-number">1.1</span> Software requirements</h2>
 <p>First, we will cover R, which is a powerful and versatile programming language that is widely used for data analysis, statistical modeling, and data visualization.</p>
 <ul>
 <li>It is an open-source software that can be freely downloaded and used by anyone. R is widely used in academia, industry, and government, and is becoming increasingly popular among data scientists and analysts.</li>
@@ -193,11 +223,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>This manual will provide step-by-step instructions for installing and setting up R and RStudio on your computer. We will also go over basic concepts and commands for working with each technology, as well as provide examples of how to use them in different contexts. With this manual, you will have the skills and knowledge you need to start using these powerful technologies to better understand your data and collaborate with others on your project.</p>
 </section>
-<section id="downloading-and-installing-r-and-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-and-installing-r-and-rstudio">Downloading and Installing R and Rstudio</h2>
+<section id="downloading-and-installing-r-and-rstudio" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="downloading-and-installing-r-and-rstudio"><span class="header-section-number">1.2</span> Downloading and Installing R and Rstudio</h2>
 <p><img src="images/Screenshot 2023-03-26 143935.png" class="img-fluid"></p>
-<section id="downloading-and-installing-r" class="level3">
-<h3 class="anchored" data-anchor-id="downloading-and-installing-r">Downloading and Installing R</h3>
+<section id="downloading-and-installing-r" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="downloading-and-installing-r"><span class="header-section-number">1.2.1</span> Downloading and Installing R</h3>
 <p><img src="images/Screenshot 2023-03-26 142832.png" class="img-fluid"></p>
 <p>To download R, you can visit the official R website at <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. On the website, you will see links to download the latest version of R for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install R on your computer.</p>
 <p>Downloading and installing R:</p>
@@ -233,9 +263,9 @@ Instructions for downloading and Installing R
 </div>
 </div>
 </section>
-<section id="downloading-and-installing-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="downloading-and-installing-rstudio">Downloading and Installing RStudio</h3>
-<p>To download RStudio, you can visit the official RStudio website at <a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>. On the website, you will see links to download the latest version of RStudio for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install RStudio on your computer. <img src="images/Screenshot 2023-03-26 144336.png" class="img-fluid"></p>
+<section id="downloading-and-installing-rstudio" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="downloading-and-installing-rstudio"><span class="header-section-number">1.2.2</span> Downloading and Installing RStudio</h3>
+<p>To download RStudio, you can visit the official RStudio website at <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a>. On the website, you will see links to download the latest version of RStudio for Windows, Mac, and Linux. Once you have downloaded the installer for your operating system, you can run the installer and follow the prompts to install RStudio on your computer. <img src="images/Screenshot 2023-03-26 144336.png" class="img-fluid"></p>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -270,9 +300,9 @@ Instructions for downloading and Installing Rstudio
 </div>
 </section>
 </section>
-<section id="recommended-setup-while-using-this-book" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-setup-while-using-this-book">Recommended setup while using this book</h2>
-<p>Step 1: Download the training files from the following link: <a href="https://dzvoti.github.io/mapsR/mapsR-Training.zip" class="uri">https://dzvoti.github.io/mapsR/mapsR-Training.zip</a></p>
+<section id="recommended-setup-while-using-this-book" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="recommended-setup-while-using-this-book"><span class="header-section-number">1.3</span> Recommended setup while using this book</h2>
+<p>Step 1: Download the training files from the following link: <a href="https://dzvoti.github.io/hces4R/hces4r-data.zip" class="uri">https://dzvoti.github.io/hces4R/hces4r-data.zip</a></p>
 <p>Step 2: Unzip the file and save it in a folder on your computer.</p>
 <p>Step 3: Open RStudio create a new project using an existing folder. Select the folder where you saved the training files.</p>
 
@@ -420,8 +450,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introR.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">introR.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data_types.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Types</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
