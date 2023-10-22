@@ -5,7 +5,7 @@ project:
 book:
   title: "R for Household Consumption and Expenditure Surveys"
   subtitle: "Nutrition Data Analysis"
-  author: "Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy ,Louise E. Ander"
+  author: "Liberty Mlambo,Lucia Sergovia de la Revilla, Thomas Codd, Gareth Osman, Kevin Tang, Edward Joy, Louise E. Ander"
   date: "16/10/2023"
   repo-url: https://github.com/dzvoti/mapsNutritionR/
   repo-actions: [edit]
@@ -20,6 +20,7 @@ book:
     - data_wrangling_and_io.qmd
     - data_visualisation.qmd
     - hcesNutR-package.qmd
+    - fct_standardisation.qmd
     # - fct.qmd
     # - food-matching.qmd
     - summary.qmd

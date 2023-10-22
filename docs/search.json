@@ -215,5 +215,96 @@
     "title": "7  hcesNutR Package",
     "section": "8.3 Extra energy requirements for pregnancy",
     "text": "8.3 Extra energy requirements for pregnancy\n\n# # Extra energy requirements for pregnancy and Illness\npregnantPersons <- ihs5_health |>\n    dplyr::filter(hh_d05a == 28 | hh_d05b == 28) |> # NOTE: 28 is the code for pregnancy in this survey\n    dplyr::mutate(ame_preg = 0.11, afe_preg = 0.14) |> # NOTE: where do these values come from, DHS?\n    dplyr::select(HHID, ame_preg, afe_preg)\n\n# Preview\npregnantPersons |>\n    head() |>\n    DT::datatable()"
+  },
+  {
+    "objectID": "fct_standardisation.html",
+    "href": "fct_standardisation.html",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "",
+    "text": "9 Environment Prep\nFirst we need to check what packages are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it."
+  },
+  {
+    "objectID": "fct_standardisation.html#objective",
+    "href": "fct_standardisation.html#objective",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "8.1 Objective",
+    "text": "8.1 Objective\nThis document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repository is documented in this folder (documentation).\nFor easy navigation and use of this script it is recommended to use Rstudio. In RStudio please click the “Show Document Outline” button to the right of the source button, at the top right of this window. This will allow for easier navigation of the script."
+  },
+  {
+    "objectID": "fct_standardisation.html#food-composition-functions",
+    "href": "fct_standardisation.html#food-composition-functions",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "9.1 Food composition functions",
+    "text": "9.1 Food composition functions\n\n# We also need to import some custom functions in another script:\nsource(here::here(\"functions.R\")) # Loading nutrition functions"
+  },
+  {
+    "objectID": "fct_standardisation.html#data-license-check",
+    "href": "fct_standardisation.html#data-license-check",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "10.1 Data License Check",
+    "text": "10.1 Data License Check\nBefore using any dataset, we recommend to check licensing conditions & record the data source, you can use the README template."
+  },
+  {
+    "objectID": "fct_standardisation.html#data-download",
+    "href": "fct_standardisation.html#data-download",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "10.2 Data Download",
+    "text": "10.2 Data Download\nIf the data is publicly available online, usually you only need to run the code below to obtain the raw files. Remember you only need to do it the first time! Then, the data will be stored in the folder of your choice (see below).\nFor instance, many raw files can be found provided by the FAO here, in various formats - https://www.fao.org/infoods/infoods/tables-and-databases/en/\nOnce the link to the data is found, check what file type it is, and paste the direct file link to replace the fill-in value below.\nPlease note: in the chunck of code below, the ‘template’ is a fill in value for a folder - if you wish to store this file in a folder, you must create a folder in your here::here location (found by running here::here()) and replace ‘template’ with that folders name. It is also important to make sure that the filename you pick for the downloaded file has the same file suffix (e.g. ‘.xlsx’) as the file you are downloading.\n\nf <- \"http://www.the-source-of-the-data/.../the-file-data.xlsx\"\n\ndownload.file(f,  # the location where is downloaded from \n   destfile = here::here('template', \"the-file-name-of-data.xlsx\"), # the location where you                                                 wish the file to be stored in your computer. \n            method=\"wininet\", # use \"curl\" for OS X / Linux, \"wininet\" for Windows \n            mode=\"wb\")"
+  },
+  {
+    "objectID": "fct_standardisation.html#file-names-conventions",
+    "href": "fct_standardisation.html#file-names-conventions",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "10.3 File names conventions",
+    "text": "10.3 File names conventions\nWe advise to use the ISO code (2 digits) (see ISO 3166 2-alpha code for further information) of the country or the region of the FCT scope, plus the two last digits of the year of publication to name, both the folder which will contain the data and the scripts related to the FCT. For instance, Kenya FCT, 2018 will be coded as KE18. This will help with the interoperability, reusability and findability of the data. Also, to streamline the work in the future. That name convention will be used also as the identifier of the FCT. See section X.x. Variable re-naming."
+  },
+  {
+    "objectID": "fct_standardisation.html#identifying-the-file",
+    "href": "fct_standardisation.html#identifying-the-file",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "11.1 Identifying the file",
+    "text": "11.1 Identifying the file\n\n11.1.1 Using the download code above (1.2.)\nFirst, we must find the file on your system that we want to import. If using RStudio: If you used the download method above Section 1.2 then we will see the same location as specified there to specify the file. Simply copy the contents of the here::here brackets and use it to fill the here::here brackets in the line of code below.\n\n#This identifies the file and file path, and saves it as a variable\nFCT_file_location <- here::here('template', \"the-file-name-of-data.xlsx\") \n\n\n\n11.1.2 Using here::here()\n\nA brief introduction to here::here()\nIf you are using an RStudio project but used a different download method, or already have the file you want to process on your computer, or are using base R we can still use the here::here function, however we will have to find the file first. Best practise is to put the file in the same folder as this script, or in a folder within the project. If this is done, then use here::here() to find your current working directory, and then navigate to the file folder.\n\n# Run this script to see where is your directory\nhere::here()\n\nIn order to navigate there, I have to include each subfolder between my here::here location and the file itself (so the ‘Research’ folder, the ‘FCT_cleaning’ folder and the ‘FCT_1’ folder). To do this, specify these folders in here::here, and then specify the file itself, like so: here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual_fct.xlsx'). If using an RStudio project, and you put this .R file and the data file in the same folder as the RStudio project or within a subfolder, this is much easier as your project/here::here location automatically moves to the main project folder. More information about the here package can be found here.\n\n\nUsing here::here()\nFind your file in your computer, and then direct here::here to it - e.g.: (edit the line below to match your file location, remove hash from the start of the line below and run)\n\nFCT_file_location <- here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual_fct.xlsx') #This identifies the file and file path, and saves it as a variable"
+  },
+  {
+    "objectID": "fct_standardisation.html#importing-files",
+    "href": "fct_standardisation.html#importing-files",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "11.2 Importing Files",
+    "text": "11.2 Importing Files\nDuring import, a identifier for the FCT is created and added to the table. Please replace ‘MW19’ from the next code chunck with the FCT id., comprised of the countries ISO 3166 2-alpha code, and the year the FCT was produced (e.g. for the Malawi FCT from 2019, the reference would be ‘MW19’). This should be the same as the folder name explained in (section 1.3)[link-to-section].\n\n# This is an example of the name \nFCT_id <- 'MW19' # Change two first letter for your ISO 2 code & the two digits for the last two digits of the year of publication.\n\nFCT files come in many different forms - the most common being “.xlsx” files and “.csv” files. Methods to import both of these file types will be covered - please navigate to the relevant subsection.\n\n11.2.1 Importing .xlsx files\nFor the excel-type of files, first, you need to check what information is provided and which of the sheet is providing the FC data.\n\ndata.df <- readxl::read_excel(FCT_file_location, #The file location, as                            identified in section 2.1\n                              sheet = 1  # Change to the excel sheet where                              the FCT is stored in the excel file\n                              ) %>%  \n  mutate(source_fct = FCT_ref)  #Creates the source_fct column and fills with                 a id for this FCT, as filled in in section 2.2. \n\n\n\n11.2.2 Importing .csv files\n\ndata.df <- read.csv2(FCT_file_location, #The file location, as identified in section 2.1\n                     sep = \",\") %>%  # Replace w/ other symbol if needed\n  mutate(source_fct = FCT_ref) #Creates the source_fct column and fills with a id for this FCT, as filled in in section 2.2. \n\nOnce imported, it is important to check the data.frame created from the csv, by using head(data.df) or clicking on its entry in the Environment panel of RStudio (This second option is not advised with very large files, however, as it can be slow).\nIf the data shown by doing this has all its columns combined, with a symbol in-between, then that symbol (e.g. ‘;’) is the separator for that csv. Replace comma in the sep = \",\" line from the code block above with the # new symbol, and run the entire block again.\n\n# Checking the dataframe\nhead(data.df)"
+  },
+  {
+    "objectID": "fct_standardisation.html#checking-the-loaded-data",
+    "href": "fct_standardisation.html#checking-the-loaded-data",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "11.3 Checking the loaded data",
+    "text": "11.3 Checking the loaded data"
+  },
+  {
+    "objectID": "fct_standardisation.html#how-many-rows-columns-have-the-data",
+    "href": "fct_standardisation.html#how-many-rows-columns-have-the-data",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "11.4 How many rows & columns have the data?",
+    "text": "11.4 How many rows & columns have the data?\n\ndim(data.df) # rows & columns"
+  },
+  {
+    "objectID": "fct_standardisation.html#what-are-the-variables-names",
+    "href": "fct_standardisation.html#what-are-the-variables-names",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "11.5 What are the variables names?",
+    "text": "11.5 What are the variables names?\n\nnames(data.df)\n\nIf we are happy that we have loaded the correct FCT file, then proceed. If not, find the correct file and import it instead."
+  },
+  {
+    "objectID": "fct_standardisation.html#visually-checking-the-data",
+    "href": "fct_standardisation.html#visually-checking-the-data",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "12.1 Visually checking the data",
+    "text": "12.1 Visually checking the data\n\n# Checking the first rows and columns\nhead(data.df) \n\n# Checking the last rows and columns\ntail(data.df)\n\n# Opening the dataframe in a tab, \n#Note: if the dataset is very very big, may crash the R session.\nView(data.df)"
+  },
+  {
+    "objectID": "fct_standardisation.html#trimming-dataframe-rows",
+    "href": "fct_standardisation.html#trimming-dataframe-rows",
+    "title": "8  Food Composition Table & Databases: Standardisation",
+    "section": "12.2 Trimming dataframe rows",
+    "text": "12.2 Trimming dataframe rows\nRunning this will trim down the table to only include the row numbers between x and y - replace x and y with your desired values. If you wanted to include multiple row ranges, that is also possible - use comments to differentiate between different row ranges and individual rows. e.g. if you wanted to include rows a:b, row c, row e, and rows g:x, then the code would be slice(a:b, c, e, g:x).\n\ndata.df <- data.df %>% slice(x:y)"
   }
 ]

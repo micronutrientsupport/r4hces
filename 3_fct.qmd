@@ -1,6 +1,10 @@
 ---
 title: "Introduction to standardisation of the food composition tables and databases"
-format: html
+format: 
+  html:
+     toc: true
+     theme: simple.scss
+     embed-resources: true
 editor: source
   markdown: 
     wrap: 72
@@ -8,22 +12,27 @@ editor: source
 
 # Introduction
 
-### 1. Selecting food composition data
+### Selecting food composition data
 
-#### 1.1. Selecting the food composition data for use with the survey.
+#### Selecting the food composition data for use with the survey.
 
 When selecting what [food composition data]{.dark-blue} will be used, we need to answer some of the following questions:
 
 1.  Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?).
-2.  FCT availability & missing values (e.g., are relevant foods and nutrients reported?)
-3.  Data quality and reporting (e.g., what are the method of analysis and metadata available?)
 
-##### 1.1.1. Relevancy for the study/context (e.g., geographically and culturally close).
+2.  FCT availability & missing values (e.g., are relevant foods and nutrients reported?).
+
+3.  Data quality and reporting (e.g., what are the method of analysis and metadata available?).
+
+##### Relevancy for the study/context (e.g., geographically and culturally close).
+
+#TODO: Can we do this interactive? 
 
 ::: callout-note
 ## Question 1
 
 What FCTs do you know from the region of interest? And, what FCT would you use for your study?
+
 :::
 
 ::: {.callout-tip collapse="true"}
@@ -36,24 +45,30 @@ There are more than 19 FCTs in the sub-Saharan region.
 
 After selecting the most relevant FCT(s), we need to check whether it contains the information we need for the objective of our study.
 
-##### 1.1.2. FCT availability & missing values (e.g., relevant foods and nutrients are reported)
+##### FCT availability & missing values (e.g., relevant foods and nutrients are reported)
 
 Here, we need to check if the FCT(s) that we have selected contains the foods reported consumed in the household survey and the nutrients that we will be evaluating in our study.
 
-#TODO: Can we do this interactive? :::{.callout-note} \## Question 2 How many foods are reported in the Tanzania FCT?
+:::{.callout-note} 
+## Question 2 
+
+How many foods are reported in the FCT (e.g., Malawi FCT, 2019)? 
 
 :::
 
 ::: {.callout-tip collapse="true"}
+
 ## Answer 2
 
-378
+`r unique(data.df$food_desc)`, you can answer that question by using `unique(data.df$food_desc)`.
+
 :::
 
-::: callout-note
+::: {.callout-tip collapse="true"}
 ## Question 3
 
 What nutrients and other food components are reported?
+
 :::
 
 ::: {.callout-tip collapse="true"}
@@ -76,7 +91,9 @@ Information of edible portion and water (moisture) content is missing.
 
 After, we have checked that most of the foods and nutrients that we need are reported in the FCT(s) selected, we need to check the quality of the data provided, as it would condition the results of our analysis.
 
-##### 1.1.3. Data quality and reporting (e.g., method of analysis, good metadata)
+
+##### Data quality and reporting (e.g., method of analysis, good metadata)
+
 
 General quality checks are: the level of detail in the food description, the methods used for nutrient values compilation, and the documentation and degree of detail.
 
@@ -118,7 +135,7 @@ This document provide, together with the template document, the steps and descri
 
 For easy navigation and use of this script it is recommended to use Rstudio. In RStudio please click the "Show Document Outline" button to the right of the source button, at the top right of this window. This will allow for easier navigation of the script.
 
-# 1. Environment Prep
+# Environment Prep
 
 First we need to check what [packages](link-to-packages-explanation) are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.
 
@@ -135,7 +152,7 @@ rm(list = ls())
 
 ```
 
-## 1.1. Food composition functions
+## Food composition functions
 
 ```{r}
 
@@ -144,13 +161,13 @@ source(here::here("functions.R")) # Loading nutrition functions
 
 ```
 
-# 1. Obtaining the raw (FCT) file(s) for importing
+# Obtaining the raw (FCT) file(s) for importing
 
-## 1.1. Data License Check
+## Data License Check
 
 Before using any dataset, we recommend to check licensing conditions & record the data source, you can use the [README template](link-to-readme-template).
 
-## 1.2. Data Download
+## Data Download
 
 If the data is publicly available online, usually you only need to run the code below to obtain the raw files. Remember you only need to do it the first time! Then, the data will be stored in the folder of your choice (see below).
 
@@ -158,7 +175,8 @@ For instance, many raw files can be found provided by the FAO here, in various f
 
 Once the link to the data is found, check what file type it is, and paste the direct file link to replace the fill-in value below.
 
-Please note: in the code chunck below, the 'template' is a fill-in value for a folder - if you wish to store this file in a folder, you must create a folder in your here::here location (found by running "here::here()") and replace 'template' with that folders name. It is also important to make sure that the filename you pick for the downloaded file has the same file suffix (e.g. '.xlsx') as the file you are downloading.
+Please note: in code chunck below, the 'template' is a fill in value for a folder - if you wish to store this file in a folder, you must create a folder in your here::here location (found by running `here::here()`) and replace 'template' with that folders name. It is also important to make sure that the filename you pick for the downloaded file has the same file suffix (e.g. '.xlsx') as the file you are downloading.
+
 
 ```{r}
 
@@ -172,15 +190,16 @@ download.file(f,  # the location where is downloaded from
 
 ```
 
-## 1.3. File names conventions
+## File names conventions
 
 We advise to use the ISO code (2 digits) (see [ISO 3166 2-alpha code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for further information) of the country or the region of the FCT scope, plus the two last digits of the year of publication to name, both the folder which will contain the data and the scripts related to the FCT. For instance, Kenya FCT, 2018 will be coded as KE18. This will help with the interoperability, reusability and findability of the data. Also, to streamline the work in the future. That name convention will be used also as the identifier of the FCT. See section X.x. Variable re-naming.
 
-# 2. Importing the data (loading the data)
 
-## 2.1. Identifying the file
+# Importing the data (loading the data)
 
-### 2.1.1. Using the download code above (1.2.)
+## Identifying the file
+
+### Using the download code above (1.2.)
 
 First, we must find the file on your system that we want to import. If using RStudio: If you used the download method above [Section 1.2](link-to-section) then we will see the same location as specified there to specify the file. Simply copy the contents of the here::here brackets and use it to fill the here::here brackets in the line of code below.
 
@@ -191,13 +210,13 @@ FCT_file_location <- here::here('template', "the-file-name-of-data.xlsx")
 
 ```
 
-### 2.1.2. Using here::here()
+### Using here::here()
 
-#### 2.1.2.1. A brief introduction to here::here()
+#### A brief introduction to here::here()
 
 If you are using an RStudio project but used a different download method, or already have the file you want to process on your computer, or are using base R we can still use the here::here function, however we will have to find the file first. Best practise is to put the file in the same folder as this script, or in a subfolder of that folder. If this is done, then use `here::here()` to find your current working directory, and then navigate to the file folder. For example, I run `here::here()` and this is the output:"C:/Users/\[Username\]/.../Documents", but my file is in the folder "C:/Users/\[Username\]/.../Documents/Research/FCT_cleaning/FCT_1" and is called "The_actual_fct.xlsx". In order to navigate there, I have to include each subfolder between my `here::here` location and the file itself (so the 'Research' folder, the 'FCT_cleaning' folder and the 'FCT_1' folder). To do this, specify these folders in here::here, and then specify the file itself, like so: `here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual_fct.xlsx')`. If using an RStudio project, and you put this .R file and the data file in the same folder as the RStudio project or within a subfolder, this is much easier as your project/here::here location automatically moves to the main project folder. More information about the here package can be found [here](https://here.r-lib.org/).
 
-#### 2.1.2.2. Using here::here()
+#### Using here::here()
 
 Find your file in your computer, and then direct here::here to it - e.g.: (edit the line below to match your file location, remove hash from the start of the line below and run)
 
@@ -207,20 +226,22 @@ FCT_file_location <- here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual
 
 ```
 
-## 2.2. Importing Files
 
-During import, a identifier for the FCT is created and added to the table. Please replace 'US19' from the next code chunck with the FCT id., comprised of the countries [ISO 3166 2-alpha code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes), and the year the FCT was produced (e.g. for the United States FCT from 2019, the reference would be 'US19'). This should be the same as the folder name explained in (section 1.3)\[link-to-section\].
+## Importing Files
+
+During import, a identifier for the FCT is created and added to the table. Please replace 'MW19' from the next code chunck with the FCT id., comprised of the countries [ISO 3166 2-alpha code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes), and the year the FCT was produced (e.g. for the Malawi FCT from 2019, the reference would be 'MW19'). This should be the same as the folder name explained in (section 1.3)\[link-to-section\].
 
 ```{r}
 
 # This is an example of the name 
-FCT_id <- 'US19' # Change two first letter for your ISO 2 code & the two digits for the last two digits of the year of publication.
+FCT_id <- 'MW19' # Change two first letter for your ISO 2 code & the two digits for the last two digits of the year of publication.
 
 ```
 
 FCT files come in many different forms - the most common being ".xlsx" files and ".csv" files. Methods to import both of these file types will be covered - please navigate to the relevant subsection.
 
-### 2.2.1. Importing .xlsx files
+
+### Importing .xlsx files
 
 For the excel-type of files, first, you need to check what information is provided and which of the sheet is providing the FC data.
 
@@ -233,7 +254,9 @@ data.df <- readxl::read_excel(FCT_file_location, #The file location, as         
 
 ```
 
-### 2.2.2. Importing .csv files
+### Importing .csv files
+
+
 
 ```{r}
 
@@ -243,7 +266,7 @@ data.df <- read.csv2(FCT_file_location, #The file location, as identified in sec
 
 ```
 
-Once imported, it is important to check the data.frame created from the csv, by using head(data.df) or clicking on its entry in the Environment panel of RStudio (This second option is not advised with very large files, however, as it can be slow).
+Once imported, it is important to check the data.frame created from the csv, by using `head(data.df)` or clicking on its entry in the Environment panel of RStudio (This second option is not advised with very large files, however, as it can be slow).
 
 If the data shown by doing this has all its columns combined, with a symbol in-between, then that symbol (e.g. ';') is the separator for that csv. Replace the comma in the `sep = ","` line from the code block above with the new symbol, and run the entire block again.
 
@@ -254,7 +277,8 @@ head(data.df)
 
 ```
 
-## 2.3. Checking the loaded data
+
+## Checking the loaded data
 
 ## How many rows & columns does the dataset have?
 
@@ -274,9 +298,10 @@ names(data.df)
 
 If we are happy that we have loaded the correct FCT file, then proceed. If not, find the correct file and import it instead.
 
-# 3. Data Formatting
 
-## 3.1. Visually checking the data
+# Data Formatting
+
+## Visually checking the data
 
 It is always advisable to check the dimensions of the dataset you are working with. This will allow you to get a handle on the size of the dataset, and may inform you about the contents of the dataset, and whether it is formatted in a sensible manner. Some common issues can be uncovered this way, such as columns that contain multiple variables, or whether the first row contains actual data or more variable metadata (e.g. the units for the column).
 
@@ -293,9 +318,11 @@ View(data.df)
 
 ```
 
-## 3.2. Trimming dataframe rows
+
+## Trimming dataframe rows
 
 Sometimes it is necessary to trim the dataset - for instance, if the bottom of the table has some metadata rows which are not actual data.
+
 
 Running this will trim down the table to only include the row numbers between x and y - replace x and y with your desired values. If you wanted to include multiple row ranges, that is also possible - use comments to differentiate between different row ranges and individual rows. e.g. if you wanted to include rows a:b, row c, row e, and rows g:x, then the code would be `slice(a:b, c, e, g:x)`.
 
@@ -304,6 +331,7 @@ Running this will trim down the table to only include the row numbers between x 
 data.df <- data.df %>% slice(x:y)
 
 ```
+
 
 ## 3.3. Trimming dataframe columns
 
@@ -425,8 +453,9 @@ dplyr::rename( ENERCkJ = "kilojoules", ENERCkcal = "kilocalories", WATERg = "wat
 
 # Renaming the other variables (food code/id, food name, etc.)
 
-data.df \<- data.df %\>%\
-dplyr::rename( fdc_id = "food_id", \# Food id/code food_desc = "food_item", \# Food name/description Edible_factor_in_FCT = "edible_part", \# Edible portion nutrient_data_source = "biblio") \# Reference for NVs reported
+data.df <- data.df %>%\
+dplyr::rename( fdc_id = "food_id", # Food id/code 
+food_desc = "food_item", \# Food name/description Edible_factor_in_FCT = "edible_part", \# Edible portion nutrient_data_source = "biblio") \# Reference for NVs reported
 
 ## What are the variables names now?
 
@@ -495,3 +524,22 @@ data.df\[, aa_mg\] \<- data.df\[, aa_prot\]*data.df\$PROCNTg*10 \# Generating th
 write.csv(data.df, file = here::here("Output", "template-name_FCT_FAO_Tags.csv"), \# Change according to the FCT file row.names = FALSE) #Saves the newly-created data table to the Output folder
 
 #Run this to clean the environment rm(list = ls())
+
+
+## Q&A 
+
+:::{.callout-note} 
+## Question 2 
+
+How many foods are reported in the Malawi FCT, 2019?
+
+:::
+
+::: {.callout-tip collapse="true"}
+
+## Answer 2
+
+`r unique(data.df$food_desc)`, you can answer that question by using `unique(data.df$food_desc)`.
+
+:::
+
