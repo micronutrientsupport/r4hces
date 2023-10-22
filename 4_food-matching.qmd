@@ -3,7 +3,7 @@ title: "Food Matching Framework"
 format: 
   html:
      toc: true
-     theme: presentation/simple.scss
+     theme: simple.scss
      embed-resources: true
 editor: source
 ---
@@ -16,45 +16,122 @@ library(dplyr)
 
 ```
 
+# Introduction
 
+## FC harmonisation and NCT generation
 
-## 4. Harmonising the Food Composition Tables
+## Food matching
 
-When all the FCTs are standardised, we can use them all together, hence if a food item is missing in Tanzania FCT, 2008, then a similar food item will be found in another FCT. 
+After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the Integrated Household Survey, Wave 5, 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called "food dictionary". As depicted in the @fig-matching.
 
-### 4.1. Food matching
+![](docs/images/food-matching.png){#fig-matching}
 
-After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the NPS-DSS 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called "food dictionary". As depicted in the @fig-matching.
-
-
-![](presentation/images/food-matching.png){#fig-matching}
-
-
-
-:::{.callout-note}
-
+::: callout-note
 ## Activity 2: Thinking about food matches between HCES food list and food composition.
-
 :::
-
 
 ```{r}
 
 
 ```
 
+1.  Do you think that the food matches selected represents well what it is consumed in Tanzania?
 
- 1. Do you think that the food matches selected represents well what it is consumed in Tanzania?
- 2. If not, what other foods would you add/remove/change to? 
- 3. For the foods without matches, can you think of what food items you would use?
- 4. Could you identify any food matches in the Tanzania FCT, 2008 that will be a good match for those foods that have no matches? 
- 5. What nutrients are important for each of the foods selected? 
+2.  If not, what other foods would you add/remove/change to?
+
+3.  For the foods without matches, can you think of what food items you would use?
+
+4.  Could you identify any food matches in the Tanzania FCT, 2008 that will be a good match for those foods that have no matches?
+
+5.  What nutrients are important for each of the foods selected?
 
 
 
 ## Further Readings
 
-<br/>
+<br>
 
-- Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.
-- ‘FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome’. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.
+-   Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.
+-   FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome'. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.
+
+
+
+## Harmonising the Food Composition Tables
+
+When all the FCTs are standardised, we can use them all together, hence if a food item is missing in Malawi FCT, 2019, then a similar food item will be found in another FCT.
+
+## Getting the FC Harmonised dataset
+
+Download the following folders: KE18, WA19 & US19?? from [this GitHub repository](). 
+
+```{r}
+
+
+```
+
+Each folder has one script with the FCT id followed by "_FCT_FAo_Tags", and a README file. 
+
+Then, source the merging script. The merging script run the standardisation scripts, which download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching. 
+
+```{r}
+
+# Running the "merging" script
+source(here::here("", ""))
+
+```
+
+The function `source()` will run the called script.
+
+```{r}
+
+#checking that all FCTs are loaded and 
+# counting No. of items 
+
+data.df %>%  
+  count(source_fct) 
+
+```
+
+## Food matching
+
+
+## Dealing with missing values
+
+### Combining Tagnames to generate variables
+
+### Re-calculating variables
+
+Some varibles need to be recalculated, as part of the harmonisation process and also for quality assurance. One case is Energy (kcal/kJ) which is calculated from the proximate: Protein, Fat, available Carbohydrates, Fibre and Alcohol. Hence, we need to make sure that all these variables are reported and are completed. For instance, if there were missing values in Fat content, that the combination of Tagnames have been performed. In addition, if we are using Carbohydrate by difference, then we should re-calculate that variable as well. 
+
+
+```{r}
+
+data.df %>% 
+  # Calculate available Carbohydrates, by difference
+  CHOAVLDFg_std_creator() %>%  
+  # Calculate Energy (kcal)
+  ENERCKcal_standardised() %>% 
+  # calculate Energy (kJ)
+  ENERCKj_standardised() 
+  
+
+```
+
+Another similar example is Vitamin A (RE/RAE), which is calculated from retinol and the carotenoids (i.e., Beta-carotene equivalents). Similarly, we need to check that those two variables. Note, that beta-carotene eq. is also re-calculated, when possible, from the carotenids and their conversion factors. Hence, first we should check that beta-carotene, alpha-carotene, and beta-crypoxanthin are available. 
+
+```{r}
+
+data.df %>% 
+# Recalculate beta-carotene eq.
+    CARTBEQmcg_std_creator() %>% 
+# Recalculate Vitamin A (RAE)
+   VITA_RAEmcg_std_creator() %>%  
+# Recalculate Vitamin A (RE)
+    VITAmcg_std_creator()
+
+```
+
+
+## Visualisation & QC
+
+
