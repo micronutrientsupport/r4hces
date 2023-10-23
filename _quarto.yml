@@ -20,7 +20,7 @@ book:
     - data_wrangling_and_io.qmd
     - data_visualisation.qmd
     - hcesNutR-package.qmd
-    # - fct_standardisation.qmd
+    - fct_standardisation.qmd
     # - fct.qmd
     # - food-matching.qmd
     - summary.qmd
