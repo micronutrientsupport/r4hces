@@ -4,7 +4,7 @@
 
 ### Selecting food composition data
 
-When selecting what food composition data will be used, we need to answer some of the following questions:
+When selecting the food composition table or database (FCT) that will be used, it is good to reflect on the following questions:
 
 1.  Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?).
 
@@ -12,10 +12,8 @@ When selecting what food composition data will be used, we need to answer some o
 
 3.  Data quality and reporting (e.g., what are the method of analysis and metadata available?).
 
-### Further readings
 
-
-## Objective
+### Objective
 
 This document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repository is documented in this folder (documentation).
 
@@ -37,19 +35,10 @@ library(stringr) # character string handling
 library(dplyr) # cleaning data
 library(here) # file management
 
-#required_packages <- c("readxl", "stringr", #"dplyr", "here" #,"measurements"
-#                       ) #This line lists #the required packages
-#
-#install.packages(setdiff(required_packages, #rownames(installed.packages()))) #This #installs them if they aren't already #installed.
-#
-#lapply(required_packages, library, #character.only = TRUE) #And then activates #them
-
-
-
 ```
 
 
-## Obtaining the raw (FCT) file(s) for importing
+## Obtaining the raw (FCT) file
 
 ### Data License Check
 
@@ -173,7 +162,7 @@ If the data shown by doing this has all its columns combined, with a symbol in-b
 ```{r}
 
 # Checking the dataframe
-head(data.df) %>% knitr::kable()
+head(data.df) 
 
 ```
 
@@ -304,20 +293,19 @@ group.id <-  unique(str_extract(data.df$Code, "^[:digit:]{2}\\_"))[-1]
 
 data.df <- data.df %>% #Identifies the food group number from the fdc_id, and applies the correct food_group from the fgroup list to the food_group column 
   mutate(food_group = ifelse(grepl("01_", Code), fgroup[1],
-                             ifelse(grepl("02_", Code), fgroup[2],
-                                    ifelse(grepl("03_", Code), fgroup[3],
-                                           ifelse(grepl("04_", Code), fgroup[4],
-                                                  ifelse(grepl("05_", Code), fgroup[5],
-                                                         ifelse(grepl("06_", Code), fgroup[6],
-                                                                ifelse(grepl("07_", Code), fgroup[7],
-                                                                       ifelse(grepl("08_", Code), fgroup[8],
-                                                                              ifelse(grepl("09_", Code), fgroup[9], 
-                                                                                     ifelse(grepl("10_", Code), fgroup[10], 
-                                                                                            ifelse(grepl("11_", Code), fgroup[11], 
-                                                                                                   ifelse(grepl("12_", Code), fgroup[12],
-                                                                                                          ifelse(grepl("13_", Code), fgroup[13],
-                                                                                                                 ifelse(grepl("14_", Code), fgroup[14],
-                                                                                                                        'NA')))))))))))))))
+                      ifelse(grepl("02_", Code), fgroup[2],
+                      ifelse(grepl("03_", Code), fgroup[3],
+                      ifelse(grepl("04_", Code), fgroup[4],
+                      ifelse(grepl("05_", Code), fgroup[5],
+                      ifelse(grepl("06_", Code), fgroup[6],
+                      ifelse(grepl("07_", Code), fgroup[7],
+                      ifelse(grepl("08_", Code), fgroup[8],
+                      ifelse(grepl("09_", Code), fgroup[9], 
+                      ifelse(grepl("10_", Code), fgroup[10], 
+                      ifelse(grepl("11_", Code), fgroup[11], 
+                      ifelse(grepl("12_", Code), fgroup[12],
+                      ifelse(grepl("13_", Code), fgroup[13],
+                      ifelse(grepl("14_", Code), fgroup[14],                          'NA')))))))))))))))
 
 ```
 
@@ -573,3 +561,6 @@ rm(list = ls())
 
 ```
 
+## Further readings
+
+1. Charrondiere, U.R., Stadlmayr, B., Grande, F., Vincent, A., Oseredczuk, M., Sivakumaran, S., Puwastien, P., Judprasong, K., Haytowitz, D., Gnagnarella, P. 2023. FAO/INFOODS Evaluation framework to assess the quality of published food composition tables and databases - User guide. Rome, FAO. https://doi.org/10.4060/cc5371en
