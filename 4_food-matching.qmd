@@ -133,8 +133,9 @@ data.df %>%
 ```
 
 
-
 ## Food matching
+
+First, we need the list of unique foods reported as consumed. In HCES dataset, this is frequently presented as set of standard list of foods. We are also interested in knowing the frequency with each food is reported, and hence their impact and importance for subsequent analysis. 
 
 ```{r}
 
@@ -143,6 +144,25 @@ data.df %>%
 
 ```
 
+Then, we will match those food items with their corresponding food dictionary code(s). There are instances were the matching will be one food reported to many foods in the FCT. For example, wheat flour will be matched to wheat flour refined, and wheat flour wholemeal.
+
+```{r}
+
+# Food dictionary
+
+
+# Food list to food dictionary
+
+```
+
+Then, the unique food dictionary codes (`ID_3`) will be used to match the food in the food list to the FCTs. 
+
+```{r}
+
+# Matching 
+
+
+```
 
 
 ::: callout-note
@@ -161,11 +181,6 @@ Thinking about food matches between HCES food list and food composition.
 5.  What nutrients are important for each of the foods selected?
 
 :::
-
-```{r}
-
-
-```
 
 
 

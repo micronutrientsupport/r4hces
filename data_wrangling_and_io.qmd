@@ -131,6 +131,7 @@ Notice how our operations only affect the specific columns we specify? This is b
 :::{.callout-note}
 ## Excercise
 1. Rename the remaining columns to:
+
 |old_name | new_name|
 |---|---|
 |hh_g01_oth | food_item_other|

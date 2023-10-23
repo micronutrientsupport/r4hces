@@ -37,3 +37,177 @@ devtools::install_github("TomCodd/NutritionTools")
 ```
 
 ### Food composition functions
+
+There are some useful functions that can be downloaded [here](https://github.com/LuciaSegovia/UoN-FAO/tree/main/functions), and are currently being checked to be added to the NutritionTool package. Those can be loaded into the R environment by running the `functions.R` script.
+
+```{r}
+
+# We also need to import some custom functions in another script:
+source(here::here("functions.R")) # Loading nutrition functions
+
+```
+
+The function `source()` will run the called script.
+
+## Getting the FC Standardarised dataset
+
+Download the following folders: KE18 & WA19 from [this GitHub repository](https://github.com/LuciaSegovia/fct/tree/master/FCTs). Eventually, you could download all of them an create a unique FC library. 
+
+Each folder has one script with the FCT id followed by *"_FCT_FAO_Tags"*, and a README file.
+
+```{r}
+
+# Finding the list of FCTs/FCDBs script in the data folder
+
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not looking into the subfolders
+           full.names=TRUE)
+
+```
+
+ 
+The next block of code will download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching.
+
+```{r}
+
+# Getting the list of FCTs/FCDBs script in the data folder
+source_fct_name <- list.files("data/", pattern = "*_FCT_FAO_Tags.R", recursive=FALSE, # so it is not looking into the subfolders
+           full.names=TRUE)
+
+for(i in source_fct_name){
+  source(here::here(i))
+}
+
+```
+ 
+
+### Merging the data
+ 
+Checking the FCT we have in our data folder
+
+```{r}
+
+# finding all the cleaned FCTs/FCDBs from the output folder
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not looking into the subfolders.
+           full.names=TRUE)
+
+
+```
+
+Now, we can merge all the FCTs/FCBDs into one file. Note that this is posible because they all have been standardised previously. 
+
+```{r}
+
+# finding all the cleaned FCTs/FCDBs from the output folder
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not taking the fcts in the folder
+           full.names=TRUE)%>% 
+  map_df(~read_csv(., col_types = cols(.default = "c"), 
+                   locale = locale(encoding = "Latin1"))) 
+
+```
+
+We can check that all FCTs that we are expected are there, by using the `source_fct` variable that is generated within the standardisation scripts, and the number of foods in each one. 
+
+```{r}
+
+#checking that all FCTs are loaded and 
+# counting No. of items 
+
+data.df %>%  
+  count(source_fct) 
+
+```
+
+
+## Food matching
+
+First, we need the list of unique foods reported as consumed. In HCES dataset, this is frequently presented as set of standard list of foods. We are also interested in knowing the frequency with each food is reported, and hence their impact and importance for subsequent analysis. 
+
+```{r}
+
+# Getting the food list & frequency of HH
+
+
+```
+
+Then, we will match those food items with their corresponding food dictionary code(s). There are instances were the matching will be one food reported to many foods in the FCT. For example, wheat flour will be matched to wheat flour refined, and wheat flour wholemeal.
+
+```{r}
+
+# Food dictionary
+
+
+# Food list to food dictionary
+
+```
+
+Then, the unique food dictionary codes (`ID_3`) will be used to match the food in the food list to the FCTs. 
+
+```{r}
+
+# Matching 
+
+
+```
+
+
+::: callout-note
+## Activity:
+
+Thinking about food matches between HCES food list and food composition.
+
+1.  Do you think that the food matches selected represents well what the food reported as consumed in the survey?
+
+2.  If not, what other foods would you add/remove/change to?
+
+3.  For the foods without matches, can you think of what food items you would use?
+
+4.  Could you identify any food matches in the Food Composition Library that will be a good match for those foods that have no matches?
+
+5.  What nutrients are important for each of the foods selected?
+
+:::
+
+
+
+## Dealing with missing values
+
+### Combining Tagnames to generate variables
+
+### Re-calculating variables
+
+Some varibles need to be recalculated, as part of the harmonisation process and also for quality assurance. One case is Energy (kcal/kJ) which is calculated from the proximate: Protein, Fat, available Carbohydrates, Fibre and Alcohol. Hence, we need to make sure that all these variables are reported and are completed. For instance, if there were missing values in Fat content, that the combination of Tagnames have been performed. In addition, if we are using Carbohydrate by difference, then we should re-calculate that variable as well. 
+
+
+```{r}
+
+data.df %>% 
+  # Calculate available Carbohydrates, by difference
+  CHOAVLDFg_std_creator() %>%  
+  # Calculate Energy (kcal)
+  ENERCKcal_standardised() %>% 
+  # calculate Energy (kJ)
+  ENERCKj_standardised() 
+  
+
+```
+
+Another similar example is Vitamin A (RE/RAE), which is calculated from retinol and the carotenoids (i.e., Beta-carotene equivalents). Similarly, we need to check that those two variables. Note, that beta-carotene eq. is also re-calculated, when possible, from the carotenids and their conversion factors. Hence, first we should check that beta-carotene, alpha-carotene, and beta-crypoxanthin are available. 
+
+```{r}
+
+data.df %>% 
+# Recalculate beta-carotene eq.
+    CARTBEQmcg_std_creator() %>% 
+# Recalculate Vitamin A (RAE)
+   VITA_RAEmcg_std_creator() %>%  
+# Recalculate Vitamin A (RE)
+    VITAmcg_std_creator()
+
+```
+
+
+## Visualisation & QC
+
+
+
+
