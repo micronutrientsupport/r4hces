@@ -46,7 +46,7 @@
     "href": "intro.html#recommended-setup-while-using-this-book",
     "title": "1  Introduction",
     "section": "1.3 Recommended setup while using this book",
-    "text": "1.3 Recommended setup while using this book\nStep 1: Download the training files from the following link: https://dzvoti.github.io/hces4R/r4hces-data.zip\nStep 2: Unzip the file and save it in a folder on your computer.\nStep 3: Open RStudio create a new project using an existing folder. Select the folder where you saved the training files."
+    "text": "1.3 Recommended setup while using this book\nStep 1: Download the training files from the following link: https://dzvoti.github.io/r4hces/r4hces-data.zip\nStep 2: Unzip the file and save it in a folder on your computer.\nStep 3: Open RStudio create a new project using an existing folder. Select the folder where you saved the training files."
   },
   {
     "objectID": "data_types.html#assignment",

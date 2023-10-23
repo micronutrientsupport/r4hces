@@ -102,7 +102,7 @@ From here we will use the term R to refer to R and Rstudio or vice-versa.
 
 ## Recommended setup while using this book
 
-Step 1: Download the training files from the following link: <https://dzvoti.github.io/hces4R/r4hces-data.zip>
+Step 1: Download the training files from the following link: <https://dzvoti.github.io/r4hces/r4hces-data.zip>
 
 Step 2: Unzip the file and save it in a folder on your computer.
 
