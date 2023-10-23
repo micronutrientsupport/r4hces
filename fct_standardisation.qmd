@@ -69,7 +69,7 @@ We advise to use the ISO code (2 digits) (see [ISO 3166 2-alpha code](https://en
 
 Note that you need to create the folders to store the FCT. 
 
-```{r, warning=FALSE}
+```{r warning=FALSE}
 
 f <- "https://www.fao.org/fileadmin/user_upload/faoweb/2020/WAFCT_2019.xlsx"
  
@@ -92,7 +92,7 @@ If using an RStudio project, and you put the .R file and the data file in the sa
 
 If you are using an RStudio project but used a different download method, or already have the file you want to process on your computer, or are using base R we can still use the here::here function, however we will have to find the file first. The best practice is to put the file in the same folder as this script, or in a folder within the project. If this is done, then use `here::here()` to find your current working directory, and then navigate to the file folder. More information about the here package can be found [here](https://here.r-lib.org/).
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 
 # Run this script to see where is your directory
 here::here()
@@ -155,7 +155,7 @@ data.df <- readxl::read_excel(FCT_file_location, #The file location, as         
 
 #### Importing .csv files
 
-```{r, eval = FALSE}
+```{r eval = FALSE}
 
 data.df <- read.csv2(FCT_file_location, #The file location, as identified in section 2.1
                      sep = ",") %>%  # Replace w/ other symbol if needed
@@ -188,7 +188,7 @@ How many rows & columns have the data?
 
 You can use the function `dim()` to answer to check the number of rows and column.
 
-```{r, eval= FALSE}
+```{r eval= FALSE}
 
 dim(data.df) # rows & columns
 
@@ -204,7 +204,7 @@ dim(data.df) # rows & columns
 
 Other useful functions to evaluate the structure of the data are:
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 
 # Structure (variable names, class, etc.)
 str(data.df)
@@ -243,7 +243,7 @@ If you only wish to include certain columns/nutrients, then you might wish to re
 
 This method requires creating a list of column names you want to keep - for #example the line below would select the columns 'Energy_kcal', 'Fatg', 'Protein_g', but nothing else. If you wish to trim the columns this way, replace the items in the first line with the column names you want to keep, then run the code block below.
 
-```{r, warning=FALSE}
+```{r warning=FALSE}
 
 # Storing the variables you want to keep
 columns_to_keep <- c('Scientific name', 'Energy\r\n(kJ)')
@@ -261,7 +261,7 @@ Sometimes it is easier to list the columns you want to remove, rather than the o
 
 This works in a similar way to the codeblock in section 3.3.1, however by putting an exclamation mark (!) before the list of columns, it inverts the selection - instead of instructing R to keep only the listed columns (as with the codeblock above), it instructs R to keep all columns but the listed ones.
 
-```{r, warning=FALSE}
+```{r warning=FALSE}
 
 # Selecting the variables that you don't want to keep
 columns_to_remove <- c('Food name in French', 'Sum of proximate components\r\n(g)') 
@@ -281,7 +281,7 @@ This process requires multiple steps, each covered in their own subsections belo
 
 #### Extracting food group names
 
-```{r, warning=FALSE}
+```{r warning=FALSE}
 
 #Creates a list of the food groups using their unique row structure in the table to identify them
 
@@ -335,8 +335,7 @@ and identified using brackets ([]) around the component values (`CARTEB or [CART
 ### Renaming variable names: Food components definition and re-naming
 
 Each FCT has its own variable names, including for similar food components. Some
-FCTs included information related to the FAO/ INFOODS food component
-identifiers
+FCTs included information related to the FAO/ INFOODS food component identifiers
 [(Tagnames)](https://www.fao.org/infoods/infoods/standards-guidelines/food-component-identifiers-tagnames/en/)
 
 while other did not. In order to merge all data from various FCTs we
@@ -415,7 +414,7 @@ were combined or recalculated variables.
 
 Table 2. provides a list of all the most relevant food components and their Tagnames. 
 
-```{r, table-2}
+```{r}
 
 read.csv(here::here("data",           "fct_variables_standards.csv")) %>% knitr::kable()
 
