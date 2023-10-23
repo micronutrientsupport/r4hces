@@ -26,27 +26,6 @@ After the FCTs are standardised and harmonised and the food list (i.e., food rep
 
 ![](images/food-matching.png){#fig-matching}
 
-::: callout-note
-## Activity 2: Thinking about food matches between HCES food list and food composition.
-:::
-
-```{r}
-
-
-```
-
-1.  Do you think that the food matches selected represents well what it is consumed in the survey?
-
-2.  If not, what other foods would you add/remove/change to?
-
-3.  For the foods without matches, can you think of what food items you would use?
-
-4.  Could you identify any food matches in the Food Composition Library that will be a good match for those foods that have no matches?
-
-5.  What nutrients are important for each of the foods selected?
-
-
-
 ## Further Readings
 
 <br>
@@ -55,10 +34,9 @@ After the FCTs are standardised and harmonised and the food list (i.e., food rep
 -   FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome'. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.
 
 
-
 ## Harmonising the Food Composition Tables
 
-When all the FCTs are standardised, we can use them all together, hence if a food item is missing in the main FCT, then a similar food item could be found in another FCT.
+When all the FCTs are standardised, we can use them all together, which is particularly useful when food items and/or nutrient values are missing in the main FCT, then a similar food item could be found in another FCT.
 
 ## Getting the Nutrition Tools
 
@@ -75,6 +53,8 @@ devtools::install_github("TomCodd/NutritionTools")
 
 ### Food composition functions
 
+There are some useful functions that can be downloaded [here](https://github.com/LuciaSegovia/UoN-FAO/tree/main/functions), and are currently being checked to be added to the NutritionTool package. Those can be loaded into the R environment by running the `functions.R` script.
+
 ```{r}
 
 # We also need to import some custom functions in another script:
@@ -82,27 +62,65 @@ source(here::here("functions.R")) # Loading nutrition functions
 
 ```
 
+The function `source()` will run the called script.
+
 ## Getting the FC Standardarised dataset
 
 Download the following folders: KE18 & WA19 from [this GitHub repository](https://github.com/LuciaSegovia/fct/tree/master/FCTs). Eventually, you could download all of them an create a unique FC library. 
 
+Each folder has one script with the FCT id followed by *"_FCT_FAO_Tags"*, and a README file.
+
 ```{r}
+
+# Finding the list of FCTs/FCDBs script in the data folder
+
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not looking into the subfolders
+           full.names=TRUE)
+
+```
+
+ 
+The next block of code will download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching.
+
+```{r}
+
+# Getting the list of FCTs/FCDBs script in the data folder
+source_fct_name <- list.files("data/", pattern = "*_FCT_FAO_Tags.R", recursive=FALSE, # so it is not looking into the subfolders
+           full.names=TRUE)
+
+for(i in source_fct_name){
+  source(here::here(i))
+}
+
+```
+ 
+
+### Merging the data
+ 
+Checking the FCT we have in our data folder
+
+```{r}
+
+# finding all the cleaned FCTs/FCDBs from the output folder
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not looking into the subfolders.
+           full.names=TRUE)
 
 
 ```
 
-Each folder has one script with the FCT id followed by *"_FCT_FAO_Tags"*, and a README file. 
-
-Then, source the merging script. The merging script run the standardisation scripts, which download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching. 
+Now, we can merge all the FCTs/FCBDs into one file. Note that this is posible because they all have been standardised previously. 
 
 ```{r}
 
-# Running the "merging" script
-source(here::here("", ""))
+# finding all the cleaned FCTs/FCDBs from the output folder
+list.files("data/", pattern = "*_FCT_FAO_Tags", recursive=FALSE, # so it is not taking the fcts in the folder
+           full.names=TRUE)%>% 
+  map_df(~read_csv(., col_types = cols(.default = "c"), 
+                   locale = locale(encoding = "Latin1"))) 
 
 ```
 
-The function `source()` will run the called script.
+We can check that all FCTs that we are expected are there, by using the `source_fct` variable that is generated within the standardisation scripts, and the number of foods in each one. 
 
 ```{r}
 
@@ -116,13 +134,35 @@ data.df %>%
 
 
 
-
-
 ## Food matching
 
 ```{r}
 
 # Getting the food list & frequency of HH
+
+
+```
+
+
+
+::: callout-note
+## Activity:
+
+Thinking about food matches between HCES food list and food composition.
+
+1.  Do you think that the food matches selected represents well what the food reported as consumed in the survey?
+
+2.  If not, what other foods would you add/remove/change to?
+
+3.  For the foods without matches, can you think of what food items you would use?
+
+4.  Could you identify any food matches in the Food Composition Library that will be a good match for those foods that have no matches?
+
+5.  What nutrients are important for each of the foods selected?
+
+:::
+
+```{r}
 
 
 ```
