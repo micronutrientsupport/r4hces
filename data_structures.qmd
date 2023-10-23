@@ -7,7 +7,7 @@ A data structure in R is an R object which holds one or more data objects, a dat
 A vector is a series of homogeneous values of a variable (e.g. Foods from an HCES survey). The easiest  way to form a vector of values in R is with the `"combine"` function `c()`.
 An example of a vector of character values (food_names) is shown below:
 
-```{r eval=TRUE}
+```{r}
 # Create a vector of character values
 food_names <-
     c("Rice",
@@ -37,7 +37,7 @@ What happens if you try to print the vector `mixture`?
 :::{.callout-tip}
 We can count the number of items in a vector with the `length()` function:
 
-```{r eval=TRUE}
+```{r}
 length(food_names)
 ```
 
@@ -45,7 +45,7 @@ Each item in a vector can be referenced by its index (i.e. its position in the s
 and we can pull out a particular item using the square brackets after the vector name.  For example,
 the `3rd` item in `food_names` can be accessed like this
 
-```{r eval=TRUE}
+```{r}
 food_names[3]
 ```
 :::
@@ -67,7 +67,7 @@ Overall, while data frames and tibbles are similar in many ways, tibbles offer s
 
 Let us make a data frame using the `data.frame()` function.  We will use the vectors we created above as the columns of the data frame.  Note that the vectors must be of the same length, otherwise the data frame will be filled with `NA` values to make up the difference.
 
-```{r eval=TRUE}
+```{r}
 # Create a data frame
 food_df <-
     data.frame(
@@ -91,7 +91,7 @@ print(food_df)
 
 Let us make a tibble using the `tibble()` function.  We will use the vectors we created above as the columns of the tibble.  Note that the vectors must be of the same length, otherwise the tibble will be filled with `NA` values to make up the difference.
 
-```{r eval=TRUE}
+```{r}
 # Create a tibble
 food_tb <- tibble::tibble(
     food_names = c(
@@ -129,7 +129,7 @@ Let us create a factor from a vector of character values.  We can do this using 
 ### Coercing a vector to a factor
 Example of converting the `food_names` vector to a factor:
 
-```{r eval=TRUE}
+```{r}
 # Create a factor without providing the levels argument
 food_names_factor_1 <- factor(food_names)
 # Print the factor
@@ -164,7 +164,7 @@ print(food_names_factor_2)
 ### Coercing a vector to a factor in a data frame
 Example of converting the `food_names` vector to a factor in a data frame:
 
-```{r eval=TRUE}
+```{r}
 library(dplyr)
 # Use the food_tb data frame created above and convert the food_names column to a factor
 food_tb <- mutate(food_tb, food_names = factor(food_names))
