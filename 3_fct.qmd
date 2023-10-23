@@ -78,13 +78,13 @@ We need to report certain nutrients, do you know which ones? (Vitamin A, thiamin
 :::
 
 ::: callout-note
-## Question 4
+## Question
 
 What nutrients and other important food components are missing?
 :::
 
 ::: {.callout-tip collapse="true"}
-## Answer 4
+## Answer
 
 Information of edible portion and water (moisture) content is missing.
 :::
@@ -347,7 +347,7 @@ Columns_to_keep <- c('Energy_kcal', 'Fatg', 'Protein_g') data.df <- data.df %>% 
 
 ```
 
-### 3.3.2. Remove specified columns, keep all others
+### Remove specified columns, keep all others
 
 Sometimes it is easier to list the columns you want to remove, rather than the ones you want to keep. The code block below identifies the columns to be removed ('VitB12_mcg' and 'Calcium_mg' in the example), and then removes them. If you wish to trim the columns this way, replace the items in the first line with the column names you want to remove, then run the code block below.
 
@@ -360,17 +360,17 @@ data.df <- data.df %>% select(!Columns_to_remove)
 
 ```
 
-# 4. Data Conversion and Tidying
+## Data Conversion and Tidying
 
 Sometimes it is necessary to convert, tidy, or create new columns based on the dataset. For example, you may wish to convert data if a nutrients unit of measurement is not standard (milligrams instead of micrograms, or vice versa). Tidying may take the form of renaming variables, or splitting columns that contain multiple variables. It may also be helpful to create new variables derived from information in other variables This section will cover some common examples.
 
-## 4.1. Deriving one variable from another (e.g. Food Group from Food Item ID)
+### Deriving one variable from another (e.g. Food Group from Food Item ID)
 
 If an FCT does not have a column for the food groups, but this information can be derived from the structure of the food item ID, then a food group column can be derived from the food item ID column. Because of R's versatility, it should be possible to derive any information which is indicated by a regular expression or by the structure of the data in another column. We will only cover one example below, as it is impossible to cover all possibilities, but through further research it should be possible regardless of the complexity of the data structure, as long as there is an indicator in another column, such as a few digits or characters in a certain position within the food item ID.
 
 This process requires multiple steps, each covered in their own subsections below: Extracting food group names, Creating the variable, and checking changes in the structure.
 
-### 4.1.1. Extracting food group names
+#### Extracting food group names
 
 ```{r}
 
@@ -383,7 +383,7 @@ fgroup <- data.df %>%
 
 ```
 
-# Creating the food_group variable in the FCT
+### Creating the food_group variable in the FCT
 
 ```{r}
 
@@ -407,71 +407,238 @@ data.df <- data.df %>% #Identifies the food group number from the fdc_id, and ap
 
 ```
 
-# Checking changes in the data structure
 
-data.df %\>% filter(is.na(food_desc), \# !is.na(fdc_id)) str(data.df) \# Checking columns: 1 variable per column, no empty rows. head(dta.df) dim(data.df) \# rows and column \# Note: it should have less rows (from trimming) and one more column (food_group)
+```{r, eval=TRUE}
 
-### 4.2. Dividing combined variables into two (or more) columns ----
+data.df$food_group <- NA
+
+for(i in 1:nrow(group.id)){
+
+  data.df <-   data.df %>% 
+  mutate(food_group = ifelse(grepl(group.id[i], Code), fgroup[i], food_group)) 
+  
+}
+
+```
+
+### Checking changes in the data structure
+
+```{r}
+
+data.df %>% filter(is.na(food_desc), !is.na(fdc_id)) str(data.df) # Checking columns: 1 variable per column, no empty rows. 
+
+head(dta.df) # rows and column
+
+dim(data.df)  
+
+```
+
+Note: it should have less rows (from trimming) and one more column (food_group).
+
+
+
+#### Dividing combined variables into two (or more) columns
+
 
 # This is just an example!
 
-data.df \<- data.frame(a = c("x1", "x2", "x3", "x4"), b = c("399", "\[899\]", "\[5000\]", "3000"), b1 = c("399", "450\*", NA,"3000"), c = c("399", "899", "\[5000\]", "3000"), d = c("LOD", "\<lod", "\[5000\]", "tr"))
+```{r}
 
-data.df \<- data.df %\>% mutate(e = str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), #Creating calculated values from the lower quality method and removing the original values from the original variable b1 = ifelse(is.na(b1), str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), b1))
+data.df <- data.frame(a = c("x1", "x2", "x3", "x4"), 
+                      b = c("399", "\[899\]", "\[5000\]", "3000"), 
+                      b1 = c("399", "450\*", NA,"3000"), c = c("399", "899", "\[5000\]", "3000"),
+                      d = c("LOD", "\<lod", "\[5000\]", "tr"))
 
-# Separating variables: 4 new variables, 3 existing one
+```
 
-data.df \<- data.df %\>% mutate(FATCEg = str_extract(FATg, '(?\<=\\\[).\*?(?=\\\])'),\
-FIBCg = str_extract(FIBTGg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg = ifelse(is.na(CARTBmcg), str_extract(CARTBEQmcg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg), TOCPHAmg = ifelse(is.na(TOCPHAmg),str_extract(VITEmg, '(?\<=\\\[).\*?(?=\\\])'), TOCPHAmg ), NIAmg = ifelse(is.na(NIAmg), str_extract(NIAEQmg, '(?\<=\\\[).\*?(?=\\\])'), NIAmg), FOLSUMmcg = str_extract(FOLmcg, '(?\<=\\\[).\*?(?=\\\])'), PHYTCPPD_PHYTCPPImg = str_extract(PHYTCPPmg, '(?\<=\\\[).\*?(?=\\\])'))
+Creating calculated values from the lower quality method and removing the original values from the original variable
 
-# Checking changes in the data structure
+```{r}
 
-names(data.df) \# Check variable names (are the new variables there?) dim(data.df) \# rows and column \# Note: same rows and 4 more column (4 new variables) str(data.df) \# Checking columns: 1 variable per column, no empty rows.
+data.df <- data.df %\>% mutate(e = str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), 
+b1 = ifelse(is.na(b1), str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), b1))
+
+```
+
+
+### Separating variables
+
+4 new variables, 3 existing one
+
+```{r}
+
+data.df <- data.df %\>% mutate(FATCEg = str_extract(FATg, '(?\<=\\\[).\*?(?=\\\])'),
+FIBCg = str_extract(FIBTGg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg = ifelse(is.na(CARTBmcg), str_extract(CARTBEQmcg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg), 
+TOCPHAmg = ifelse(is.na(TOCPHAmg),str_extract(VITEmg, '(?\<=\\\[).\*?(?=\\\])'), TOCPHAmg ), 
+NIAmg = ifelse(is.na(NIAmg), str_extract(NIAEQmg, '(?\<=\\\[).\*?(?=\\\])'), NIAmg), 
+FOLSUMmcg = str_extract(FOLmcg, '(?\<=\\\[).\*?(?=\\\])'), PHYTCPPD_PHYTCPPImg = str_extract(PHYTCPPmg, '(?\<=\\\[).\*?(?=\\\])'))
+
+names(data.df)
+
+```
+
+Checking the changes in the dataframe
+
+::: callout-note
+## Question
+
+Are the new variables there?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+`r names(data.df)`
+
+:::
+
+::: callout-note
+## Question
+
+How many rows and columns are in the dataset?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+`r dim(data.df)`
+
+:::
+
+
+Note that it should be the same rows and 4 more column (4 new variables).
+  
+Checking columns: 1 variable per column, no empty rows.
 
 ## 4.3. Renaming variables ----
 
 # Checking variables names
 
-names(data.df) \# Are the variable names = column names? #If not, more formatting is needed (back to previous step)
+names(data.df) 
 
-#If yes, \# are the food component variable names using INFOODS tagnames & units \# e.g. \[Variable\]\_\[unit\] (NA_mg)? Then, rename other variables:
+Are the variable names = column names? #If not, more formatting is needed (back to previous step)
 
-# If not, do they provide INFOODS tagname information?
+If yes, \# are the food component variable names using INFOODS tagnames & units \# e.g. \[Variable\]\_\[unit\] (NA_mg)? Then, rename other variables:
 
-# If yes, use that information to rename food components
+If not, do they provide INFOODS tagname information?
 
-# Automatic renaming of INFOODS tagnames & units
+If yes, use that information to rename food components
 
-for( i in 8:62){ #Loops through each column between column 8 and 64 - this is specific for each dataset!! first_row \<- toString(names(data.df)\[i\]) #Takes the column names and assigns it to a variable (name & unit) second_row \<- toString(data.df\[1, i\]) #Takes the first row for that column and assigns it to a variable (tagname) split_string \<- str_split(first_row, "\\(") #Splits the first row around "(", assigning the two resulting strings to a variable (separating units from names) units_int \<- gsub("\\\*\|\\(\|\\)","", split_string\[\[1\]\]\[length(split_string\[\[1\]\])\]) #Separates the units out from the split_string (everything after the last open bracket) (getting units) names(data.df)\[i\] \<- paste0(second_row, units_int) #The column name is replaced with row 1 and the units from row 2 (changing old column name w/ new tagname_unit names) } \# This loops takes units from variable (column name) extract units & combine it with the INFOODS from \# The next row
 
-# If not, then, manually rename each food component with their correct tagname & current unit
+#### Automatic renaming of INFOODS tagnames & units
 
-# Change the names in quotes ("") to those in your dataset, remove/ add as needed
+```{r}
 
-data.df \<- data.df %\>%\
-dplyr::rename( ENERCkJ = "kilojoules", ENERCkcal = "kilocalories", WATERg = "water", FAT_g = "fat", FASATg = "sat_fa", FAMSg = "mu_fa", FAPUg = "pu_fa", F22D6N3g = "c22_6n_3\_dha", F20D5N3g = "c20_5n_3\_epa", CHOLEmg = "cholesterol", CHOAVLg = "carbo", SUGARg = "sugar", FIBTGg = "dietary_fibre", PROCNTg = "protein", ALCg = "alcohol", VITA_RAEmcg = "vitamin_a", RETOLmcg = "retinol", CARTBmcg = "beta_carotene", VITDmcg = "vitamin_d", VITEmg = "vitamin_e", THIAmg ="thiamin", RIBFmg = "riboflavin", NIAmg = "niacin", VITB6_mg = "vitamin_b6", FOLmcg = "folate", VITB12mcg = "vitamin_b12", VITCmg = "vitamin_c", CAmg = "calcium", FEmg = "iron", NAmg = "sodium", Kmg = "potassium", MGmg = "magnesium", Pmg = "phosphorus", SEmcg = "selenium", CUmg = "copper", IDmcg = "iodine", ZNmg = "zinc")
+for( i in 8:62){ #Loops through each column between column 8 and 64 - this is specific for each dataset!!
+  first_row <- toString(names(data.df)\[i\]) #Takes the column names and assigns it to a variable (name & unit) second_row \<- toString(data.df\[1, i\]) #Takes the first row for that column and assigns it to a variable (tagname) split_string \<- str_split(first_row, "\\(") #Splits the first row around "(", assigning the two resulting strings to a variable (separating units from names) units_int \<- gsub("\\\*\|\\(\|\\)","", split_string\[\[1\]\]\[length(split_string\[\[1\]\])\]) #Separates the units out from the split_string (everything after the last open bracket) (getting units) names(data.df)\[i\] \<- paste0(second_row, units_int) #The column name is replaced with row 1 and the units from row 2 (changing old column name w/ new tagname_unit names) } \# This loops takes units from variable (column name) extract units & combine it with the INFOODS from \# The next row
 
-# Renaming the other variables (food code/id, food name, etc.)
+```
 
-data.df <- data.df %>%\
+
+
+ If not, then, manually rename each food component with their correct tagname & current unit
+
+
+##### The identification of food components
+
+Information on the food components and their description should be
+sought in for FCT.  We advise to use the [FAO Tagnames](). Some minor changes in the Tagnames are introduced
+to be compliant with R conventions. E.g., removing spaces in variable
+names, changing symbols to characters (e.g., µg to mcg), or
+standardising the name formatting from using underscores and/or
+parenthesis to using only underscores. Also, changing dashes (-) to
+underscores (\_). Note that within the Tagnames, the dash is used to
+denote that the method for obtaining that (component) value is unknown.
+This is important for the quality assessment of the data.
+
+Also, we also assumed that all the variables labelled as "standardised"
+were combined or recalculated variables.
+
+Table 2. provides a list of all the most relevant food components and their Tagnames. 
+
+
+```{r, table-2}
+
+read.csv(here::here("data",           "fct_variables_standards.csv")) %>% knitr::kable()
+
+```
+
+Change the names in quotes ("") to those in your dataset, remove/ add as needed.
+
+```{r}
+
+data.df <- data.df %>%
+dplyr::rename(
+  ENERCkJ = "kilojoules", 
+  ENERCkcal = "kilocalories", 
+  WATERg = "water", 
+  FAT_g = "fat", 
+  FASATg = "sat_fa", 
+  FAMSg = "mu_fa", 
+  FAPUg = "pu_fa", 
+  F22D6N3g = "c22_6n_3\_dha", F20D5N3g = "c20_5n_3\_epa", CHOLEmg = "cholesterol", CHOAVLg = "carbo", SUGARg = "sugar", FIBTGg = "dietary_fibre", PROCNTg = "protein", ALCg = "alcohol", VITA_RAEmcg = "vitamin_a", RETOLmcg = "retinol", CARTBmcg = "beta_carotene", VITDmcg = "vitamin_d", VITEmg = "vitamin_e", THIAmg ="thiamin", RIBFmg = "riboflavin", NIAmg = "niacin", VITB6_mg = "vitamin_b6", FOLmcg = "folate", VITB12mcg = "vitamin_b12", VITCmg = "vitamin_c", CAmg = "calcium", FEmg = "iron", NAmg = "sodium", Kmg = "potassium", MGmg = "magnesium", Pmg = "phosphorus", SEmcg = "selenium", CUmg = "copper", IDmcg = "iodine", ZNmg = "zinc")
+
+
+```
+
+
+ Renaming the other variables (food code/id, food name, etc.)
+
+
+```{r}
+
+data.df <- data.df %>%
 dplyr::rename( fdc_id = "food_id", # Food id/code 
-food_desc = "food_item", \# Food name/description Edible_factor_in_FCT = "edible_part", \# Edible portion nutrient_data_source = "biblio") \# Reference for NVs reported
+food_desc = "food_item", # Food name/description
+Edible_factor_in_FCT = "edible_part", # Edible portion
+nutrient_data_source = "biblio") # Reference for NVs reported
 
-## What are the variables names now?
+```
 
-names(data.df) \# Checking variable names (are all correctly named?) head(data)
+What are the variables names now?
 
-## 4.4. Standardisation of values ----
+```{r}
+# Checking variable names (are all correctly named?)
 
-# Are there any character on the numeric variables (e.g., "tr" in CAmg)?
+names(data)
 
-data.df\$comments \<- NA \# New column to add metadata (e.g., when \[\] are removed) for data users
+head(data)
 
-# Adding metadata info to the variables before removing the characters
+```
 
-#fdc_id \<- "a" \# Variable with the food id/code to be added into the metadata
+### Standardisation of values
 
-data.df \<- data.df %\>% mutate(comments = ifelse(stringr::str_detect(. , '\\\[.\*?\\\]'), paste0("low quality(", toString(.\[stringr::str_which(. , '\\\[.\*?\\\]'), fdc_id\], " ", names(.)\[stringr::str_which(., '\\\[.\*?\\\]')\],")"), comments)))
+::: callout-note
+## Question 
+
+Are there any character on the numeric variables (e.g., "tr" in CAmg)?
+
+:::
+
+```{r}
+
+data.df$comments <- NA # New column to add metadata (e.g., when \[\] are removed) for data users
+
+```
+
+Adding metadata info to the variables before removing the characters
+
+```{r}
+
+fdc_id \<- "a" # Variable with the food id/code to be added into the metadata
+
+data.df <- data.df %\>% mutate(comments = ifelse(stringr::str_detect(. , '\\\[.\*?\\\]'), paste0("low quality(", toString(.[stringr::str_which(. , '\\\[.\*?\\\]'), fdc_id], " ", names(.)[stringr::str_which(., '\\\[.\*?\\\]')\],")"), comments)))
+
+```
+
+```{r}
+
+```
+
+
+
 
 data.df\$comments \<- ifelse(stringr::str_detect(data.df\[,i\] , '\\\[.\*?\\\]'), paste0("low quality(", toString(.\[stringr::str_which(. , '\\\[.\*?\\\]'), fdc_id\], " ", names(.)\[stringr::str_which(., '\\\[.\*?\\\]')\],")"), comments))
 
@@ -528,18 +695,86 @@ write.csv(data.df, file = here::here("Output", "template-name_FCT_FAO_Tags.csv")
 
 ## Q&A 
 
-:::{.callout-note} 
-## Question 2 
 
-How many foods are reported in the Malawi FCT, 2019?
+:::{.callout-note} 
+## Question 
+
+How many foods are reported in the FCT (e.g., Western Africa FCT, 2019)? 
 
 :::
 
 ::: {.callout-tip collapse="true"}
 
-## Answer 2
+## Answer 
 
-`r unique(data.df$food_desc)`, you can answer that question by using `unique(data.df$food_desc)`.
+`r sum(unique(data.df$food_desc) & !is.na(data.df$food_desc)`, you can answer that question by using `sum(unique(data.df$food_desc))`.
 
 :::
 
+:::{.callout-note} 
+## Question 
+
+What nutrients and other food components are reported?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 
+
+
+
+:::
+
+::: callout-note
+## Question 
+
+Are there any character on the numeric variables (e.g., "tr" in CAmg)?
+
+:::
+
+
+::: callout-note
+## Question
+
+Are there any relevant food components missing?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+
+:::
+
+After, checking that there is a good coverage in term of foods and nutrients, we need to check the quality of the data provided, as it would condition the results of our analysis.
+
+
+
+::: callout-note
+## Question 
+
+What FCTs would you use for your study?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 6
+
+There is not correct answer because the choice is study, context and objective specific. For example, for the IHS5, we chose: MW19\>KE18\>WA19\>UK21\>US19.
+
+We excluded TZ06 because it did not provide information on the water content of foods, nor edible portion, we found data inconsistencies and low availability of metadata, we also excluded UG12 because the underlying data is mainly "borrowed" from the US19.
+
+:::
+
+::: callout-note
+## Question 5
+
+Why are those components important for the food matching process?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 5
+
+Water content is essential to differentiate foods, and to identify if food are dry/fresh. In addition, for calculating SOP, re-calculating some food components, and it is vital for imputing values when necessary.
+
+Edible portion is necessary to calculate the part of the foods that people are consuming, and this is usually context specific. Hence, it should be reported in the national FCT.
+
+:::

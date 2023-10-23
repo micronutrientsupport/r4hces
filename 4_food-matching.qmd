@@ -35,13 +35,13 @@ After the FCTs are standardised and harmonised and the food list (i.e., food rep
 
 ```
 
-1.  Do you think that the food matches selected represents well what it is consumed in Tanzania?
+1.  Do you think that the food matches selected represents well what it is consumed in the survey?
 
 2.  If not, what other foods would you add/remove/change to?
 
 3.  For the foods without matches, can you think of what food items you would use?
 
-4.  Could you identify any food matches in the Tanzania FCT, 2008 that will be a good match for those foods that have no matches?
+4.  Could you identify any food matches in the Food Composition Library that will be a good match for those foods that have no matches?
 
 5.  What nutrients are important for each of the foods selected?
 
@@ -58,18 +58,40 @@ After the FCTs are standardised and harmonised and the food list (i.e., food rep
 
 ## Harmonising the Food Composition Tables
 
-When all the FCTs are standardised, we can use them all together, hence if a food item is missing in Malawi FCT, 2019, then a similar food item will be found in another FCT.
+When all the FCTs are standardised, we can use them all together, hence if a food item is missing in the main FCT, then a similar food item could be found in another FCT.
 
-## Getting the FC Harmonised dataset
+## Getting the Nutrition Tools
 
-Download the following folders: KE18 & WA19 from [this GitHub repository](). 
+NutritionTools is an R package of functions to help with a wide range of calculations and processes that commonly occur when working with nutrition datasets. More information can be found [here](https://tomcodd.github.io/NutritionTools/).
+
+```{r}
+
+if (!require("devtools")) {
+  install.packages("devtools")
+}
+devtools::install_github("TomCodd/NutritionTools")
+
+```
+
+### Food composition functions
+
+```{r}
+
+# We also need to import some custom functions in another script:
+source(here::here("functions.R")) # Loading nutrition functions
+
+```
+
+## Getting the FC Standardarised dataset
+
+Download the following folders: KE18 & WA19 from [this GitHub repository](https://github.com/LuciaSegovia/fct/tree/master/FCTs). Eventually, you could download all of them an create a unique FC library. 
 
 ```{r}
 
 
 ```
 
-Each folder has one script with the FCT id followed by "_FCT_FAO_Tags", and a README file. 
+Each folder has one script with the FCT id followed by *"_FCT_FAO_Tags"*, and a README file. 
 
 Then, source the merging script. The merging script run the standardisation scripts, which download and standardise each individual FCT. Then, the FCTs are merged into a common FC library that can be used for food matching. 
 
@@ -92,7 +114,19 @@ data.df %>%
 
 ```
 
+
+
+
+
 ## Food matching
+
+```{r}
+
+# Getting the food list & frequency of HH
+
+
+```
+
 
 
 ## Dealing with missing values
