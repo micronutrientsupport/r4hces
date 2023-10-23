@@ -14,6 +14,7 @@ ihs5_roster <- read_dta(here::here("mwi-ihs5-sample-data", "hh_mod_a_filt_vMAPS.
 # Preview the data
 head(ihs5_roster )
 ```
+
 To read a csv file we use the `read_csv()` function from the `readr` package. For example, to import the `IHS5_UNIT_CONVERSION_FACTORS_vMAPS.csv` file stored in the `mwi-ihs5-sample-data` folder within our working directory we run:
 
 ```{r eval=TRUE}

@@ -4,7 +4,7 @@
 
 ### Selecting food composition data
 
-When selecting what [food composition data]{.dark-blue} will be used, we need to answer some of the following questions:
+When selecting what food composition data will be used, we need to answer some of the following questions:
 
 1.  Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?).
 
@@ -25,17 +25,26 @@ For easy navigation and use of this script it is recommended to use Rstudio. In 
 
 First we need to check what [packages](link-to-packages-explanation) are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.
 
-```{r, echo=FALSE}
+```{r}
 
-required_packages <- c("readxl", "stringr", "dplyr", "here" #,"measurements"
-                       ) #This line lists the required packages
-
-install.packages(setdiff(required_packages, rownames(installed.packages()))) #This installs them if they aren't already installed.
-
-lapply(required_packages, library, character.only = TRUE) #And then activates them
-
-# Then, run this to clean the environment
+# Run this to clean the environment
 rm(list = ls())
+
+# Loading libraries
+
+library(readxl) # reading and writing excel files
+library(stringr) # character string handling
+library(dplyr) # cleaning data
+library(here) # file management
+
+#required_packages <- c("readxl", "stringr", #"dplyr", "here" #,"measurements"
+#                       ) #This line lists #the required packages
+#
+#install.packages(setdiff(required_packages, #rownames(installed.packages()))) #This #installs them if they aren't already #installed.
+#
+#lapply(required_packages, library, #character.only = TRUE) #And then activates #them
+
+
 
 ```
 
@@ -186,9 +195,10 @@ dim(data.df) # rows & columns
 ```
 
 ::: {.callout-tip collapse="true"}
+
 ## Answer
 
-There are `r dim(data.df)[1]` rows and `r dim(data.df)[2]` columns.
+
 
 :::
 

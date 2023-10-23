@@ -778,3 +778,6 @@ Water content is essential to differentiate foods, and to identify if food are d
 Edible portion is necessary to calculate the part of the foods that people are consuming, and this is usually context specific. Hence, it should be reported in the national FCT.
 
 :::
+
+
+ There are `r dim(data.df)[1]` rows and `r dim(data.df)[2]` columns.
