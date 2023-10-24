@@ -30,8 +30,13 @@ You can view the functions in the package by running the following code in your 
 ls("package:hcesNutR")
 ```
 
+:::{.callout-tip}
+You can read the functions and their description on the project website at: [dzvoti.github.io/hcesNutR/reference/index.html](dzvoti.github.io/hcesNutR/reference/index.html)
+:::
+
+
 ## Sample data
-This is a basic example which shows you the use of the functions in the package. The data is randomly generated to mimic the structure of the [Fifth Integrated Household Survey 2019-2020](https://microdata.worldbank.org/index.php/catalog/3818/related-materials) an HCES of Malawi. The variables and structure of this data is found [here](https://microdata.worldbank.org/index.php/catalog/3818/related-materials)
+The data used in this example is randomly generated to mimic the structure of the [Fifth Integrated Household Survey 2019-2020](https://microdata.worldbank.org/index.php/catalog/3818/related-materials) an HCES of Malawi. The variables and structure of this data is found [here](https://microdata.worldbank.org/index.php/catalog/3818/related-materials)
 
 :::{.callout-tip}
 All functions in this package take a dataframe/tibble as input data. This is by design to allow flexibility on input data. The example used here is for use on stata files with `.dta` but the functions should work with `.csv` files as well.
@@ -49,7 +54,9 @@ sample_hces <-
 ```
 
 ### Trim the data
-In this example we will use `hcesNutR` functions to demonstrate processing of `total` consumption data. The `total` consumption data is the data that contains the total consumption of each food item by each household. The other consumption columns contain values for consumption from sources i.e. gifted, purchased, ownProduced. The workflow for processing the "other" consumption data is the same as demonstrated below. 
+In this example we will use `hcesNutR` functions to demonstrate processing of `total` consumption data. The `total` consumption data is the data that contains the total consumption of each food item by each household. 
+
+The other consumption columns contain values for consumption from sources i.e. gifted, purchased, ownProduced. The workflow for processing the "other" consumption data is the same as demonstrated below. 
 
 ```{r}
 # Trim the data to total consumption
@@ -386,7 +393,13 @@ aMFe_summaries <- ihs5_roster |>
 
 #### Enrich Consumption Data with AFE/AME 
 
-We will use the `left_join` function from `dplyr` to join the consumption data with the `aMFe_summaries` data. The `left_join` function will join the `aMFe_summaries` data to the `sample_hces` data by matching the `hhid` column in both data sets. The `left_join` function will add the `hh_persons`, `hh_ame` and `hh_afe` columns to the `sample_hces` data. The `hh_persons` column contains the number of people in each household. The `hh_ame` and `hh_afe` columns contain the AME and AFE factors for each household.
+We will use the `left_join` function from `dplyr` to join the consumption data with the `aMFe_summaries` data. 
+
+The `left_join` function will join the `aMFe_summaries` data to the `sample_hces` data by matching the `hhid` column in both data sets. 
+
+The `left_join` function will add the `hh_persons`, `hh_ame` and `hh_afe` columns to the `sample_hces` data. 
+
+The `hh_persons` column contains the number of people in each household. The `hh_ame` and `hh_afe` columns contain the AME and AFE factors for each household.
 
 
 ```{r}
@@ -397,9 +410,14 @@ sample_hces <- sample_hces |>
 Now we have a "clean" data set that we can use for analysis. 
 
 ## Summary
-This chapter demonstrated the use of the `hcesNutR` package to process HCES data. The package contains functions that will help with the analysis of HCES data. The package also contains the sample data used in this book i.e. [r4hces-data/mwi-ihs5-sample-data](dzvoti.github.io/hcesNutR/data/r4hces-data.zip) We used this sample data to demonstrate the use of the functions in the package. The package is still under development and will be updated regularly.Please report any bugs or issues [here](www.github.com/dzvoti/hcesNutR/issues).
+This chapter demonstrated the use of the `hcesNutR` package to process HCES data. The package contains functions that will help with the analysis of HCES data. 
+
+The package also contains the sample data used in this book i.e. [r4hces-data/mwi-ihs5-sample-data](dzvoti.github.io/hcesNutR/data/r4hces-data.zip) We used this sample data to demonstrate the use of the functions in the package. 
+
+The package is still under development and will be updated regularly.Please report any bugs or issues [here](www.github.com/dzvoti/hcesNutR/issues).
 
 ## Future work
 -   Add more functions to the package
 -   Support more surveys (NGA Living Standards Survey 2018-2019)
+-   Add more internal data to the package
 

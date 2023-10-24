@@ -17,6 +17,11 @@ food_name <- "Maize"
 
 The `<-` is the assignment operator. It assigns the value on the right to the object on the left. We can then use the object `food_name` in other commands, for example, to print the value of `food_name` we can use the `print()` function:
 
+:::{.callout-tip}
+## `<-`
+If you are using RStudio, you can type `<-` by pressing the `Alt` key and `-` key at the same time.
+:::
+
 ```{r}
 print(food_name)
 ```
