@@ -170,10 +170,9 @@ Then, we will match those food items with their corresponding food dictionary co
 ```{r}
 
 # Food dictionary
+read.csv("https://raw.github.com/LuciaSegovia/fct/repro/metadata/MAPS_food-dictionary_v3.0.3.csv")
 
-read.csv(here::here("data", ""))
 
-# Food list to food dictionary
 
 ```
 
@@ -183,6 +182,7 @@ Then, the unique food dictionary codes (`ID_3`) will be used to match the food i
 
 # Matching 
 
+read.csv(here::here("data", "fct_ihs5_v2.2.csv"))
 
 ```
 
@@ -217,6 +217,7 @@ Some varibles need to be recalculated, as part of the harmonisation process and 
 
 ```{r}
 
+# Re-calculate variables:
 data.df %>% 
   # Calculate available Carbohydrates, by difference
   CHOAVLDFg_std_creator() %>%  
@@ -224,7 +225,6 @@ data.df %>%
   ENERCKcal_standardised() %>% 
   # calculate Energy (kJ)
   ENERCKj_standardised() 
-  
 
 ```
 
@@ -232,6 +232,7 @@ Another similar example is Vitamin A (RE/RAE), which is calculated from retinol 
 
 ```{r}
 
+# Re-calculate variables:
 data.df %>% 
 # Recalculate beta-carotene eq.
     CARTBEQmcg_std_creator() %>% 
