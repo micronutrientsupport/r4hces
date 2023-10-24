@@ -124,8 +124,44 @@ First, we need the list of unique foods reported as consumed. In HCES dataset, t
 
 ```{r}
 
+# Read, subset and rename the data
+ihs5_consumption <-
+    read_dta(here::here("data", "mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta")) |>
+    select(
+        case_id,
+        HHID,
+        hh_g01,
+        hh_g01_oth,
+        hh_g02,
+        hh_g03a,
+        hh_g03b,
+        hh_g03b_label,
+        hh_g03b_oth,
+        hh_g03c,
+        hh_g03c_1
+    ) %>%
+    rename(
+        consumedYN = hh_g01,
+        food_item = hh_g02,
+        food_item_other = hh_g01_oth,
+        consumption_quantity = hh_g03a,
+        consumption_unit = hh_g03b,
+        consumption_unit_label = hh_g03b_label,
+        consumption_unit_oth = hh_g03b_oth,
+        consumption_subunit_1 = hh_g03c,
+        consumption_subunit_2 = hh_g03c_1
+    )
+
+
+# Getting the food item list
+
+ihs5_consumption <- hcesNutR::create_dta_labels(ihs5_consumption)
+
+
 # Getting the food list & frequency of HH
 
+food_list <- ihs5_consumption %>%
+  count(food_id, food_item)
 
 ```
 
@@ -135,6 +171,7 @@ Then, we will match those food items with their corresponding food dictionary co
 
 # Food dictionary
 
+read.csv(here::here("data", ""))
 
 # Food list to food dictionary
 
