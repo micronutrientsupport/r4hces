@@ -24,7 +24,9 @@ book:
     - fct_harmonisation.qmd
     # - food-matching.qmd
     - summary.qmd
+    - sample_data.qmd
     - references.qmd
+
   sidebar:
     tools:
       - icon: cloud-arrow-down

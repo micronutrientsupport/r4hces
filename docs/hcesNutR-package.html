@@ -301,10 +301,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:hcesNutR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can read the functions and their description on the project website at: <a href="dzvoti.github.io/hcesNutR/reference/index.html">dzvoti.github.io/hcesNutR/reference/index.html</a></p>
+</div>
+</div>
 </section>
 <section id="sample-data" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="sample-data"><span class="header-section-number">7.4</span> Sample data</h2>
-<p>This is a basic example which shows you the use of the functions in the package. The data is randomly generated to mimic the structure of the <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">Fifth Integrated Household Survey 2019-2020</a> an HCES of Malawi. The variables and structure of this data is found <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">here</a></p>
+<p>The data used in this example is randomly generated to mimic the structure of the <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">Fifth Integrated Household Survey 2019-2020</a> an HCES of Malawi. The variables and structure of this data is found <a href="https://microdata.worldbank.org/index.php/catalog/3818/related-materials">here</a></p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -331,7 +344,8 @@ Tip
 </section>
 <section id="trim-the-data" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="trim-the-data"><span class="header-section-number">7.4.2</span> Trim the data</h3>
-<p>In this example we will use <code>hcesNutR</code> functions to demonstrate processing of <code>total</code> consumption data. The <code>total</code> consumption data is the data that contains the total consumption of each food item by each household. The other consumption columns contain values for consumption from sources i.e.&nbsp;gifted, purchased, ownProduced. The workflow for processing the “other” consumption data is the same as demonstrated below.</p>
+<p>In this example we will use <code>hcesNutR</code> functions to demonstrate processing of <code>total</code> consumption data. The <code>total</code> consumption data is the data that contains the total consumption of each food item by each household.</p>
+<p>The other consumption columns contain values for consumption from sources i.e.&nbsp;gifted, purchased, ownProduced. The workflow for processing the “other” consumption data is the same as demonstrated below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim the data to total consumption</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span> sample_hces <span class="sc">|&gt;</span></span>
@@ -683,7 +697,10 @@ Assumptions
 </section>
 <section id="enrich-consumption-data-with-afeame" class="level4">
 <h4 class="anchored" data-anchor-id="enrich-consumption-data-with-afeame">Enrich Consumption Data with AFE/AME</h4>
-<p>We will use the <code>left_join</code> function from <code>dplyr</code> to join the consumption data with the <code>aMFe_summaries</code> data. The <code>left_join</code> function will join the <code>aMFe_summaries</code> data to the <code>sample_hces</code> data by matching the <code>hhid</code> column in both data sets. The <code>left_join</code> function will add the <code>hh_persons</code>, <code>hh_ame</code> and <code>hh_afe</code> columns to the <code>sample_hces</code> data. The <code>hh_persons</code> column contains the number of people in each household. The <code>hh_ame</code> and <code>hh_afe</code> columns contain the AME and AFE factors for each household.</p>
+<p>We will use the <code>left_join</code> function from <code>dplyr</code> to join the consumption data with the <code>aMFe_summaries</code> data.</p>
+<p>The <code>left_join</code> function will join the <code>aMFe_summaries</code> data to the <code>sample_hces</code> data by matching the <code>hhid</code> column in both data sets.</p>
+<p>The <code>left_join</code> function will add the <code>hh_persons</code>, <code>hh_ame</code> and <code>hh_afe</code> columns to the <code>sample_hces</code> data.</p>
+<p>The <code>hh_persons</code> column contains the number of people in each household. The <code>hh_ame</code> and <code>hh_afe</code> columns contain the AME and AFE factors for each household.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sample_hces <span class="ot">&lt;-</span> sample_hces <span class="sc">|&gt;</span> </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(aMFe_summaries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -694,13 +711,16 @@ Assumptions
 </section>
 <section id="summary" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.6</span> Summary</h2>
-<p>This chapter demonstrated the use of the <code>hcesNutR</code> package to process HCES data. The package contains functions that will help with the analysis of HCES data. The package also contains the sample data used in this book i.e.&nbsp;<a href="dzvoti.github.io/hcesNutR/data/r4hces-data.zip">r4hces-data/mwi-ihs5-sample-data</a> We used this sample data to demonstrate the use of the functions in the package. The package is still under development and will be updated regularly.Please report any bugs or issues <a href="www.github.com/dzvoti/hcesNutR/issues">here</a>.</p>
+<p>This chapter demonstrated the use of the <code>hcesNutR</code> package to process HCES data. The package contains functions that will help with the analysis of HCES data.</p>
+<p>The package also contains the sample data used in this book i.e.&nbsp;<a href="dzvoti.github.io/hcesNutR/data/r4hces-data.zip">r4hces-data/mwi-ihs5-sample-data</a> We used this sample data to demonstrate the use of the functions in the package.</p>
+<p>The package is still under development and will be updated regularly.Please report any bugs or issues <a href="www.github.com/dzvoti/hcesNutR/issues">here</a>.</p>
 </section>
 <section id="future-work" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="future-work"><span class="header-section-number">7.7</span> Future work</h2>
 <ul>
 <li>Add more functions to the package</li>
 <li>Support more surveys (NGA Living Standards Survey 2018-2019)</li>
+<li>Add more internal data to the package</li>
 </ul>
 
 
