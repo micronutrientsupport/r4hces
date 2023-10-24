@@ -229,7 +229,11 @@ ihs5_consumption <-
     )
 ```
 
-We deliberately used both the pipe operators `%>%` and `|>` to show that they are the same. The %>% is the most popular of the `tidyverse` pipes from the `magrittr` package. Recent versions (circa 2020) intoduced the native `R` pipe `|>`. The pipe operator is useful when we want to perform multiple operations on a dataset without storing the intermediate results in memory. In the above example we only stored the final result in memory. This is useful when we are working with large datasets and want to save memory.
+We deliberately used both the pipe operators `%>%` and `|>` to show that they are the same. The %>% is the most popular of the `tidyverse` pipes from the `magrittr` package. 
+
+Recent versions (circa 2020) intoduced the native `R` pipe `|>`. The pipe operator is useful when we want to perform multiple operations on a dataset without storing the intermediate results in memory. 
+
+In the above example we only stored the final result in memory. This is useful when we are working with large datasets and want to save memory.
 
 :::{.callout-tip}
 ## Pipes
