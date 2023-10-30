@@ -1,0 +1,179 @@
+# Data Types
+
+The principal data types in R are `numeric`, `character`, `factor` and `logical`. There are others, but these are the main ones.
+
+-   A datum of type `numeric` is a numerical value, such as food quantity value.
+-   A datum of type `character` is a string of characters, such as the name of food.
+-   A datum of type `factor` is the label for a food type or categories which we might use in hces analysis.\
+-   A datum of type `logical` takes values `TRUE` or `FALSE`
+
+## Assignment
+
+We can store any of these datatypes in an `object` by assigning the value to that object. For example, we can assign the value `Maize` to the object `food_name` as follows:
+
+```{r}
+food_name <- "Maize"
+```
+
+The `<-` is the assignment operator. It assigns the value on the right to the object on the left. We can then use the object `food_name` in other commands, for example, to print the value of `food_name` we can use the `print()` function:
+
+:::{.callout-tip}
+## `<-`
+If you are using RStudio, you can type `<-` by pressing the `Alt` key and `-` key at the same time.
+:::
+
+```{r}
+print(food_name)
+```
+
+There are other assignment operators, such as `=` and `->`, but `<-` is the most common. We can also assign the value of an object to another object, for example:
+
+```{r}
+food_name2 <- food_name
+```
+
+In this case, the value of `food_name` is assigned to `food_name2`. We can then print the value of `food_name2`:
+
+```{r}
+print(food_name2)
+```
+
+In this book we will use the `<-` and the `=` assignment operator. We use the `<-` when we want to assign a value to an object, and the `=` when we want to assign a value to an argument in a function. This is a convention that is used by many R programmers. More on functions later.
+
+## Character data
+
+The simplest data type in R is the character. A character is a string of characters, for example, the "Maize" name that we assigned above. The "" indicate that we want to store the string of characters between the "" in the object. If we don't use the "" then R will look for an object with that name, and if it doesn't find it, it will throw an error. For example, if we type:
+
+```{r eval=FALSE}
+food_name <- Maize
+```
+
+We can fix this by putting the "" around the string of characters:
+
+```{r eval=FALSE}
+food_name <- "Maize"
+```
+
+We ca perform operations on character data, such as concatenation, which is the joining of two or more strings of characters. We can do this using the `paste()` function. For example, we can create a new character object called `food_name3` by concatenating the values of `food_name` and `food_name2` as follows:
+
+```{r eval=FALSE}
+# Create character vector with value "Maize"
+food_name <- "Maize"
+# Create character vector with value "Meal"
+food_name2 <- "Meal"
+# Concatenate the values of food_name and food_name2 and assign the result to a new character object called food_name3
+food_name3 <- paste(food_name, food_name2)
+# Print the value of food_name3
+print(food_name3)
+```
+
+## Numeric data
+
+A numeric is a numerical value, such as the food quantity value. We can assign a numeric value to an object as follows:
+
+```{r eval=FALSE}
+food_quantity <- 0.5
+```
+
+Note that we don't need to put the "" around the numeric value. If we do, then R will treat it as a character, and not a numeric. For example, if we type:
+
+```{r eval=FALSE}
+food_quantity <- "0.5"
+```
+
+We can then do simple mathematical manipulations with a numeric value. For example, we can add 0.5 to the value of `food_quantity` as follows:
+
+```{r eval=FALSE}
+food_quantity <- 0.5
+# Add 0.5 to the value of food_quantity
+food_quantity <- food_quantity + 0.5
+```
+
+::: callout-note
+## Exercise
+
+1.  Create a character object called `food_name` and assign it the value `"Maize"`.
+2.  Create another character object called `food_subname` and assign it the value `"Meal"`.
+3.  Concatenate the values of `food_name` and `food_subname` and assign the result to a new character object called `full_name`.
+4.  Create a numeric object called `food_quantity_g` and assign it the value `15`.
+5.  Convert the value of `food_quantity_g` to milligrams and assign the result to a new numeric object called `food_quantity_mg`.
+:::
+
+### Operations on numeric data
+
+We can perform operations on numeric data, such as addition, subtraction, multiplication and division. For example, we can create a new numeric object called `food_quantity` by adding the values of `food_quantity_g` and `food_quantity_mg` as follows:
+
+```{r eval=FALSE}
+# Create a numeric object called food_quantity_g and assign it the value 15
+food_quantity_g <- 15
+
+# Create a numeric object called food_quantity_mg and 
+# calculate the value of food_quantity_g in milligrams
+food_quantity_mg <- food_quantity_g * 1000
+```
+
+Just like in maths the operators in R follow operator precedence.However we can use brackets to specify the order of operations.
+
+## Logical data
+
+Logical data takes the values `TRUE` or `FALSE`. We can assign a logical value to an object as follows:
+
+```{r eval=FALSE}
+is_staple <- TRUE
+```
+
+Logical values can be returned from operation e.g. testing for equality. For example, we can test whether the vales in two objects is the same as follow:
+
+```{r eval=FALSE}
+# Create character vectors
+food_name <- "Maize"
+food_name2 <- "Maize"
+food_name3 <- "Rice"
+
+# Test equality
+food_name == food_name2
+food_name == food_name3
+```
+
+Notice how when testing for equality we use `==`? This is because the `=` is an assignment operator and not a logical operator. We can also use the `!=` operator to test for inequality. For example, we can test whether the values in two objects are not the same as follows:
+
+```{r eval=FALSE}
+food_name != food_name2
+food_name != food_name3
+```
+
+Other logical operators are `>`, `<`, `>=` and `<=`. Logical object can be the subject of logical functions, notably `"if` .. `then"`. Consider the example below:
+
+```{r eval=FALSE}
+# Create numeric object
+age <- 18
+# Test whether age is greater than 18
+if(age > 18) {
+    print("You are an adult")
+    }else{
+        print("You are not an adult")
+        }
+```
+
+Testing the same example with a different value of age:
+
+```{r eval=FALSE}
+# Create numeric object
+age <- 17
+# Test whether age is greater than 18
+if(age > 18) {
+    print("You are an adult")
+    }else{
+        print("You are not an adult")
+        }
+```
+
+Logical operations can be chained together using the `&` operator for `"and"` and the `|` operator for `"or"`. For example, we can test whether the values in two objects are the same and whether the value of `food_quantity_g` is greater than 10 as follows:
+
+```{r eval=FALSE}
+food_name == food_name2 & food_quantity_g > 10
+```
+
+## Summary
+
+Until now we have been storing only one value in an object. We can store multiple values in an object using a vector. We will look at vectors and data structures in the next section.

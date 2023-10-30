@@ -1,0 +1,182 @@
+# Data Structures
+
+A data structure in R is an R object which holds one or more data objects, a data object will be a data type, such as we have encountered in section 1 (numeric, character, etc).  In this script we introduce vectors, factors, matrices, data frames and lists. The examples and exercises should help you to understandbetter how R holds and manages data. 
+
+## Vectors
+
+A vector is a series of homogeneous values of a variable (e.g. Foods from an HCES survey). The easiest  way to form a vector of values in R is with the `"combine"` function `c()`.
+An example of a vector of character values (food_names) is shown below:
+
+```{r}
+# Create a vector of character values
+food_names <-
+    c("Rice",
+      "Maize",
+      "Beans",
+      "Cassava",
+      "Potatoes",
+      "Sweet potatoes",
+      "Wheat")
+
+#Create a vector of numeric values
+consumpution <- c(0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01)
+
+# Create a vector of logical values
+is_staple <- c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE)
+
+# Create a vector of mixed values
+mixture <- c(5.2, TRUE, "CA")
+```
+
+:::{.callout-note}
+## Excercise
+Use print to see the values of the vectors above e.g `print(food_names)`
+What happens if you try to print the vector `mixture`?
+:::
+
+:::{.callout-tip}
+We can count the number of items in a vector with the `length()` function:
+
+```{r}
+length(food_names)
+```
+
+Each item in a vector can be referenced by its index (i.e. its position in the sequence of values), 
+and we can pull out a particular item using the square brackets after the vector name.  For example,
+the `3rd` item in `food_names` can be accessed like this
+
+```{r}
+food_names[3]
+```
+:::
+
+## data frames vs tibbles
+In R, data frames and tibbles are two common data structures used to store tabular data. While they are similar in many ways, there are some important differences to keep in mind.
+
+### Data Frames
+Data frames are a built-in R data structure that is used to store tabular data. They are similar to matrices, but with the added ability to store columns of different data types. Data frames are created using the `data.frame()` function, and can be manipulated using a variety of built-in R functions.
+
+### Tibbles
+Tibbles are a newer data structure that were introduced as part of the `tidyverse` package. They are similar to data frames, but with some important differences. Tibbles are created using the `tibble()` function, and can also be manipulated using a variety of built-in tidyverse functions.
+
+One of the main differences between data frames and tibbles is how they handle column names. In a data frame, column names are stored as a character vector, and can be accessed using the `$` operator. In a tibble, column names are stored as a special type of object called a `quosure`, which allows for more flexible and consistent handling of column names.
+
+Another difference between data frames and tibbles is how they handle subsetting. In a data frame, subsetting using the `[ ]` operator can sometimes lead to unexpected results, especially when subsetting a single column. In a tibble, subsetting is more consistent and predictable, and is done using the `[[ ]]` operator or with user friendly `dplyr` function e.g. `filter`, `select`.
+
+Overall, while data frames and tibbles are similar in many ways, tibbles offer some important advantages over data frames, especially when working with the tidyverse package.
+
+Let us make a data frame using the `data.frame()` function.  We will use the vectors we created above as the columns of the data frame.  Note that the vectors must be of the same length, otherwise the data frame will be filled with `NA` values to make up the difference.
+
+```{r}
+# Create a data frame
+food_df <-
+    data.frame(
+        food_names = c(
+            "Rice",
+            "Maize",
+            "Beans",
+            "Cassava",
+            "Potatoes",
+            "Maize",
+            "Wheat"
+        ),
+        consumption = c(0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01),
+        is_staple = c(TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE),
+        stringsAsFactors = TRUE
+    )
+
+# Print the data frame
+print(food_df)
+```
+
+Let us make a tibble using the `tibble()` function.  We will use the vectors we created above as the columns of the tibble.  Note that the vectors must be of the same length, otherwise the tibble will be filled with `NA` values to make up the difference.
+
+```{r}
+# Create a tibble
+food_tb <- tibble::tibble(
+    food_names = c(
+        "Rice",
+        "Maize",
+        "Beans",
+        "Cassava",
+        "Potatoes",
+        "Maize",
+        "Wheat"
+    ),
+    consumption = c(0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.01),
+    is_staple = c(TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE)
+)
+
+# Print the tibble
+print(food_tb)
+```
+
+:::{.callout-note}
+## Excercise
+Use the `class()` function to check the class of the `food_df` and `food_tb` objects.
+1. What did you notice?
+2. What is the difference between the two objects? Guess the data structure of each object.
+3. Did you notice how the vector names were used as column names in the data frame and tibble?
+:::
+
+
+## Factors
+
+Note that a `factor` is actually a vector, but with an associated list of `levels`, always presented in alpha-numeric order.  These are used by `R` functions such as `lm()` which does linear modelling, such as the analysis of variance.  We shall see how factors can be used in the later section on data frames.
+
+Let us create a factor from a vector of character values.  We can do this using the `factor()` function.  The first argument is the vector of character values, and the second is the list of levels.  If we don't specify the levels, `R` will use the unique values in the vector, in alphabetical order.
+
+### Coercing a vector to a factor
+Example of converting the `food_names` vector to a factor:
+
+```{r}
+# Create a factor without providing the levels argument
+food_names_factor_1 <- factor(food_names)
+# Print the factor
+print(food_names_factor_1)
+
+# Create a factor from a vector of character values
+food_names_factor_2 <-
+    factor(
+        food_names,
+        levels = c(
+            "Rice",
+            "Maize",
+            "Beans",
+            "Cassava",
+            "Potatoes",
+            "Sweet potatoes",
+            "Wheat"
+        )
+    )
+
+# Print the factor
+print(food_names_factor_2)
+```
+
+:::{.callout-note}
+## Excercise
+1. What is the difference between the two factors?
+2. Create a factor from the `is_staple` vector. What are the levels?
+3. Create a factor from the `consumption` vector. What are the levels?
+:::
+
+### Coercing a vector to a factor in a data frame
+Example of converting the `food_names` vector to a factor in a data frame:
+
+```{r}
+library(dplyr)
+# Use the food_tb data frame created above and convert the food_names column to a factor
+food_tb <- mutate(food_tb, food_names = factor(food_names))
+
+# Print the data frame
+print(food_tb)
+```
+
+## Summary
+There are other data structures in R, e.g. Matrix and lists but these are the most common.  We will now look at some of the operations we can perform on vectors and data frames in the future sections.
+
+But first,we introduced the `dplyr` package above.  This is a `package` which provides a set of functions for manipulating data frames.  We will use it extensively in this book. We can use the `mutate()` function to add a new column to a data frame.  In this case we are adding a new column called `food_names` which is a factor version of the `food_names` column in the data frame.This means we introduced a new `function` `mutate()` and a new `package` `dplyr`.  
+
+In the next section we define what are `packages` and `functions`.
+

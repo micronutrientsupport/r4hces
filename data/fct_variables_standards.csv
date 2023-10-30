@@ -1,0 +1,100 @@
+variable_name , variable_description     ,variable_reference ,variable_source,variable_type
+fdc_id     , Food identifier as per original source (FCT)             ,  -    ,Compiled ,character
+food_desc              , Food name and description as per original source (FCT)   , -                      ,Compiled,character
+food_group             , Food group as per original source (FCT)                  , -                      , Compiled  ,character
+scientific_name        , Scientific name of the food                              , -                      , Compiled ,character
+source_fct             ," Id. of the FCT (BiblioID), see Table 1                   ", -                      , Generated,character
+nutrient_data_source   , References or data source for the nutrient values        , -                      , Compiled,character
+Edible_factor_in_FCT   ," Edible portion reported as fraction edible, imputed from the original FCT, or calculated from refuse in the FCT                             ", -                       , Compiled ,numeric
+Edible_desc            , Information provided on the edible portion , -                      , Compiled         ,character
+specific_gravity       , Density reported in the original units as in the original FCT   , -                      , Compiled  ,numeric
+SOPg   , Sum of Proximate in g per 100g EP as reported in the original FCT , - , Compiled   ,numeric
+SOPg_std               , Sum of Proximate in g per 100g EP (Eq. 3.3).  , -                      , Calculated        ,numeric
+ASHg                   , Ashes in g per 100g of EP. , -                      , Compiled,numeric
+ASHg_std               , Ashes in g per 100g of EP (Eq. 3.4)                   , -                      , Calculated        ,numeric
+ENERCkJ                , Energy in kJ/ 100g of EP as reported in the original FCT , -                      , Compiled          ,numeric
+ENERCkJ_standardised   , Energy in kJ/ 100g of EP (Eq. 3.5)                     , -                      , Calculated        ,numeric
+ENERCkcal              , Energy in kcal/ 100g EP as reported in the original FCT  , -                      , Compiled          ,numeric
+ENERCkcal_standardised , Energy in kcal/ 100g EP (Eq. 3.5)                   , -                      , Calculated        ,numeric
+WATERg                 , Water/ moisture content in g per 100g of EP          , -                      , Compiled          ,numeric
+PROCNTg                ," Protein in g per 100g of EP, as reported in the original FCT and assumed to be calculated from nitrogen (NTg) content                 ","FAO/INFOODS, 2012       ", Compiled          ,numeric
+NTg                    ," Nitrogen, total ","FAO/INFOODS, 2012        ", Compiled          ,numeric
+XN                     , Nitrogen conversion factor                              ,"FAO/INFOODS, 2012       ", Compiled         ,numeric
+FATg                   ," Total fat content in g per 100g of EP. Sum of triglycerides, phospholipids, sterols and related compounds obtained by a mixed solvent extraction    ","FAO/INFOODS, 2012        ", Compiled          ,numeric
+FAT_g                  , fat content unknown method of calculation in g per 100g of EP , -    , Compiled          ,numeric
+FATCEg                 ," Fat content measured using continuous extraction (e.g., Soxhlet method) expressed in g per 100g of EP                                     ","FAO/INFOODS, 2012        ", Compiled         ,numeric
+FATg_standardised      ," Total fat content in g per 100g of EP regardless of the Tagname (and analytical method used). Including FATg, FAT_g and FATCEg.        ",-    , Calculated     ,numeric
+CHOAVLDFg              ," Available carbohydrates calculated by difference (E.g., 100 - (weight in grams of water + protein + fat + ash + fibre + alcohol in 100 g of food)) imputed from the original source    ","FAO/INFOODS, 2012               ", Compiled ,numeric
+CHOAVLg                , Available carbohydrates calculated by weight in g per 100g of EP ,"FAO/INFOODS, 2012       ", Compiled ,numeric
+CHOCSMg                ," Carbohydrates, total; calculated by summation. This values is the sum of the sugars, starches, oligosaccharide, and dietary fibre in g per 100g of EP.","FAO/INFOODS, 2012              ", Compiled ,numeric
+CHOAVLMg               ," Carbohydrates, available in monosaccharide equivalent. This value includes the free sugars plus dextrins, starch, and glycogen in g per 100g of EP ","FAO/INFOODS, 2012       ", Compiled         ,numeric
+CHOAVLDFg_std          , Available carbohydrates calculated by difference (Eq. 3.6).  , -   , Calculated ,numeric
+FIBTGg                 , Total dietary fibre by AOAC Prosky method expressed in g per 100g of EP. ,"FAO/INFOODS, 2012       ", Compiled,numeric
+NSPg                   ," Non-starch polysaccharide, (Englyst fibre) expressed in g per 100g of EP.","FAO/INFOODS, 2012        ", Compiled,numeric
+FIBCg                  ," Fibre, crude in g per 100g of EP. ","FAO/INFOODS, 2012       ", Compiled          ,numeric
+ALCg                   , Alcohol in g per 100g   ,- , Compiled,numeric
+ALCg_100mL             , Alcohol expressed in g per 100mL ,-    , Compiled,numeric
+SUGARg                 , Total sugar (the sum of free mono- and disaccharides) in g per 100g of EP  ,-   , Compiled ,numeric
+FASATg                 ," Fatty acids, total saturated in g per 100g ",-  , Compiled ,numeric
+FAMSg  ," Fatty acids, total monounsaturated in g per 100g ",- ,Compiled  ,numeric
+FAPUg                  ," Fatty acids, total polyunsaturated in g per 100g of EP. ",- ,Compiled         ,numeric
+FATRNg  ," Fatty acids, total trans in g per 100g EP. ",- ,Compiled         ,numeric
+F22D6N3g               , Docosahexaenoic acid (DHA) (22:6 n-3) in g/100g of EP. ,- , Compiled  ,numeric
+F20D5N3g               , Eicosapentaenoic acid (EPA) (20:5 n-3) in g/100g of EP. ,- ,Compiled          ,numeric
+CHOLEmg   , Cholesterol determined by enzymatic or chromatographic method in mg per 100g of EP. ,-   , Compiled,numeric
+CHOL_mg                , Cholesterol by unknown method of determination in mg per 100g of EP. ,-  , Compiled   ,numeric
+RETOLmcg               , Retinol in mcg per 100g of EP. ,-, Compiled ,numeric
+VITAmcg_std            , Vitamin A (Retinol Eq. (RE) in mcg per 100g of EP calculated using Eq.3.7. ," FAO/INFOODS, 2012  ", Calculated ,numeric
+VITAmcg                , Vitamin A (Retinol Eq. (RE) = mcg retinol + 1/6 mcg ß- carotene + 1/12 mcg other pro-vitamin A carotenoids) in mcg per 100g of EP. ,-  , Compiled   ,numeric
+VITA_RAEmcg            , Vitamin A (Retinol Activity Eq. (RAE) = mcg retinol + 1/12 mcg ß- carotene + 1/24 mcg other provitamin A carotenoids) in mcg per 100g of EP. ,-    , Compiled ,numeric
+VITA_RAEmcg_std        , Vitamin A (Retinol Activity Eq. (RAE)) in mcg per 100g of EP calculated using Eq.3.6.," FAO/INFOODS, 2012        ", Calculated ,numeric
+CARTBEQmcg             ," Beta-carotene equivalents, is the sum of the beta-carotene + 1/2 quantity of other carotenoids with vitamin A activity, expressed in mcg per 100g of EP. ",- , Compiled,numeric
+CARTBEQmcg_std         ," Beta-carotene equivalents, expressed in mcg per 100g of EP and calculated using Eq. 3.7. It also can be imputed using function ""CARTBEQmcg_std_imputation"" (See section 3.4.) ",- , Calculated  ,numeric
+CARTAmcg               , Alpha-carotene in mcg per 100g of EP. ,-  , Compiled,numeric
+CARTBmcg               , Beta-carotene in mcg per 100g of EP. ,-  , Compiled ,numeric
+CRYPXBmcg              , Beta-cryptoxanthin in mcg per 100g of EP. ,- , Compiled ,numeric
+VITEmg  , Vitamin E calculated by summation of the vitamin E activities of the active tocopherols and tocotrienols expressed as alpha-tocopherol equivalent in mg per 100g of EP (alpha-tocophero eq. = alpha-tocopherol + 0.4 beta-tocopherol + 0.1 gamma-tocopherol+ 0.01 delta-tocopherol+ 0.3 alpha-tocotrienol + 0.05 beta-tocotrienol + 0.01 gamma-tocotrienol)  ," FAO/INFOODS, 2012      ",  Compiled,numeric
+TOCPHAmg               , Alpha-tocopherol in mg per 100g of EP. ,-   , Compiled ,numeric
+TOCPHBmg               , Beta-tocopherol in mg per 100g of EP. ,- , Compiled ,numeric
+TOCPHGmg               , Gamma-tocopherol in mg per 100g of EP. ,-   , Compiled  ,numeric
+TOCPHDmg               , Delta-tocopherol in mg per 100g of EP. ,- , Compiled ,numeric
+TOCTRAmg               , Alpha-tocotrienol in mg per 100g of EP. ,- , Compiled  ,numeric
+TOCTRBmg  , Beta-tocotrienol in mg per 100g of EP. ,-, Compiled,numeric
+TOCTRGmg , Gamma-tocotrienol in mg per 100g of EP. ,-, Compiled,numeric
+THIAmg," Thiamin, vitamin B1 analysed and expressed as thiamin in mg per 100g of EP. ",- , Compiled,numeric
+THIAHCLmg," Thiamin hydrochloride, vitamin B1 analysed and expressed as thiamin hydrochloride in mg per 100g of EP. ",-, Compiled ,numeric
+RIBFmg, Riboflavin (Vitamin B2) in mg per 100g of EP. ,-, Compiled,numeric
+VITB6Amg , Vitamin B6 determined by analysis in mg/100g of EP. ,- , Compiled,numeric
+VITB6Cmg               ," Vitamin B6 determined by calculation (sum of pyridoxal, pyridoxamine and pyridoxine) in mg per 100g EP. ",- , Compiled ,numeric
+VITB6_mg               , Vitamin B6 by unknown method in mg/100g of EP. ,- , Compiled,numeric
+VITB6_mg_standardised  ," Vitamin B6 in mg/100g of EP regardless of the Tagname (and analytical method used). Including VITB6Amg, VITB6Cmg and VITB6_mg.", - , Compiled ,numeric
+FOLDFEmcg              , Dietary folate equivalents calculated as food folate + 1.7 x synthetic folic acid and expressed in mcg per 100g of EP. ," FAO/INFOODS, 2012 ", Compiled,numeric
+FOLmcg                 ," Folate, total (food folate + synthetic folic) in mcg per 100g EP. Includes both conjugated and free folate (determined by microbiological assay). ",-, Compiled ,numeric
+FOLACmcg               , Folic acid. Synthetic folic acid used in fortification and expressed in mcg per 100g EP. ,- , Compiled,numeric
+FOLFDmcg               ," Folate food, naturally occurring food folate (determined by microbiological assay) in mcg per 100g EP. ",-, Compiled,numeric
+FOLSUMmcg              ," Folate, sum vitamers in mcg per 100g EP. It includes mostly tetrahydrofolate, 5-methyltetrahydrofolate, 5-formyltetrahydrofolate, 10-formylfolic acid, 10-formyldihyrdofolate and folic acid (determined by HPLC). ", -, Compiled,numeric
+FOL_mcg ," Folate total, unknown method ", -, Compiled,numeric
+NIAEQmg  ," Niacin equivalents, total. Preformed niacin plus niacin equivalents from tryptophan (TRP) in mg per 100g EP. ", -, Compiled,numeric
+NIAmg  ," Niacin, prefrormed in mg per 100g EP. ",-  , Compiled,numeric
+NIATRPmg               ," Niacin equivalents, from tryptophan. 1/60 x tryptophan (TRP) expressed in mg per 100g EP.",-, Compiled,numeric
+TRPmg                  , Tryptophan in mg per 100g of EP (includes only L-tryptophan). ," Tagnames, 2007 (accessed on 2022-06-08) ", Compiled ,numeric
+VITB12mcg              ," Vitamin B12 (cobalamin, including all the active forms in foods) expressed in mcg per 100g EP.", -  , Compiled,numeric
+VITCmg                 , Vitamin C (L-ascorbic acid plus Ldehydro-ascorbic acid). Usually analyzed by HPLC and expressed in mg per 100g of EP. ,- , Compiled,numeric
+ASCLmg                 , L-ascorbic acid in mg per 100g of EP. Titrimetry can normally analyze L-ascorbic acid only, -, Compiled,numeric
+VITDEQmcg              , Vitamin D calculated as the sum of Vitamin D3 + D2 + 5 x 25-hydroxycholecalciferol and expressed in mcg per 100g of EP. ,-, Compiled ,numeric
+VITDmcg                , Vitamin D calculated by summation of ergocalciferol and cholecalciferol and expressed in mcg per 100g of EP. This definition is mostly used. ,-, Compiled,numeric
+CHOCALmcg              , Cholecalciferol (D3) in mcg per 100g of EP. ,-, Compiled,numeric
+ERGCALmcg              , Ergocalciferol (D2) in mcg per 100g of EP. ,- , Compiled ,numeric
+CHOCALOHmcg            , 25-hydroxycholecalciferol in mcg per 100g of EP. ,-, Compiled,numeric
+ERGCALOHmcg  , 25-hydroxyergocalciferol ,-, Compiled,numeric
+CAmg  , Calcium in mg per 100g of EP. ,-, Compiled,numeric
+MGmg  , Magnesium in mg per 100g of EP. ,- , Compiled,numeric
+MNmg  , Manganese in mg per 100g of EP. ,-, Compiled  ,numeric
+Pmg   , Phosphorus in mg per 100g of EP. ,-, Compiled  ,numeric
+FEmg  , Iron in mg per 100g of EP. ,-, Compiled ,numeric
+NAmg  , Sodium in mg per 100g of EP. ,-, Compiled ,numeric
+Kmg   , Potassium in mg per 100g of EP. ,-, Compiled   ,numeric
+CUmg  , Copper in mg per 100g of EP. ,-, Compiled,numeric
+ZNmg  , Zinc in mg per 100g of EP. ,-, Compiled ,numeric
+SEmcg , Selenium in mcg per 100g of EP. ,-, Compiled  ,numeric
+IDmcg , Iodine in mcg per 100g of EP. ,-, Compiled  ,numeric

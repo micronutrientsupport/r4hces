@@ -1,0 +1,393 @@
+# Data I/O and Wrangling
+Up to this point we were creating data to manipulate in R. In this section we will learn how to import data into R, manipulate it and export it. We will use the `readr` and `haven` packages to import data into R, the `dplyr` package to manipulate data and the `readr` package to export data from R. We will also use the `here` package to manage file paths.
+
+## Data Input/Import
+There are many ways to import data into R. In this section we will look at how to import data from a CSV file, an Excel file and Stata file. In the sample data folder there are `*.csv` files and stata files `*.dta`. Foe example to import the health data from a survey stored in `hh_mod_a_filt_vMAPS.dta` stored in the `mwi-ihs5-sample-data` folder within our working directory we run:
+    
+```{r eval=FALSE}
+# Load the haven package
+library(haven)
+
+# Import roster data
+ihs5_roster <- read_dta(here::here("data","mwi-ihs5-sample-data", "hh_mod_a_filt_vMAPS.dta"))
+
+# Preview the data
+head(ihs5_roster )
+```
+
+To read a csv file we use the `read_csv()` function from the `readr` package. For example, to import the `IHS5_UNIT_CONVERSION_FACTORS_vMAPS.csv` file stored in the `mwi-ihs5-sample-data` folder within our working directory we run:
+
+```{r eval=FALSE}
+# Load the readr package
+library(readr)
+
+# Import unit conversion factors data
+ihs5_unit_conversion_factors <- read_csv(here::here("data","mwi-ihs5-sample-data", "IHS5_UNIT_CONVERSION_FACTORS_vMAPS.csv"))
+
+# Preview the data
+head(ihs5_unit_conversion_factors)
+```
+
+:::{.callout-note}
+## Excercise
+1. Import your own excel file into R.
+:::
+
+:::{.callout-tip}
+Notice how all import operations are done within the `here::here()` function. This is because we are using the `here` package to manage file paths. The `here::here()` function returns the path to the file relative to the working directory. This is useful when you want to share your code with others, as they can run the code without having to change the file paths.
+
+It is very import that file names and directories are typed as they are. R is sensitive to capital letters and spaces. For example, if you type `IHS5_UNIT_CONVERSION_FACTORS_VMAPS.csv` instead of `IHS5_UNIT_CONVERSION_FACTORS_vMAPS.csv`, R will throw an error. To get around this in RStudio use the `tab` key to autocomplete file names and directories.
+:::
+
+After importing files they are usually stored in memory as dataframes/tibbles. We can check the class of an object using the `class()` function. For example, to check the class of the `ihs5_roster` object, we would type `class(ihs5_roster)`. We can also check the structure of an object using the `str()` function. For example, to check the structure of the `ihs5_roster` object, we would type `str(ihs5_roster)`. We want to make sure that the data is imported correctly before we start manipulating it.
+
+	
+## Data Wrangling
+The `dplyr` package from the `tidyverse` package is our data wrangling tool of choice. It provides a set of functions for manipulating dataframes e.g. renaming columns, conditional removal of rows, creation of other columns and so on. We will load and manipulate the `consumption` module of our hypothetical Malawi IHS5 survey data. The data is stored in the `mwi-ihs5-sample-data` folder within our working directory and is called `HH_MOD_G1_vMAPS.dta`. We will use the `here` package to manage file paths.
+```{r eval=FALSE}
+library(dplyr) # data manipulation
+library(haven) # data import
+library(here) # file paths
+```
+
+### Import the data
+```{r eval=FALSE}
+# Import the data
+ihs5_consumption <- read_dta(here::here("data","mwi-ihs5-sample-data", "HH_MOD_G1_vMAPS.dta"))
+```
+
+:::{.callout-note}
+## Excercise
+1. Check if the data improrted correctly
+2. Check the structure of the data
+3. How many observations and variables are there?
+:::
+
+### Subsetting data
+### Subsetting data frames
+There are a number of functions that can be used to extract subsets of R objects in tidyverse syntax. The most important are the following from the `dplyr` package:
+
+-   filter() allows you to select a subset of rows in a data frame.
+-   select() allows you to select a subset of columns in a data frame.
+-   arrange() allows you to reorder the rows of a data frame.
+-   mutate() allows you to create new columns from existing columns.
+-   summarise() allows you to collapse many values down to a single summary.
+-   pull() allows you to extract a single column from a data frame as a vector.
+
+### Subsetting columns
+This data that we loaded is a randomly generated immitation of the Malawi Intergrated Household Survey 2018-2019 described [here](https://microdata.worldbank.org/index.php/catalog/3818/study-description). This data contains responses on `total consumption` as well as disaggregation of the sources of these foods.In this book we will process only the `total consumption.
+
+Remember we said that our data is loaded in memory? Seeing that the `ihs5_consumption` data contains columns we do not need let us subset it. The `select` function in dplyr is very useful for this. For example to keep only the columns with household identifiers and food names, units and quantity of consumption we keep the following columns in our data; "case_id", "HHID", "hh_g01", "hh_g01_oth", "hh_g02", "hh_g03a", "hh_g03b", "hh_g03b_label", "hh_g03b_oth", "hh_g03c", "hh_g03c_1".
+
+```{r eval=FALSE}
+# Subset the data
+ihs5_consumption_subset <-
+    select(
+        ihs5_consumption,
+        case_id,
+        HHID,
+        hh_g01,
+        hh_g01_oth,
+        hh_g02,
+        hh_g03a,
+        hh_g03b,
+        hh_g03b_label,
+        hh_g03b_oth,
+        hh_g03c,
+        hh_g03c_1
+    )
+```
+
+The syntax for most tidyverse functions is `function (data,columns)`. Notice that we stored the subsetting operation in a new object called `ihs5_consumption_subset`? This is generally frowned upon unless we intend to use the original dataset for separate operations. Storing the subset in a new object will use up more memory to store the 2 objects. We can overwrite the original object by typing:
+
+```{r eval=FALSE}
+ihs5_consumption <- select(
+    ihs5_consumption,
+    case_id,
+    HHID,
+    hh_g01,
+    hh_g01_oth,
+    hh_g02,
+    hh_g03a,
+    hh_g03b,
+    hh_g03b_label,
+    hh_g03b_oth,
+    hh_g03c,
+    hh_g03c_1
+)
+```
+:::{.callout-tip}
+Instead of typing the column names, we can use the `:` operator to select a range of columns. For example, to select all the columns between `case_id` and `hh_g03c_1` we would type:
+
+```{r eval=FALSE}
+# Subset the data
+ihs5_consumption_subset <-
+    select(
+        ihs5_consumption,
+        case_id:hh_g03c_1
+    )
+```
+:::
+
+Next let us give the columns more meaningful names. We can do this using the `rename` function. For example, to rename the `hh_g01` column to `consumedYN` and `hh_g02` to `food_item`, we would type:
+
+```{r eval=FALSE}
+# Rename the columns
+ihs5_consumption <-
+    rename(ihs5_consumption,
+           consumedYN = hh_g01,
+           food_item = hh_g02)
+```
+Notice how our operations only affect the specific columns we specify? This is because the `select` and `rename` functions are smart and intiutive.
+
+:::{.callout-note}
+## Excercise
+1. Rename the remaining columns to:
+
+
+| old_name      | new_name               |
+|:--------------|:-----------------------|
+| hh_g01_oth    | food_item_other        |
+| hh_g03a       | consumption_quantity   |
+| hh_g03b       | consumption_unit       |
+| hh_g03b_label | consumption_unit_label |
+| hh_g03b_oth   | consumption_unit_oth   |
+| hh_g03c       | consumption_subunit_1  |
+| hh_g03c_1     | consumption_subunit_2  |
+
+:::
+
+:::{.callout-tip collapse="true"}
+Solution:
+```{r eval=FALSE}
+# Reload the data to start from scratch
+ihs5_consumption <-
+    read_dta(here::here("data",
+                        "mwi-ihs5-sample-data", 
+                        "HH_MOD_G1_vMAPS.dta"))
+
+# Rename the columns
+ihs5_consumption <-
+    rename(
+        ihs5_consumption,
+        consumedYN = hh_g01,
+        food_item = hh_g02,
+        food_item_other = hh_g01_oth,
+        consumption_quantity = hh_g03a,
+        consumption_unit = hh_g03b,
+        consumption_unit_label = hh_g03b_label,
+        consumption_unit_oth = hh_g03b_oth,
+        consumption_subunit_1 = hh_g03c,
+        consumption_subunit_2 = hh_g03c_1
+    )
+```
+:::
+
+
+### Subsetting rows
+We can also subset rows using the `filter` function. For example, to keep only the rows where `consumedYN` is equal to `1`, we would type:
+
+```{r eval=FALSE}
+# Subset the data
+ihs5_consumption <- filter(ihs5_consumption, consumedYN == 1)
+```
+
+Notice how we are using the logical operator `==` to test each row whether the value of `consumedYN` is equal to `1`? This is called a conditional statement as we discussed in the previous sections.
+
+## Chaining operations using the pipe operator
+We can chain operations using the pipe operator `%>%` or `|>`. This is useful when we want to perform multiple operations on a dataset. For example, to read, subset the data and rename the columns in one operation, we would type:
+
+```{r eval=FALSE}
+# Read, subset and rename the data
+ihs5_consumption <-
+    read_dta(here::here("data",
+                        "mwi-ihs5-sample-data", 
+                        "HH_MOD_G1_vMAPS.dta")) |>
+    select(
+        case_id,
+        HHID,
+        hh_g01,
+        hh_g01_oth,
+        hh_g02,
+        hh_g03a,
+        hh_g03b,
+        hh_g03b_label,
+        hh_g03b_oth,
+        hh_g03c,
+        hh_g03c_1
+    ) %>%
+    rename(
+        consumedYN = hh_g01,
+        food_item = hh_g02,
+        food_item_other = hh_g01_oth,
+        consumption_quantity = hh_g03a,
+        consumption_unit = hh_g03b,
+        consumption_unit_label = hh_g03b_label,
+        consumption_unit_oth = hh_g03b_oth,
+        consumption_subunit_1 = hh_g03c,
+        consumption_subunit_2 = hh_g03c_1
+    )
+```
+
+We deliberately used both the pipe operators `%>%` and `|>` to show that they are the same. The %>% is the most popular of the `tidyverse` pipes from the `magrittr` package. 
+
+Recent versions (circa 2020) intoduced the native `R` pipe `|>`. The pipe operator is useful when we want to perform multiple operations on a dataset without storing the intermediate results in memory. 
+
+In the above example we only stored the final result in memory. This is useful when we are working with large datasets and want to save memory.
+
+:::{.callout-tip}
+## Pipes
+In Rstudio you can type the pipe operator by typing `Ctlr + shift + m`. You can also change whether the pipe operator is `%>%` or `|>` in the `Tools > Global Options > Code > Editing` menu by changing the `Use native pipe operator |> (requires R 4.1+)` option.
+:::
+
+:::{.callout-warning}
+When chaining operations we do not need to specify the data argument in the subsequent functions. This is because the output of the previous function is passed to the next function. If we want to specify the data argument, we can use the `.` symbol. For example, to specify the data argument in the `rename` function, we would type:
+:::
+
+### Change the data type of a column
+The `mutate` function is used to create new columns from existing columns. It is also used to change the data type of a column. For example, to change the data type of the `consumption_quantity` column to numeric, we would type:
+
+```{r eval=FALSE}
+ihs5_consumption <- ihs5_consumption |>
+    mutate(food_item_code = as.character(food_item))
+```
+
+### Create a new column
+As we mentioned earlier, the `mutate` function is used to create new columns from existing columns. For example, to create a new column with hh_members (randomly generated) we would type:
+
+```{r eval=FALSE}
+ihs5_consumption <- ihs5_consumption |>
+    mutate(hh_members = sample(1:10, nrow(ihs5_consumption), replace = TRUE))
+```
+
+Here we are using the `sample` function to generate random numbers between 1 and 10. The `nrow` function returns the number of rows in the `ihs5_consumption` data. The `replace = TRUE` argument tells the `sample` function to sample with replacement. This means that the same number can be sampled more than once. If we want to sample without replacement we would type `replace = FALSE`. 
+
+We used the `sample` function a lot during the generation of the sample data used in this book. You can see more on this in the [data generation]() section.
+
+### Vectorised operations
+The `mutate` function is also useful for vectorised operations. For example, to create a new column with the consumption per person we would type:
+
+```{r eval=FALSE}
+ihs5_consumption <- ihs5_consumption |>
+    mutate(consumption_per_person = consumption_quantity / hh_members)
+``` 
+
+:::{.callout-note}
+## Excercise
+Suppose this data is from a 7 day recall survey. Create a new column with the consumption per person per day.
+:::
+
+### Enriching data
+We can enrich our data by joining different files using the `join` function. The most common joins are `left_join`, `right_join`, `inner_join` and `full_join`. 
+
+The `left_join` function joins two dataframes by keeping all the rows in the first dataframe and matching the rows in the second dataframe. 
+
+Most joining operations in hces data analysis are `left_join` operations as we want to keep all the rows in the primary data we are processing and `enrich` it with matched rows in the other data. For example, to join the `ihs5_consumption` data with the `ihs5_household_identifies` contained in `hh_mod_a_filt_vMAPS.dta` data we would type:
+
+```{r eval=FALSE}
+# Import the data
+ihs5_household_identifiers <-
+    read_dta(here::here("data",
+                        "mwi-ihs5-sample-data", 
+                        "hh_mod_a_filt_vMAPS.dta"))
+
+# Join the data
+ihs5_consumption_j1 <- ihs5_consumption |>
+    left_join(ihs5_household_identifiers, by = "HHID")
+```
+
+The result is an enriched dataset with rows from the `ihs5_household_identifiers` data that match the `HHID` column in the `ihs5_consumption` data. The `by` argument tells the `left_join` function which column to use to match the rows. If the column names are the same in both dataframes, we do not need to specify the `by` argument. For example, to join the `ihs5_consumption` data with the `ihs5_household_identifies` contained in `hh_mod_a_filt_vMAPS.dta` data we would type:
+
+```{r eval=FALSE}
+# Import the data
+ihs5_household_identifiers <-
+    read_dta(here::here("data",
+                        "mwi-ihs5-sample-data", 
+                        "hh_mod_a_filt_vMAPS.dta"))
+
+# Join the data
+ihs5_consumption <- ihs5_consumption |>
+    left_join(ihs5_household_identifiers)
+```
+
+:::{.callout-note}
+## Excercise
+1. Compare the results of the two joins.
+2. What is the difference?
+:::
+
+### Grouping and Summarising Data
+We can group data using the `group_by` function. Grouping data is useful when we want to summarise data. In `dplyr` the summaries are created from the `groups` in the data. For eample to summarise the `consumption_per_person` by `food_item` we would type:
+
+```{r eval=FALSE}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item) |>
+    summarise(consumption_per_person = mean(consumption_per_person, na.rm = TRUE))
+```
+
+Here we are using the `mean` function to calculate the mean of the `consumption_per_person` column. The `na.rm = TRUE` argument tells the `mean` function to ignore missing values.
+
+We can also compute multiple summaries at once. For example, to compute the mean and standard deviation of the `consumption_per_person` column we would type:
+
+```{r eval=FALSE}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item) |>
+    summarise(
+        consumption_per_person_mean = mean(consumption_per_person, na.rm = TRUE),
+        consumption_per_person_sd = sd(consumption_per_person, na.rm = TRUE)
+    )
+```
+
+To compute summaries across multiple groups we can use the `group_by` function with multiple arguments. For example, to compute the mean and standard deviation of the `consumption_per_person` column by `food_item` and `region` we would type:
+
+
+```{r eval=FALSE}
+# Summarise the data
+ihs5_consumption_summary <- ihs5_consumption |>
+    group_by(food_item, region) |>
+    summarise(
+        consumption_per_person_mean = mean(consumption_per_person, na.rm = TRUE),
+        consumption_per_person_sd = sd(consumption_per_person, na.rm = TRUE)
+    )
+```
+In the next section we will learn how to use plots to visualise our data. A basic example of a plot is a bar chart. For example we can visualise the consumption per person by food item using a bar chart. To do this we will use the `ggplot2` package from the `tidyverse` package like so:
+
+```{r eval=FALSE}
+# Load the ggplot2 package
+library(ggplot2)
+
+#  Plot the data
+ihs5_consumption |>
+    # Add plot aesthetics
+    ggplot(aes(x = region, y = consumption_per_person, group = region)) +
+    # Add plot type
+    geom_boxplot() 
+```
+Here we plotted a `boxplot` of the `consumption_per_person` by `region`. 
+
+
+
+### Data Output/Export
+We can export data from R using the `write_csv()` function from the `readr` package. For example, to export the `ihs5_consumption` data to a csv file called `ihs5_consumption.csv` stored in our working directory we run:
+
+```{r eval=FALSE}
+# Export the data
+write_csv(ihs5_consumption, here::here("data",
+                                       "ihs5_consumption.csv"))
+```
+
+We recommend exporting files to csv as this allows interoperability between various software. If you prefer exporting your data to excel, you can use the `write_xlsx()` function from the `writexl` package. For example, to export the `ihs5_consumption` data to an excel file called `ihs5_consumption.xlsx` stored in our working directory we run:
+
+```{r eval=FALSE}
+# Export the data
+writexl::write_xlsx(ihs5_consumption, here::here("ihs5_consumption.xlsx"))
+```
+
+To export the data to a stata file, we can use the `write_dta()` function from the `haven` package. For example, to export the `ihs5_consumption` data to a stata file called `ihs5_consumption.dta` stored in our working directory we run:
+
+```{r eval=FALSE}
+# Export the data
+write_dta(ihs5_consumption, here::here("ihs5_consumption.dta"))
+```

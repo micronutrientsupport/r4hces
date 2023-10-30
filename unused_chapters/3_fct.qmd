@@ -1,0 +1,783 @@
+---
+title: "Introduction to standardisation of the food composition tables and databases"
+format: 
+  html:
+     toc: true
+     theme: simple.scss
+     embed-resources: true
+editor: source
+  markdown: 
+    wrap: 72
+---
+
+# Introduction
+
+### Selecting food composition data
+
+#### Selecting the food composition data for use with the survey.
+
+When selecting what [food composition data]{.dark-blue} will be used, we need to answer some of the following questions:
+
+1.  Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?).
+
+2.  FCT availability & missing values (e.g., are relevant foods and nutrients reported?).
+
+3.  Data quality and reporting (e.g., what are the method of analysis and metadata available?).
+
+##### Relevancy for the study/context (e.g., geographically and culturally close).
+
+#TODO: Can we do this interactive? 
+
+::: callout-note
+## Question 1
+
+What FCTs do you know from the region of interest? And, what FCT would you use for your study?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 1
+
+There are more than 19 FCTs in the sub-Saharan region.
+
+**Tanzania FCT, 2008** \> Western Africa FCT, 2019 \> Kenya FCT, 2018 \> [USDA FCT, 2019 \> UK FCT, 2020]{.yellow}. Other specific FCTs like uFish and/or uPulses may be used as well.
+:::
+
+After selecting the most relevant FCT(s), we need to check whether it contains the information we need for the objective of our study.
+
+##### FCT availability & missing values (e.g., relevant foods and nutrients are reported)
+
+Here, we need to check if the FCT(s) that we have selected contains the foods reported consumed in the household survey and the nutrients that we will be evaluating in our study.
+
+:::{.callout-note} 
+## Question 2 
+
+How many foods are reported in the FCT (e.g., Malawi FCT, 2019)? 
+
+:::
+
+::: {.callout-tip collapse="true"}
+
+## Answer 2
+
+`r unique(data.df$food_desc)`, you can answer that question by using `unique(data.df$food_desc)`.
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Question 3
+
+What nutrients and other food components are reported?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 3
+
+We need to report certain nutrients, do you know which ones? (Vitamin A, thiamine, riboflavin, niacin, folate, vitamin B6, vitamin B12, iron, and zinc)
+:::
+
+::: callout-note
+## Question
+
+What nutrients and other important food components are missing?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Information of edible portion and water (moisture) content is missing.
+:::
+
+After, we have checked that most of the foods and nutrients that we need are reported in the FCT(s) selected, we need to check the quality of the data provided, as it would condition the results of our analysis.
+
+
+##### Data quality and reporting (e.g., method of analysis, good metadata)
+
+
+General quality checks are: the level of detail in the food description, the methods used for nutrient values compilation, and the documentation and degree of detail.
+
+Other quality checks that can be performed are: calculating sum of proximate and re-calculating the values of: Carbohydrates available by difference, energy, etc.
+
+::: callout-note
+## Question 5
+
+Why are those components important for the food matching process?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 5
+
+Water content is essential to differentiate foods, and to identify if food are dry/fresh. In addition, for calculating SOP, re-calculating some food components, and it is vital for imputing values when necessary.
+
+Edible portion is necessary to calculate the part of the foods that people are consuming, and this is usually context specific. Hence, it should be reported in the national FCT.
+:::
+
+::: callout-note
+## Question 6
+
+What FCTs would you use for your study?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 6
+
+There is not correct answer because the choice is study, context and objective specific. For example, for the IHS4, we chose: MW19\>KE18\>WA19\>UK21\>US19.
+
+We excluded TZ06 because we found data inconsistencies and low availability of metadata, we also excluded UG12 because the underlying data is mainly "borrowed" from the US19.
+:::
+
+However some of those questions can only be answered, or would be easily answered by, having the FCT/FCBD in a accessible format.
+
+## Objective
+
+This document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repository is documented in this folder (documentation).
+
+For easy navigation and use of this script it is recommended to use Rstudio. In RStudio please click the "Show Document Outline" button to the right of the source button, at the top right of this window. This will allow for easier navigation of the script.
+
+# Environment Prep
+
+First we need to check what [packages](link-to-packages-explanation) are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.
+
+```{r}
+
+required_packages <- c("readxl", "stringr", "dplyr", "here", "measurements") #This line lists the required packages
+
+install.packages(setdiff(required_packages, rownames(installed.packages()))) #This installs them if they aren't already installed.
+
+lapply(required_packages, library, character.only=TRUE) #And then activates them
+
+# Then, run this to clean the environment
+rm(list = ls())
+
+```
+
+## Food composition functions
+
+```{r}
+
+# We also need to import some custom functions in another script:
+source(here::here("functions.R")) # Loading nutrition functions
+
+```
+
+# Obtaining the raw (FCT) file(s) for importing
+
+## Data License Check
+
+Before using any dataset, we recommend to check licensing conditions & record the data source, you can use the [README template](link-to-readme-template).
+
+## Data Download
+
+If the data is publicly available online, usually you only need to run the code below to obtain the raw files. Remember you only need to do it the first time! Then, the data will be stored in the folder of your choice (see below).
+
+For instance, many raw files can be found provided by the FAO here, in various formats - https://www.fao.org/infoods/infoods/tables-and-databases/en/
+
+Once the link to the data is found, check what file type it is, and paste the direct file link to replace the fill-in value below.
+
+Please note: in code chunck below, the 'template' is a fill in value for a folder - if you wish to store this file in a folder, you must create a folder in your here::here location (found by running `here::here()`) and replace 'template' with that folders name. It is also important to make sure that the filename you pick for the downloaded file has the same file suffix (e.g. '.xlsx') as the file you are downloading.
+
+
+```{r}
+
+f <- "http://www.the-source-of-the-data/.../the-file-data.xlsx"
+
+download.file(f,  # the location where is downloaded from 
+   destfile = here::here('template', "the-file-name-of-data.xlsx"), # the location where you                                                 wish the file to be stored in your computer. 
+            method="wininet", # use "curl" for OS X / Linux, "wininet" for Windows 
+            mode="wb")
+
+
+```
+
+## File names conventions
+
+We advise to use the ISO code (2 digits) (see [ISO 3166 2-alpha code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for further information) of the country or the region of the FCT scope, plus the two last digits of the year of publication to name, both the folder which will contain the data and the scripts related to the FCT. For instance, Kenya FCT, 2018 will be coded as KE18. This will help with the interoperability, reusability and findability of the data. Also, to streamline the work in the future. That name convention will be used also as the identifier of the FCT. See section X.x. Variable re-naming.
+
+
+# Importing the data (loading the data)
+
+## Identifying the file
+
+### Using the download code above (1.2.)
+
+First, we must find the file on your system that we want to import. If using RStudio: If you used the download method above [Section 1.2](link-to-section) then we will see the same location as specified there to specify the file. Simply copy the contents of the here::here brackets and use it to fill the here::here brackets in the line of code below.
+
+```{r}
+
+#This identifies the file and file path, and saves it as a variable
+FCT_file_location <- here::here('template', "the-file-name-of-data.xlsx") 
+
+```
+
+### Using here::here()
+
+#### A brief introduction to here::here()
+
+If you are using an RStudio project but used a different download method, or already have the file you want to process on your computer, or are using base R we can still use the here::here function, however we will have to find the file first. Best practise is to put the file in the same folder as this script, or in a subfolder of that folder. If this is done, then use `here::here()` to find your current working directory, and then navigate to the file folder. For example, I run `here::here()` and this is the output:"C:/Users/\[Username\]/.../Documents", but my file is in the folder "C:/Users/\[Username\]/.../Documents/Research/FCT_cleaning/FCT_1" and is called "The_actual_fct.xlsx". In order to navigate there, I have to include each subfolder between my `here::here` location and the file itself (so the 'Research' folder, the 'FCT_cleaning' folder and the 'FCT_1' folder). To do this, specify these folders in here::here, and then specify the file itself, like so: `here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual_fct.xlsx')`. If using an RStudio project, and you put this .R file and the data file in the same folder as the RStudio project or within a subfolder, this is much easier as your project/here::here location automatically moves to the main project folder. More information about the here package can be found [here](https://here.r-lib.org/).
+
+#### Using here::here()
+
+Find your file in your computer, and then direct here::here to it - e.g.: (edit the line below to match your file location, remove hash from the start of the line below and run)
+
+```{r}
+
+FCT_file_location <- here::here('Research', 'FCT_cleaning', 'FCT_1', 'The_actual_fct.xlsx') #This identifies the file and file path, and saves it as a variable
+
+```
+
+
+## Importing Files
+
+During import, a identifier for the FCT is created and added to the table. Please replace 'MW19' from the next code chunck with the FCT id., comprised of the countries [ISO 3166 2-alpha code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes), and the year the FCT was produced (e.g. for the Malawi FCT from 2019, the reference would be 'MW19'). This should be the same as the folder name explained in (section 1.3)\[link-to-section\].
+
+```{r}
+
+# This is an example of the name 
+FCT_id <- 'MW19' # Change two first letter for your ISO 2 code & the two digits for the last two digits of the year of publication.
+
+```
+
+FCT files come in many different forms - the most common being ".xlsx" files and ".csv" files. Methods to import both of these file types will be covered - please navigate to the relevant subsection.
+
+
+### Importing .xlsx files
+
+For the excel-type of files, first, you need to check what information is provided and which of the sheet is providing the FC data.
+
+```{r}
+
+data.df <- readxl::read_excel(FCT_file_location, #The file location, as                            identified in section 2.1
+                              sheet = 1  # Change to the excel sheet where                              the FCT is stored in the excel file
+                              ) %>%  
+  mutate(source_fct = FCT_ref)  #Creates the source_fct column and fills with                 a id for this FCT, as filled in in section 2.2. 
+
+```
+
+### Importing .csv files
+
+
+
+```{r}
+
+data.df <- read.csv2(FCT_file_location, #The file location, as identified in section 2.1
+                     sep = ",") %>%  # Replace w/ other symbol if needed
+  mutate(source_fct = FCT_ref) #Creates the source_fct column and fills with a id for this FCT, as filled in in section 2.2. 
+
+```
+
+Once imported, it is important to check the data.frame created from the csv, by using `head(data.df)` or clicking on its entry in the Environment panel of RStudio (This second option is not advised with very large files, however, as it can be slow).
+
+If the data shown by doing this has all its columns combined, with a symbol in-between, then that symbol (e.g. ';') is the separator for that csv. Replace the comma in the `sep = ","` line from the code block above with the new symbol, and run the entire block again.
+
+```{r}
+
+# Checking the dataframe
+head(data.df)
+
+```
+
+
+## Checking the loaded data
+
+## How many rows & columns does the dataset have?
+
+```{r}
+
+dim(data.df) # rows & columns
+
+```
+
+## What are the variables names in the dataset?
+
+```{r}
+
+names(data.df)
+
+```
+
+If we are happy that we have loaded the correct FCT file, then proceed. If not, find the correct file and import it instead.
+
+
+# Data Formatting
+
+## Visually checking the data
+
+It is always advisable to check the dimensions of the dataset you are working with. This will allow you to get a handle on the size of the dataset, and may inform you about the contents of the dataset, and whether it is formatted in a sensible manner. Some common issues can be uncovered this way, such as columns that contain multiple variables, or whether the first row contains actual data or more variable metadata (e.g. the units for the column).
+
+```{r}
+# Checking the first rows and columns
+head(data.df) 
+
+# Checking the last rows and columns
+tail(data.df)
+
+# Opening the dataframe in a tab, 
+#Note: if the dataset is very very big, may crash the R session.
+View(data.df)
+
+```
+
+
+## Trimming dataframe rows
+
+Sometimes it is necessary to trim the dataset - for instance, if the bottom of the table has some metadata rows which are not actual data.
+
+
+Running this will trim down the table to only include the row numbers between x and y - replace x and y with your desired values. If you wanted to include multiple row ranges, that is also possible - use comments to differentiate between different row ranges and individual rows. e.g. if you wanted to include rows a:b, row c, row e, and rows g:x, then the code would be `slice(a:b, c, e, g:x)`.
+
+```{r}
+
+data.df <- data.df %>% slice(x:y)
+
+```
+
+
+## 3.3. Trimming dataframe columns
+
+If you only wish to include certain columns/nutrients, then you might wish to remove the unnecessary columns to make the dataframe easier to read and manage. This can be done through 2 methods; either by selecting the names of the columns you want to keep, or by selecting the names of the columns you want to remove.
+
+### 3.3.1. Keep specified columns only
+
+This method requires creating a list of column names you want to keep - for #example the line below would select the columns 'Energy_kcal', 'Fatg', 'Protein_g', but nothing else. If you wish to trim the columns this way, replace the items in the first line with the column names you want to keep, then run the code block below.
+
+```{r}
+
+Columns_to_keep <- c('Energy_kcal', 'Fatg', 'Protein_g') data.df <- data.df %>% select(Columns_to_keep)
+
+```
+
+### Remove specified columns, keep all others
+
+Sometimes it is easier to list the columns you want to remove, rather than the ones you want to keep. The code block below identifies the columns to be removed ('VitB12_mcg' and 'Calcium_mg' in the example), and then removes them. If you wish to trim the columns this way, replace the items in the first line with the column names you want to remove, then run the code block below.
+
+This works in a similar way to the codeblock in section 3.3.1, however by putting an exclamation mark (!) before the list of columns, it inverts the selection - instead of instructing R to keep only the listed columns (as with the codeblock above), it instructs R to keep all columns but the listed ones.
+
+```{r}
+
+Columns_to_remove <- c('VitB12_mcg', 'Calcium_mg') 
+data.df <- data.df %>% select(!Columns_to_remove)
+
+```
+
+## Data Conversion and Tidying
+
+Sometimes it is necessary to convert, tidy, or create new columns based on the dataset. For example, you may wish to convert data if a nutrients unit of measurement is not standard (milligrams instead of micrograms, or vice versa). Tidying may take the form of renaming variables, or splitting columns that contain multiple variables. It may also be helpful to create new variables derived from information in other variables This section will cover some common examples.
+
+### Deriving one variable from another (e.g. Food Group from Food Item ID)
+
+If an FCT does not have a column for the food groups, but this information can be derived from the structure of the food item ID, then a food group column can be derived from the food item ID column. Because of R's versatility, it should be possible to derive any information which is indicated by a regular expression or by the structure of the data in another column. We will only cover one example below, as it is impossible to cover all possibilities, but through further research it should be possible regardless of the complexity of the data structure, as long as there is an indicator in another column, such as a few digits or characters in a certain position within the food item ID.
+
+This process requires multiple steps, each covered in their own subsections below: Extracting food group names, Creating the variable, and checking changes in the structure.
+
+#### Extracting food group names
+
+```{r}
+
+fgroup <- data.df %>% 
+  filter(is.na(food_desc), !is.na(fdc_id)) %>%
+  pull(fdc_id) %>%
+  stringr::str_split_fixed( '/', n = 2) %>% 
+  as_tibble() %>%
+  pull(V1) #Creates a list of the food groups using their unique row structure in the table to identify them
+
+```
+
+### Creating the food_group variable in the FCT
+
+```{r}
+
+data.df <- data.df %>% #Identifies the food group number from the fdc_id, and applies the correct food_group from the fgroup list to the food_group column 
+  mutate(food_group = ifelse(grepl("01_", fdc_id), fgroup[1],
+                             ifelse(grepl("02_", fdc_id), fgroup[2],
+                                    ifelse(grepl("03_", fdc_id), fgroup[3],
+                                           ifelse(grepl("04_", fdc_id), fgroup[4],
+                                                  ifelse(grepl("05_", fdc_id), fgroup[5],
+                                                         ifelse(grepl("06_", fdc_id), fgroup[6],
+                                                                ifelse(grepl("07_", fdc_id), fgroup[7],
+                                                                       ifelse(grepl("08_", fdc_id), fgroup[8],
+                                                                              ifelse(grepl("09_", fdc_id), fgroup[9], 
+                                                                                     ifelse(grepl("10_", fdc_id), fgroup[10], 
+                                                                                            ifelse(grepl("11_", fdc_id), fgroup[11], 
+                                                                                                   ifelse(grepl("12_", fdc_id), fgroup[12],
+                                                                                                          ifelse(grepl("13_", fdc_id), fgroup[13],
+                                                                                                                 ifelse(grepl("14_", fdc_id), fgroup[14],
+                                                                                                                        'NA'))))))))))))))) %>%
+  filter(!is.na(food_desc)) # Removes any rows without a food description entry (the food group name rows, and a row that have already been used for naming)
+
+```
+
+
+```{r, eval=TRUE}
+
+data.df$food_group <- NA
+
+for(i in 1:nrow(group.id)){
+
+  data.df <-   data.df %>% 
+  mutate(food_group = ifelse(grepl(group.id[i], Code), fgroup[i], food_group)) 
+  
+}
+
+```
+
+### Checking changes in the data structure
+
+```{r}
+
+data.df %>% filter(is.na(food_desc), !is.na(fdc_id)) str(data.df) # Checking columns: 1 variable per column, no empty rows. 
+
+head(dta.df) # rows and column
+
+dim(data.df)  
+
+```
+
+Note: it should have less rows (from trimming) and one more column (food_group).
+
+
+
+#### Dividing combined variables into two (or more) columns
+
+
+# This is just an example!
+
+```{r}
+
+data.df <- data.frame(a = c("x1", "x2", "x3", "x4"), 
+                      b = c("399", "\[899\]", "\[5000\]", "3000"), 
+                      b1 = c("399", "450\*", NA,"3000"), c = c("399", "899", "\[5000\]", "3000"),
+                      d = c("LOD", "\<lod", "\[5000\]", "tr"))
+
+```
+
+Creating calculated values from the lower quality method and removing the original values from the original variable
+
+```{r}
+
+data.df <- data.df %\>% mutate(e = str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), 
+b1 = ifelse(is.na(b1), str_extract(b, '(?\<=\\\[).\*?(?=\\\])'), b1))
+
+```
+
+
+### Separating variables
+
+4 new variables, 3 existing one
+
+```{r}
+
+data.df <- data.df %\>% mutate(FATCEg = str_extract(FATg, '(?\<=\\\[).\*?(?=\\\])'),
+FIBCg = str_extract(FIBTGg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg = ifelse(is.na(CARTBmcg), str_extract(CARTBEQmcg, '(?\<=\\\[).\*?(?=\\\])'), CARTBmcg), 
+TOCPHAmg = ifelse(is.na(TOCPHAmg),str_extract(VITEmg, '(?\<=\\\[).\*?(?=\\\])'), TOCPHAmg ), 
+NIAmg = ifelse(is.na(NIAmg), str_extract(NIAEQmg, '(?\<=\\\[).\*?(?=\\\])'), NIAmg), 
+FOLSUMmcg = str_extract(FOLmcg, '(?\<=\\\[).\*?(?=\\\])'), PHYTCPPD_PHYTCPPImg = str_extract(PHYTCPPmg, '(?\<=\\\[).\*?(?=\\\])'))
+
+names(data.df)
+
+```
+
+Checking the changes in the dataframe
+
+::: callout-note
+## Question
+
+Are the new variables there?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+`r names(data.df)`
+
+:::
+
+::: callout-note
+## Question
+
+How many rows and columns are in the dataset?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+`r dim(data.df)`
+
+:::
+
+
+Note that it should be the same rows and 4 more column (4 new variables).
+  
+Checking columns: 1 variable per column, no empty rows.
+
+## 4.3. Renaming variables ----
+
+# Checking variables names
+
+names(data.df) 
+
+Are the variable names = column names? #If not, more formatting is needed (back to previous step)
+
+If yes, \# are the food component variable names using INFOODS tagnames & units \# e.g. \[Variable\]\_\[unit\] (NA_mg)? Then, rename other variables:
+
+If not, do they provide INFOODS tagname information?
+
+If yes, use that information to rename food components
+
+
+#### Automatic renaming of INFOODS tagnames & units
+
+```{r}
+
+for( i in 8:62){ #Loops through each column between column 8 and 64 - this is specific for each dataset!!
+  first_row <- toString(names(data.df)\[i\]) #Takes the column names and assigns it to a variable (name & unit) second_row \<- toString(data.df\[1, i\]) #Takes the first row for that column and assigns it to a variable (tagname) split_string \<- str_split(first_row, "\\(") #Splits the first row around "(", assigning the two resulting strings to a variable (separating units from names) units_int \<- gsub("\\\*\|\\(\|\\)","", split_string\[\[1\]\]\[length(split_string\[\[1\]\])\]) #Separates the units out from the split_string (everything after the last open bracket) (getting units) names(data.df)\[i\] \<- paste0(second_row, units_int) #The column name is replaced with row 1 and the units from row 2 (changing old column name w/ new tagname_unit names) } \# This loops takes units from variable (column name) extract units & combine it with the INFOODS from \# The next row
+
+```
+
+
+
+ If not, then, manually rename each food component with their correct tagname & current unit
+
+
+##### The identification of food components
+
+Information on the food components and their description should be
+sought in for FCT.  We advise to use the [FAO Tagnames](). Some minor changes in the Tagnames are introduced
+to be compliant with R conventions. E.g., removing spaces in variable
+names, changing symbols to characters (e.g., µg to mcg), or
+standardising the name formatting from using underscores and/or
+parenthesis to using only underscores. Also, changing dashes (-) to
+underscores (\_). Note that within the Tagnames, the dash is used to
+denote that the method for obtaining that (component) value is unknown.
+This is important for the quality assessment of the data.
+
+Also, we also assumed that all the variables labelled as "standardised"
+were combined or recalculated variables.
+
+Table 2. provides a list of all the most relevant food components and their Tagnames. 
+
+
+```{r, table-2}
+
+read.csv(here::here("data",           "fct_variables_standards.csv")) %>% knitr::kable()
+
+```
+
+Change the names in quotes ("") to those in your dataset, remove/ add as needed.
+
+```{r}
+
+data.df <- data.df %>%
+dplyr::rename(
+  ENERCkJ = "kilojoules", 
+  ENERCkcal = "kilocalories", 
+  WATERg = "water", 
+  FAT_g = "fat", 
+  FASATg = "sat_fa", 
+  FAMSg = "mu_fa", 
+  FAPUg = "pu_fa", 
+  F22D6N3g = "c22_6n_3\_dha", F20D5N3g = "c20_5n_3\_epa", CHOLEmg = "cholesterol", CHOAVLg = "carbo", SUGARg = "sugar", FIBTGg = "dietary_fibre", PROCNTg = "protein", ALCg = "alcohol", VITA_RAEmcg = "vitamin_a", RETOLmcg = "retinol", CARTBmcg = "beta_carotene", VITDmcg = "vitamin_d", VITEmg = "vitamin_e", THIAmg ="thiamin", RIBFmg = "riboflavin", NIAmg = "niacin", VITB6_mg = "vitamin_b6", FOLmcg = "folate", VITB12mcg = "vitamin_b12", VITCmg = "vitamin_c", CAmg = "calcium", FEmg = "iron", NAmg = "sodium", Kmg = "potassium", MGmg = "magnesium", Pmg = "phosphorus", SEmcg = "selenium", CUmg = "copper", IDmcg = "iodine", ZNmg = "zinc")
+
+
+```
+
+
+ Renaming the other variables (food code/id, food name, etc.)
+
+
+```{r}
+
+data.df <- data.df %>%
+dplyr::rename( fdc_id = "food_id", # Food id/code 
+food_desc = "food_item", # Food name/description
+Edible_factor_in_FCT = "edible_part", # Edible portion
+nutrient_data_source = "biblio") # Reference for NVs reported
+
+```
+
+What are the variables names now?
+
+```{r}
+# Checking variable names (are all correctly named?)
+
+names(data)
+
+head(data)
+
+```
+
+### Standardisation of values
+
+::: callout-note
+## Question 
+
+Are there any character on the numeric variables (e.g., "tr" in CAmg)?
+
+:::
+
+```{r}
+
+data.df$comments <- NA # New column to add metadata (e.g., when \[\] are removed) for data users
+
+```
+
+Adding metadata info to the variables before removing the characters
+
+```{r}
+
+fdc_id \<- "a" # Variable with the food id/code to be added into the metadata
+
+data.df <- data.df %\>% mutate(comments = ifelse(stringr::str_detect(. , '\\\[.\*?\\\]'), paste0("low quality(", toString(.[stringr::str_which(. , '\\\[.\*?\\\]'), fdc_id], " ", names(.)[stringr::str_which(., '\\\[.\*?\\\]')\],")"), comments)))
+
+```
+
+```{r}
+
+```
+
+
+
+
+data.df\$comments \<- ifelse(stringr::str_detect(data.df\[,i\] , '\\\[.\*?\\\]'), paste0("low quality(", toString(.\[stringr::str_which(. , '\\\[.\*?\\\]'), fdc_id\], " ", names(.)\[stringr::str_which(., '\\\[.\*?\\\]')\],")"), comments))
+
+for (i in 1:nrow(data.df)){ row_of_interest \<- data.df\[i,\] existing_comment \<- row_of_interest\$comments column_numbers_containing_sqrbkt \<- grep('\\\[.\*?\\\]', row_of_interest, fixed=FALSE) if(length(column_numbers_containing_sqrbkt) \> 0){ columns_containing_sqrbkt \<- colnames(row_of_interest)\[column_numbers_containing_sqrbkt\] added_comments_string \<- paste0("low value comment (", columns_containing_sqrbkt, ")", collapse = "") if(is.na(existing_comment)){ new_comment \<- added_comments_string } else { new_comment \<- paste0(existing_comment," ", added_comments_string) } data.df\[i,\] \<- gsub("\[\]\[\]","", row_of_interest) data.df\[i,"comments"\] \<- new_comment } }
+
+# Replacing character with numeric-like values (e.g trace = 0, missing values = NA)
+
+# Using a function - check what kind of character-like values are
+
+#Function to remove brackets and replace trace to zero #The following f(x) removes \[\] and changing tr w/ 0
+
+variables \<- names(data.df)\[2:6\] \# Specify the NVs columns
+
+data.df \<- data.df %\>% mutate_at(variables, no_brackets_tr) #This applies the function for removing brackets
+
+# Check that there are no more characters
+
+\# Currently, only works for presence of character strings, \[\], and \* #NOTE: we are using only NVs variables as character are found in non-numeric variables (i.e., food_desc)
+
+data.df\[, variables\]\[grepl("\[:alpha:\]\|\\\[\|\\\*", data.df\[, variables\])\]
+
+# This steps only can be run after before step the previous step
+
+data.df \<- data.df %\>% mutate_at(variables, as.numeric) \# This convert all NVs into numeric
+
+## 4.5. Units of measurements ----
+
+# The next step is to check whether each variable (food component) has the correct units
+
+# Some variable may be in non-standard units: Eg. Iron from mcg to mg
+
+variable \<- c("b", "c") \# Name the variable(s) that you need to change
+
+data.df\[, variable\] \<- data.df\[, variable\]/1000
+
+# Also can use conv_unit()
+
+#Then, other might be also a different denominator: \# Amino acid in g/100g of protein to mg or EP.
+
+#Unit conversion and in new column of Amino Acids \# multiplying AA\*Protein/10 (Eq.2.3) aa_prot \<- grep( "\_100gPROTCNT", names(data.df), value = TRUE) \# Getting AA variables aa_mg \<- gsub("g_100gPROTCNT", "mg", aa_prot) \# Getting the new variable name \[NV+unit\]
+
+data.df\[, aa_mg\] \<- data.df\[, aa_prot\]*data.df\$PROCNTg*10 \# Generating the new AA variable
+
+# 5. Data output for harmonisation ----
+
+# Once all these steps are done: The FCT is clean & standardise
+
+# And it's ready to be merge, exported, and/or, be used w/ the other scripts (harmonisation)
+
+write.csv(data.df, file = here::here("Output", "template-name_FCT_FAO_Tags.csv"), \# Change according to the FCT file row.names = FALSE) #Saves the newly-created data table to the Output folder
+
+#Run this to clean the environment rm(list = ls())
+
+
+## Q&A 
+
+
+:::{.callout-note} 
+## Question 
+
+How many foods are reported in the FCT (e.g., Western Africa FCT, 2019)? 
+
+:::
+
+::: {.callout-tip collapse="true"}
+
+## Answer 
+
+`r sum(unique(data.df$food_desc) & !is.na(data.df$food_desc)`, you can answer that question by using `sum(unique(data.df$food_desc))`.
+
+:::
+
+:::{.callout-note} 
+## Question 
+
+What nutrients and other food components are reported?
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 
+
+
+
+:::
+
+::: callout-note
+## Question 
+
+Are there any character on the numeric variables (e.g., "tr" in CAmg)?
+
+:::
+
+
+::: callout-note
+## Question
+
+Are there any relevant food components missing?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+
+:::
+
+After, checking that there is a good coverage in term of foods and nutrients, we need to check the quality of the data provided, as it would condition the results of our analysis.
+
+
+
+::: callout-note
+## Question 
+
+What FCTs would you use for your study?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 6
+
+There is not correct answer because the choice is study, context and objective specific. For example, for the IHS5, we chose: MW19\>KE18\>WA19\>UK21\>US19.
+
+We excluded TZ06 because it did not provide information on the water content of foods, nor edible portion, we found data inconsistencies and low availability of metadata, we also excluded UG12 because the underlying data is mainly "borrowed" from the US19.
+
+:::
+
+::: callout-note
+## Question 5
+
+Why are those components important for the food matching process?
+:::
+
+::: {.callout-tip collapse="true"}
+## Answer 5
+
+Water content is essential to differentiate foods, and to identify if food are dry/fresh. In addition, for calculating SOP, re-calculating some food components, and it is vital for imputing values when necessary.
+
+Edible portion is necessary to calculate the part of the foods that people are consuming, and this is usually context specific. Hence, it should be reported in the national FCT.
+
+:::
+
+
+ There are `r dim(data.df)[1]` rows and `r dim(data.df)[2]` columns.

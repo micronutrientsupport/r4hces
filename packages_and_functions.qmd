@@ -1,0 +1,89 @@
+# Packages and Functions
+
+## Functions
+Functions are a set of instructions that can be called by name. They are useful for automating repetitive tasks and for encapsulating complex tasks. 
+
+Functions are defined using the `function()` function. An example of a function is the `dataframe` function which we used above to create a dataframe. 
+
+A function takes in one or more arguments and returns a value. The arguments are specified in the function definition and the value is returned using the `return()` function. 
+
+To see the arguments of a function, use the `?` before the function name e.g. `?dataframe`. To see the code of a function, just type the function name without the parentheses. 
+
+For example, to see the code of the `dataframe` function, type `dataframe` without the parentheses. Other examples are `head` , `str` and `summary` functions.
+
+
+### Creating a function
+The basic syntax for defining a function is as follows:
+
+```{r eval=TRUE}
+# Define a function
+function_name <- function(arg1, arg2, ...) {
+    # Function body
+    # ...
+    # Return value
+    return(return_value)
+}
+```
+
+For example, let us create a function called `add` that takes in two arguments and returns the sum of the two arguments.
+
+```{r eval=TRUE}
+# Define a function
+add <- function(x, y) {
+    # Return the sum of the two arguments
+    return(x + y)
+}
+
+# Call the function
+add(5, 3)
+```
+
+## Packages
+A package is a collection of functions, data, and documentation that extends the functionality of R. There are thousands of packages available for R. 
+
+To use a package, you first need to install it using the `install.packages()` function. Once installed, you can load the package using the `library()` function. 
+
+For example, to install the `dplyr` package, you would type `install.packages("dplyr")`. 
+
+To load the `dplyr` package, you would type `library(dplyr)`. To see the functions in a package, type `help(package = "package_name")` e.g. `help(package = "dplyr")`. 
+
+To see the code of a function in a package, type `package_name::function_name` e.g. `dplyr::mutate`. You can also use the `?` before the function name e.g. `?dplyr::mutate`.
+
+### Package sources
+There are three main sources of packages for R:
+
+-   CRAN - The Comprehensive R Archive Network: https://cran.r-project.org/. This is the main source of packages for R. It contains over 15,000 packages. To install a package from CRAN, you can use the `install.packages()` function.
+-   GitHub: Most developers store their packages on GitHub. To install a package from GitHub, you can use the `install_github()` function from the `devtools` package. e.g. `devtools::install_github("dzvoti/hcesNutR")`. 
+
+:::{.callout-tip}
+Notice how we used package_name::function_name to call the `install_github()` function.
+:::
+
+### Loading packages
+Once installed a package need to be 'loaded' for its function to be available in R. This is done using the `library()` function. 
+
+For example, to load the `dplyr` package, you would type `require(dplyr)`. The difference between the two functions is that `library()` will throw an error if the package is not installed, while `require()` will throw a warning. You can also use the `::` operator to call a function from a package without loading the package. 
+
+Also,to call the `mutate()` function from the `dplyr` package without loading the package, you would type `dplyr::mutate()`. This is useful when you want to use a function from a package without loading the package.
+
+### Removing packages
+To remove a package, you can use the `remove.packages()` function. For example, to remove the `dplyr` package, you would type `remove.packages("dplyr")`.
+
+### Updating packages
+To update a package, you can use the `update.packages()` function. For example, to update the `dplyr` package, you would type `update.packages("dplyr")`.
+
+### Listing installed packages
+To list all installed packages, you can use the `installed.packages()` function. For example, to list all installed packages, you would type `installed.packages()`. 
+
+### Recomended packages
+There are thousands of packages available for R. However, there are some packages that are recommended for beginners. These include:
+
+| Package | Description |
+| -- | -------- |
+| `tidyverse` | A collection of packages designed for data science. It includes the: `dplyr`, `ggplot2`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, `forcats` and `haven` packages. |
+|`here`| A package for managing file paths.|
+
+: Recommended Packages {.striped .hover}
+
+Now that we know what packages and functions are, let us look at some of the functions we can use to manipulate vectors and dataframes in the next section on Data Import,Wrangling and Export.
+

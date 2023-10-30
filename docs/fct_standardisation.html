@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Household Consumption and Expenditure Surveys - 8&nbsp; Food Composition Table &amp; Databases: Standardisation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./fct_harmonisation.html" rel="next">
+<link href="./hcesNutR-package.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Food Composition Table &amp; Databases: Standardisation</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R for Household Consumption and Expenditure Surveys</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://dzvoti.github.io/r4hces/r4hces-data.zip" title="" class="sidebar-tool px-1"><i class="bi bi-cloud-arrow-down"></i></a>
+    <a href="https://github.com/dzvoti/r4hces/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_types.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages_and_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Packages and Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_wrangling_and_io.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hcesNutR-package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fct_standardisation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Food Composition Table &amp; Databases: Standardisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fct_harmonisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Food composition harmonisation and food matching</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">summary.html</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sample_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">8.1</span>  Introduction</a>
+  <ul class="collapse">
+  <li><a href="#selecting-food-composition-data" id="toc-selecting-food-composition-data" class="nav-link" data-scroll-target="#selecting-food-composition-data"><span class="toc-section-number">8.1.1</span>  Selecting food composition data</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective"><span class="toc-section-number">8.1.2</span>  Objective</a></li>
+  </ul></li>
+  <li><a href="#environment-prep" id="toc-environment-prep" class="nav-link" data-scroll-target="#environment-prep"><span class="toc-section-number">8.2</span>  Environment Prep</a></li>
+  <li><a href="#obtaining-the-raw-fct-file" id="toc-obtaining-the-raw-fct-file" class="nav-link" data-scroll-target="#obtaining-the-raw-fct-file"><span class="toc-section-number">8.3</span>  Obtaining the raw (FCT) file</a>
+  <ul class="collapse">
+  <li><a href="#data-license-check" id="toc-data-license-check" class="nav-link" data-scroll-target="#data-license-check"><span class="toc-section-number">8.3.1</span>  Data License Check</a></li>
+  <li><a href="#data-download" id="toc-data-download" class="nav-link" data-scroll-target="#data-download"><span class="toc-section-number">8.3.2</span>  Data Download</a></li>
+  <li><a href="#file-names-conventions" id="toc-file-names-conventions" class="nav-link" data-scroll-target="#file-names-conventions"><span class="toc-section-number">8.3.3</span>  File names conventions</a></li>
+  </ul></li>
+  <li><a href="#importing-the-data-loading-the-data" id="toc-importing-the-data-loading-the-data" class="nav-link" data-scroll-target="#importing-the-data-loading-the-data"><span class="toc-section-number">8.4</span>  Importing the data (loading the data)</a>
+  <ul class="collapse">
+  <li><a href="#importing-files" id="toc-importing-files" class="nav-link" data-scroll-target="#importing-files"><span class="toc-section-number">8.4.1</span>  Importing Files</a></li>
+  </ul></li>
+  <li><a href="#cleaning-tidying-and-standardising-the-data" id="toc-cleaning-tidying-and-standardising-the-data" class="nav-link" data-scroll-target="#cleaning-tidying-and-standardising-the-data"><span class="toc-section-number">8.5</span>  Cleaning (tidying) and standardising the data</a>
+  <ul class="collapse">
+  <li><a href="#formatting-fct-into-a-tabular-format" id="toc-formatting-fct-into-a-tabular-format" class="nav-link" data-scroll-target="#formatting-fct-into-a-tabular-format"><span class="toc-section-number">8.5.1</span>  Formatting FCT into a tabular format</a></li>
+  <li><a href="#creating-food-groups-variable-and-tidying" id="toc-creating-food-groups-variable-and-tidying" class="nav-link" data-scroll-target="#creating-food-groups-variable-and-tidying"><span class="toc-section-number">8.5.2</span>  Creating food groups variable and tidying</a></li>
+  </ul></li>
+  <li><a href="#creating-the-food_group-variable-in-the-fct" id="toc-creating-the-food_group-variable-in-the-fct" class="nav-link" data-scroll-target="#creating-the-food_group-variable-in-the-fct"><span class="toc-section-number">9</span>  Creating the food_group variable in the FCT</a>
+  <ul class="collapse">
+  <li><a href="#diving-combined-variables-into-two-or-more-columns" id="toc-diving-combined-variables-into-two-or-more-columns" class="nav-link" data-scroll-target="#diving-combined-variables-into-two-or-more-columns"><span class="toc-section-number">9.0.1</span>  Diving combined variables into two (or more) columns</a></li>
+  <li><a href="#renaming-variable-names-food-components-definition-and-re-naming" id="toc-renaming-variable-names-food-components-definition-and-re-naming" class="nav-link" data-scroll-target="#renaming-variable-names-food-components-definition-and-re-naming"><span class="toc-section-number">9.0.2</span>  Renaming variable names: Food components definition and re-naming</a></li>
+  <li><a href="#standardisation-of-values" id="toc-standardisation-of-values" class="nav-link" data-scroll-target="#standardisation-of-values"><span class="toc-section-number">9.0.3</span>  Standardisation of values</a></li>
+  <li><a href="#standardising-unit-of-measurement" id="toc-standardising-unit-of-measurement" class="nav-link" data-scroll-target="#standardising-unit-of-measurement"><span class="toc-section-number">9.0.4</span>  Standardising unit of measurement <br></a></li>
+  <li><a href="#saving-the-output" id="toc-saving-the-output" class="nav-link" data-scroll-target="#saving-the-output"><span class="toc-section-number">9.0.5</span>  Saving the output</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="toc-section-number">9.1</span>  Further readings</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/r4hces/edit/main/fct_standardisation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Food Composition Table &amp; Databases: Standardisation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<section id="selecting-food-composition-data" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="selecting-food-composition-data"><span class="header-section-number">8.1.1</span> Selecting food composition data</h3>
+<p>When selecting the food composition table or database (FCT) that will be used, it is good to reflect on the following questions:</p>
+<ol type="1">
+<li><p>Relevancy for the study/context (e.g., is that FCT/FCBD geographically and culturally close to our survey scope?).</p></li>
+<li><p>FCT availability &amp; missing values (e.g., are relevant foods and nutrients reported?).</p></li>
+<li><p>Data quality and reporting (e.g., what are the method of analysis and metadata available?).</p></li>
+</ol>
+</section>
+<section id="objective" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="objective"><span class="header-section-number">8.1.2</span> Objective</h3>
+<p>This document provide, together with the template document, the steps and description for cleaning and standardising FCTs from diverse sources. More details about the cleaned data that can be found in the repository is documented in this folder (documentation).</p>
+<p>For easy navigation and use of this script it is recommended to use Rstudio. In RStudio please click the “Show Document Outline” button to the right of the source button, at the top right of this window. This will allow for easier navigation of the script.</p>
+</section>
+</section>
+<section id="environment-prep" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="environment-prep"><span class="header-section-number">8.2</span> Environment Prep</h2>
+<p>First we need to check what <a href="link-to-packages-explanation">packages</a> are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this to clean the environment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading libraries</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># reading and writing excel files</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># character string handling</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># cleaning data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># file management</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="obtaining-the-raw-fct-file" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="obtaining-the-raw-fct-file"><span class="header-section-number">8.3</span> Obtaining the raw (FCT) file</h2>
+<section id="data-license-check" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="data-license-check"><span class="header-section-number">8.3.1</span> Data License Check</h3>
+<p>Before using any dataset, we recommend to check licensing conditions &amp; record the data source, you can use the <a href="link-to-readme-template">README template</a>.</p>
+</section>
+<section id="data-download" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="data-download"><span class="header-section-number">8.3.2</span> Data Download</h3>
+<p>If the data is publicly available online, usually you only need to run the code below to obtain the raw files. Remember you only need to do it the first time! Then, the data will be stored in the folder of your choice (see below).</p>
+<p>For instance, many raw files can be found provided by the FAO <a href="https://www.fao.org/infoods/infoods/tables-and-databases/en/">here</a>, in various formats.</p>
+<p>Once the link to the data is found, check what file type it is, and paste the direct file link to replace the fill-in value below.</p>
+</section>
+<section id="file-names-conventions" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="file-names-conventions"><span class="header-section-number">8.3.3</span> File names conventions</h3>
+<p>We advise to use the ISO code (2 digits) (see <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes">ISO 3166 2-alpha code</a> for further information) of the country or the region of the FCT scope, plus the two last digits of the year of publication to name, both the folder which will contain the data and the scripts related to the FCT. For instance, Western Africa FCT, 2019 will be coded as WA19. This will help with the interoperability, reusability and findability of the data. Also, to streamline the work in the future. That name convention will be used also as the identifier of the FCT.</p>
+<p>Note that you need to create the folders to store the FCT.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="st">"https://www.fao.org/fileadmin/user_upload/faoweb/2020/WAFCT_2019.xlsx"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">download.file</span>(f, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">destfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="co"># data folder</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">'WA19'</span>, <span class="co">#FCT folder</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="co">#FCT file</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"WAFCT_2019.xlsx"</span>),  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">method=</span><span class="st">"wininet"</span>, <span class="co">#use "curl" for OS X / Linux, "wininet" for Windows</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">mode=</span><span class="st">"wb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If using an RStudio project, and you put the .R file and the data file in the same folder as the RStudio project or within a subfolder, files and folders are much easier to navegate as your project/here::here location automatically moves to the main project folder.</p>
+<section id="using-herehere" class="level4">
+<h4 class="anchored" data-anchor-id="using-herehere">Using here::here()</h4>
+<section id="a-brief-introduction-to-herehere" class="level5">
+<h5 class="anchored" data-anchor-id="a-brief-introduction-to-herehere">A brief introduction to here::here()</h5>
+<p>If you are using an RStudio project but used a different download method, or already have the file you want to process on your computer, or are using base R we can still use the here::here function, however we will have to find the file first. The best practice is to put the file in the same folder as this script, or in a folder within the project. If this is done, then use <code>here::here()</code> to find your current working directory, and then navigate to the file folder. More information about the here package can be found <a href="https://here.r-lib.org/">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this script to see where is your directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-herehere-1" class="level5">
+<h5 class="anchored" data-anchor-id="using-herehere-1">Using here::here()</h5>
+<p>In order to navigate there, you have to include each subfolder between the <code>here::here</code> location and the file itself (so the ‘data’ folder, the ‘FCT’ folder and the FCT file).</p>
+<p>Find your file in your project, and then direct here::here to it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This identifies the file and file path, and saves it as a variable</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>FCT_file_location <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>,<span class="st">'WA19'</span>, <span class="st">"WAFCT_2019.xlsx"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="importing-the-data-loading-the-data" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="importing-the-data-loading-the-data"><span class="header-section-number">8.4</span> Importing the data (loading the data)</h2>
+<section id="using-the-download-code-above" class="level4">
+<h4 class="anchored" data-anchor-id="using-the-download-code-above">Using the download code above</h4>
+<p>First, we must find the file on your system that we want to import. If using RStudio: If you used the download method above <a href="link-to-section">Section 1.2</a> then we will see the same location as specified there to specify the file. Simply copy the contents of the here::here brackets and use it to fill the here::here brackets in the line of code below.</p>
+</section>
+<section id="importing-files" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="importing-files"><span class="header-section-number">8.4.1</span> Importing Files</h3>
+<p>FCT files come in many different forms - the most common being “.xlsx” files and “.csv” files. Methods to import both of these file types will be covered - please navigate to the relevant subsection.</p>
+<p>During import, a identifier for the FCT is created and added to the table. Please replace ‘WA19’ from the next code chunck with the FCT id., comprised of the countries <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes">ISO 3166 2-alpha code</a>, and the year the FCT was produced (e.g.&nbsp;for the Western Africa FCT from 2019, the reference would be ‘MWA9’). This should be the same as the folder name explained in (section 1.3)[link-to-section].</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is an example of the name </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>FCT_id <span class="ot">&lt;-</span> <span class="st">'WA19'</span> <span class="co"># Change two first letter for your ISO 2 code &amp; the two digits for the last two digits of the year of publication.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="importing-.xlsx-files" class="level4">
+<h4 class="anchored" data-anchor-id="importing-.xlsx-files">Importing .xlsx files</h4>
+<p>For the excel-type of files, first, you need to check what information is provided and which of the sheet is providing the FC data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking the sheets</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>readxl<span class="sc">::</span><span class="fu">excel_sheets</span>(FCT_file_location)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(FCT_file_location, <span class="co">#The file location, as                            identified in section 2.1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">sheet =</span> <span class="dv">5</span>  <span class="co"># Change to the excel sheet where                              the FCT is stored in the excel file</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                              ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source_fct =</span> FCT_id)  <span class="co">#Creates the source_fct column and fills with                 a id for this FCT, as filled in in section 2.2. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importing-.csv-files" class="level4">
+<h4 class="anchored" data-anchor-id="importing-.csv-files">Importing .csv files</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(FCT_file_location, <span class="co">#The file location, as identified in section 2.1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">%&gt;%</span>  <span class="co"># Replace w/ other symbol if needed</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source_fct =</span> FCT_id) <span class="co">#Creates the source_fct column and fills with a id for this FCT, as filled in in section 2.2. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once imported, it is important to check the data.frame created from the csv, by using <code>head(data.df)</code> or clicking on its entry in the Environment panel of RStudio (This second option is not advised with very large files, however, as it can be slow).</p>
+<p>If the data shown by doing this has all its columns combined, with a symbol in-between, then that symbol (e.g.&nbsp;‘;’) is the separator for that csv. Replace comma in the <code>sep = ","</code> line from the code block above with the new symbol, and run the entire block again.</p>
+</section>
+<section id="visually-checking-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="visually-checking-the-data">Visually checking the data</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking the dataframe</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data.df) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="checking-the-loaded-data" class="level4">
+<h4 class="anchored" data-anchor-id="checking-the-loaded-data">Checking the loaded data</h4>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How many rows &amp; columns have the data?</p>
+</div>
+</div>
+<p>You can use the function <code>dim()</code> to answer to check the number of rows and column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data.df) <span class="co"># rows &amp; columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Other useful functions to evaluate the structure of the data are:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure (variable names, class, etc.)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data.df)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking the last rows and columns</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data.df) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For opening the dataframe in a tab, you can use <code>View(data.df)</code>.</p>
+<p>Note: if the dataset is very very big, may crash the R session.</p>
+<p>After checking that the correct FCT file have loaded the, then proceed. If not, find the correct file and import it instead.</p>
+</section>
+</section>
+</section>
+<section id="cleaning-tidying-and-standardising-the-data" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="cleaning-tidying-and-standardising-the-data"><span class="header-section-number">8.5</span> Cleaning (tidying) and standardising the data</h2>
+<section id="formatting-fct-into-a-tabular-format" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="formatting-fct-into-a-tabular-format"><span class="header-section-number">8.5.1</span> Formatting FCT into a tabular format</h3>
+<section id="trimming-dataframe-rows" class="level4">
+<h4 class="anchored" data-anchor-id="trimming-dataframe-rows">Trimming dataframe rows</h4>
+<p>Running this will trim down the table to only include the row numbers between x and y - replace x and y with your desired values. If you wanted to include multiple row ranges, that is also possible - use comments to differentiate between different row ranges and individual rows. e.g.&nbsp;if you wanted to include rows a:b, row c, row e, and rows g:x, then the code would be <code>slice(a:b, c, e, g:x)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data.df <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trimming-dataframe-columns" class="level4">
+<h4 class="anchored" data-anchor-id="trimming-dataframe-columns">Trimming dataframe columns</h4>
+<p>If you only wish to include certain columns/nutrients, then you might wish to remove the unnecessary columns to make the dataframe easier to read and manage. This can be done through 2 methods; either by selecting the names of the columns you want to keep, or by selecting the names of the columns you want to remove.</p>
+</section>
+<section id="keep-specified-columns-only" class="level4">
+<h4 class="anchored" data-anchor-id="keep-specified-columns-only">Keep specified columns only</h4>
+<p>This method requires creating a list of column names you want to keep - for #example the line below would select the columns ‘Energy_kcal’, ‘Fatg’, ‘Protein_g’, but nothing else. If you wish to trim the columns this way, replace the items in the first line with the column names you want to keep, then run the code block below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Storing the variables you want to keep</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>columns_to_keep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Scientific name'</span>, <span class="st">'Energy</span><span class="sc">\r\n</span><span class="st">(kJ)'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting the variables</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>data.df <span class="sc">%&gt;%</span> <span class="fu">select</span>(columns_to_keep) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="remove-specified-columns-keep-all-others" class="level4">
+<h4 class="anchored" data-anchor-id="remove-specified-columns-keep-all-others">Remove specified columns, keep all others</h4>
+<p>Sometimes it is easier to list the columns you want to remove, rather than the ones you want to keep. The code block below identifies the columns to be removed (‘VitB12_mcg’ and ‘Calcium_mg’ in the example), and then removes them. If you wish to trim the columns this way, replace the items in the first line with the column names you want to remove, then run the code block below.</p>
+<p>This works in a similar way to the codeblock in section 3.3.1, however by putting an exclamation mark (!) before the list of columns, it inverts the selection - instead of instructing R to keep only the listed columns (as with the codeblock above), it instructs R to keep all columns but the listed ones.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting the variables that you don't want to keep</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>columns_to_remove <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Food name in French'</span>, <span class="st">'Sum of proximate components</span><span class="sc">\r\n</span><span class="st">(g)'</span>) </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>data.df <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span>columns_to_remove) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="creating-food-groups-variable-and-tidying" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="creating-food-groups-variable-and-tidying"><span class="header-section-number">8.5.2</span> Creating food groups variable and tidying</h3>
+<p>Some food composition tables reported food groups that were placed as the first row of each category, however that it is not a data structure that can be used, as we need one column per variable. Hence, the food group names are extracted from the rows, and are allocated as a new attribute of each food (e.g., fish and fishery products to catfish). The food groups are stored in a new column (<code>food_group</code>).</p>
+<p>This process requires multiple steps, each covered in their own subsections below: Extracting food group names, Creating the variable, and checking changes in the structure.</p>
+<section id="extracting-food-group-names" class="level4">
+<h4 class="anchored" data-anchor-id="extracting-food-group-names">Extracting food group names</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creates a list of the food groups using their unique row structure in the table to identify them</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fgroup <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Food name in English</span><span class="st">`</span>), <span class="sc">!</span><span class="fu">is.na</span>(Code)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Code) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_split_fixed</span>( <span class="st">'/'</span>, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(V1) </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>group.id <span class="ot">&lt;-</span>  <span class="fu">unique</span>(<span class="fu">str_extract</span>(data.df<span class="sc">$</span>Code, <span class="st">"^[:digit:]{2}</span><span class="sc">\\</span><span class="st">_"</span>))[<span class="sc">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="creating-the-food_group-variable-in-the-fct" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Creating the food_group variable in the FCT</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Removes any rows without a food description entry (the food group name rows, and a row that have already been used for naming)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> <span class="co">#Identifies the food group number from the fdc_id, and applies the correct food_group from the fgroup list to the food_group column </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">food_group =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"01_"</span>, Code), fgroup[<span class="dv">1</span>],</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"02_"</span>, Code), fgroup[<span class="dv">2</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"03_"</span>, Code), fgroup[<span class="dv">3</span>],</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"04_"</span>, Code), fgroup[<span class="dv">4</span>],</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"05_"</span>, Code), fgroup[<span class="dv">5</span>],</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"06_"</span>, Code), fgroup[<span class="dv">6</span>],</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"07_"</span>, Code), fgroup[<span class="dv">7</span>],</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"08_"</span>, Code), fgroup[<span class="dv">8</span>],</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"09_"</span>, Code), fgroup[<span class="dv">9</span>], </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"10_"</span>, Code), fgroup[<span class="dv">10</span>], </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"11_"</span>, Code), fgroup[<span class="dv">11</span>], </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"12_"</span>, Code), fgroup[<span class="dv">12</span>],</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"13_"</span>, Code), fgroup[<span class="dv">13</span>],</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"14_"</span>, Code), fgroup[<span class="dv">14</span>],                          <span class="st">'NA'</span>)))))))))))))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="diving-combined-variables-into-two-or-more-columns" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="diving-combined-variables-into-two-or-more-columns"><span class="header-section-number">9.0.1</span> Diving combined variables into two (or more) columns</h3>
+<p>In some cases, to minimise the number of missing values, two similar food components are combined into one column/ variable. For example, when Beta-carotene and Beta-Carotene Eq. were reported in the same column and identified using brackets ([]) around the component values (<code>CARTEB or [CARTEBEQ]</code>). However, because we are aiming to have one variable per column, we need to divide the combined variables into two (or more) columns, as such the Beta-carote variable was separated into two independent columns (<code>CARTEBmg</code>, <code>CARTBEQmg</code>). Note that when we are separating these two food components into the new variable, there are several things that we need to check: we need to check whether they are present in the original FCT, otherwise we may be overwriting values.</p>
+<ol type="1">
+<li>The variable is not present, then create a new column.</li>
+<li>The variable is present: only overwrite if the value is missing in the original column.</li>
+<li>Do not remove the brackets from the original variable. As we will add information (metadata) about the quality of the value after removing the brackets.</li>
+</ol>
+</section>
+<section id="renaming-variable-names-food-components-definition-and-re-naming" class="level3" data-number="9.0.2">
+<h3 data-number="9.0.2" class="anchored" data-anchor-id="renaming-variable-names-food-components-definition-and-re-naming"><span class="header-section-number">9.0.2</span> Renaming variable names: Food components definition and re-naming</h3>
+<p>Each FCT has its own variable names, including for similar food components. Some FCTs included information related to the FAO/ INFOODS food component identifiers <a href="https://www.fao.org/infoods/infoods/standards-guidelines/food-component-identifiers-tagnames/en/">(Tagnames)</a></p>
+<p>while other did not. In order to merge all data from various FCTs we need to harmonise the names of all the variables and particularly the food components of interest. To do so, we evaluated and renamed them with the most appropriate Tagname. Other variables (e.g., food id, food name or food description) were renamed to a common variable name, for instance, <code>fdc_id</code>, <code>food_desc</code>.</p>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Are the food component variable names using Tagnames &amp; units, i.e., [Variable][unit] (NAmg)?</p>
+</div>
+</div>
+<p>If yes, use that information to rename food components</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking current names</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data.df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If not, do they provide Tagnames information?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for Tagnames</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data.df <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case we can use the Tagname information on the two first rows to rename our variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Automatic renaming </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">8</span><span class="sc">:</span><span class="dv">62</span>){ <span class="co">#Loops through each column between column 8 and 64</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  first_row <span class="ot">&lt;-</span> <span class="fu">toString</span>(data.df[<span class="dv">1</span>, i]) <span class="co">#Takes the first row for that column and assigns it to a variable</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  second_row <span class="ot">&lt;-</span> <span class="fu">toString</span>(data.df[<span class="dv">2</span>, i]) <span class="co">#Takes the second row for that column and assigns it to a variable</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  split_string <span class="ot">&lt;-</span> <span class="fu">str_split</span>(first_row, <span class="st">"</span><span class="sc">\\</span><span class="st">("</span>) <span class="co">#Splits the first row around "(", assigning the two resulting strings to a variable</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  units_int <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">*|</span><span class="sc">\\</span><span class="st">(|</span><span class="sc">\\</span><span class="st">)"</span>, <span class="st">""</span>, split_string[[<span class="dv">1</span>]][<span class="fu">length</span>(split_string[[<span class="dv">1</span>]])]) <span class="co">#Separates the units out from the split_string (everything after the last open bracket)</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(data.df)[i] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(second_row, units_int) <span class="co">#The column name is replaced with row 1 and the units from row 2</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking new names</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data.df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If information is not provided the manual renaming of the food components would be necessary and hence, the identification of each food component to its Tagname.</p>
+<section id="the-identification-of-food-components" class="level5">
+<h5 class="anchored" data-anchor-id="the-identification-of-food-components">The identification of food components</h5>
+<p>Information on the food components and their description should be sought in for FCT. We advise to use the <a href="https://www.fao.org/infoods/infoods/standards-guidelines/food-component-identifiers-tagnames/en/">(Tagnames)</a>. Some minor changes in the Tagnames are introduced to be compliant with R conventions. E.g., removing spaces in variable names, changing symbols to characters (e.g., µg to mcg), or standardising the name formatting from using underscores and/or parenthesis to using only underscores. Also, changing dashes (-) to underscores (_). Note that within the Tagnames, the dash is used to denote that the method for obtaining that (component) value is unknown. This is important for the quality assessment of the data.</p>
+<p>Also, we also assumed that all the variables labelled as “standardised” were combined or recalculated variables.</p>
+<p>Table 2. provides a list of all the most relevant food components and their Tagnames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,           <span class="st">"fct_variables_standards.csv"</span>)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Some other variables can be manually renamed for instance, food code/id, food name, etc.). Change the names in quotes (““) to those in your dataset (if needed), remove/ add as needed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">rename</span>( </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fdc_id =</span> <span class="st">"Code"</span>, <span class="co"># Food id/code </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="at">food_desc =</span> <span class="st">"Food name in English"</span>, <span class="co"># Food name/description</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="at">food_descFR =</span> <span class="st">"Food name in French"</span>,<span class="co"># Food name/description</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="at">scientific_name =</span> <span class="st">"Scientific name"</span>, <span class="co"># Scientific name</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="at">Edible_factor_in_FCT =</span> <span class="st">"Edible portion coefficient 1 (from as purchased to as described)"</span>, <span class="co"># Edible portion</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="at">Edible_factor_in_FCT2 =</span> <span class="st">"Edible portion coefficient 2 (from as described to as eaten)"</span>, <span class="co"># Edible portion</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="at">nutrient_data_source =</span> <span class="st">"BiblioID/Source"</span>) <span class="co"># Reference for NVs reported</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data.df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Are the variable names = column names? If not, more formatting is needed (back to previous step)</p>
+</section>
+</section>
+<section id="standardisation-of-values" class="level3" data-number="9.0.3">
+<h3 data-number="9.0.3" class="anchored" data-anchor-id="standardisation-of-values"><span class="header-section-number">9.0.3</span> Standardisation of values</h3>
+<p>To perform mathematical operations, characters needed to be converted into numeric operator. This includes three steps:</p>
+<section id="removing-brackets-or-other-special-characters." class="level4">
+<h4 class="anchored" data-anchor-id="removing-brackets-or-other-special-characters.">Removing brackets or other special characters.</h4>
+<p>As, described above in section, special character (“[]”, “()”, “*”)were used to denote “low quality values” and/or alternative (determination) methods. We kept record of those values in metadata files for those cases where the numeric value was extracted and the special character removed. In addition, the variable <code>comments</code> was created in a way of keeping that information as metadata for other users.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a dataset w/ the values that were of low quality [] trace or normal</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>var_nut <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Edible_factor_in_FCT<span class="sc">:</span>VITCmg) <span class="sc">%&gt;%</span> <span class="fu">colnames</span>() <span class="co">#selecting nutrient variable names where we want to check for quality/trace</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#dataset w/ metadata info that will be removed from the dataset for use</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(var_nut,  <span class="sc">~</span><span class="fu">case_when</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_detect</span>(. , <span class="st">'</span><span class="sc">\\</span><span class="st">[.*?</span><span class="sc">\\</span><span class="st">]'</span>) <span class="sc">~</span> <span class="st">"low_quality"</span>, <span class="co">#Looking for things in square brackets to mark as low quality</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_detect</span>(. , <span class="st">'tr'</span>) <span class="sc">~</span> <span class="st">"trace"</span>, <span class="co">#Looking for things marked as "tr" and labels them as trace</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"normal_value"</span>)) <span class="co">#Else it marks the entry as a normal value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The following chunk is related to formatting the FCT section, as here we are creating new varibles to separate those Tagnames and/or similar food components into their individual columns with their Tagnames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extracting variables calculated with different (lower quality) method </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#and reported as using [] and removing them from the original variable</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating calculated values from the lower quality method and removing the original values from the original variable</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FATCEg =</span> <span class="fu">str_extract</span>(FATg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>),  </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>   <span class="co">#e.g. this creates the FIBCg value from the FIBTGg value</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">FIBCg =</span>  <span class="fu">str_extract</span>(FIBTGg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">CARTBmcg =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(CARTBmcg), <span class="fu">str_extract</span>(CARTBEQmcg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>), CARTBmcg), </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">TOCPHAmg =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(TOCPHAmg),<span class="fu">str_extract</span>(VITEmg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>), TOCPHAmg ),</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">NIAmg =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(NIAmg), <span class="fu">str_extract</span>(NIAEQmg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>), NIAmg), </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">FOLSUMmcg =</span> <span class="fu">str_extract</span>(FOLmcg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>), </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">PHYTCPPD_PHYTCPPImg =</span> <span class="fu">str_extract</span>(PHYTCPPmg, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="changing-characters-into-numeric" class="level4">
+<h4 class="anchored" data-anchor-id="changing-characters-into-numeric">Changing characters into numeric**</h4>
+<p>For instance, values that were reported to be trace (“tr”) or below the detection limit (“&lt;LOD”) were converted to zero (0). These changes are also recorded in the <code>comments</code> variable as part of the metadata available.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The following f(x) removes [] and changing tr w/ 0</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>no_brackets_tr <span class="ot">&lt;-</span> <span class="cf">function</span>(i){</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">case_when</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(i, <span class="st">'tr|[tr]'</span>) <span class="sc">~</span> <span class="st">"0"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(i, <span class="st">'</span><span class="sc">\\</span><span class="st">[.*?</span><span class="sc">\\</span><span class="st">]'</span>)  <span class="sc">~</span> <span class="fu">str_extract</span>(i, <span class="st">'(?&lt;=</span><span class="sc">\\</span><span class="st">[).*?(?=</span><span class="sc">\\</span><span class="st">])'</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> i)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>data.df <span class="ot">&lt;-</span> data.df <span class="sc">%&gt;%</span> </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(var_nut, no_brackets_tr) <span class="co">#This applies the above function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extracting-information" class="level4">
+<h4 class="anchored" data-anchor-id="extracting-information">Extracting information</h4>
+<p>Some food component information, for instance alcohol content, could be reported within the food description instead of in a independent variable. Hence that information needs to be extracted and a new variable generated.</p>
+</section>
+<section id="converting-into-numeric" class="level4">
+<h4 class="anchored" data-anchor-id="converting-into-numeric">Converting into numeric</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting to numeric</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>wafct <span class="ot">&lt;-</span> wafct <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="st">`</span><span class="at">Edible_factor_in_FCT</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">PHYTCPPD_PHYTCPPImg</span><span class="st">`</span>), as.numeric) <span class="co">#Converts certain columns (the data columns) to numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="standardising-unit-of-measurement" class="level3" data-number="9.0.4">
+<h3 data-number="9.0.4" class="anchored" data-anchor-id="standardising-unit-of-measurement"><span class="header-section-number">9.0.4</span> Standardising unit of measurement <br></h3>
+<p>To standardise and merge the different FCTs, food components need to be reported in the same units. For example, some nutrients needed to be convert from mg/100g to g/100g, or from percentage (100%) to a fraction (1). For all the unit conversion we followed the FAO/INFOODS Guidelines for Converting Units, Denominators and Expression (FAO/INFOODS, 2012b), and the suggested standard reporting units.</p>
+<p>Eg. Converting alcohol from weight in volume (w/v) to weight in mass (w/m) (Eq.1a) or percentage of alcohol (v/v) into weight mass (Eq.1b) (See INFOODS Guidelines - page 12).</p>
+<p><strong>Eq.1a</strong> ALC (g/100mL) (w/v) / density (g/mL) = ALC (g/100 EP)</p>
+<p><strong>Eq.1b</strong> ALC (%) (v/v) * 0.789 (g/mL) / density (g/mL) = ALC (g/100 EP)</p>
+<p>Eg. amino acids (AA) reported per g in 100g of PROT to mg in 100g of EP:</p>
+<p><strong>Eq.2.1</strong> AA mg/100g EP = AA mg/g prot * prot g/100g EP /100</p>
+<p><strong>Eq.2.2</strong> AA mg/100g EP = AA g/ 100g prot * prot g/100g EP /100 * 1000/100</p>
+<p><strong>Eq.2.3</strong> AA mg/100g EP = AA g/100g prot * prot g/100g EP *10</p>
+<p>\Eq.3: Edible portion = Edible portion (%)/100</p>
+<section id="data-quality-and-reporting-e.g.-method-of-analysis-good-metadata" class="level5">
+<h5 class="anchored" data-anchor-id="data-quality-and-reporting-e.g.-method-of-analysis-good-metadata">Data quality and reporting (e.g., method of analysis, good metadata)</h5>
+<p>General quality checks are: the level of detail in the food description, the methods used for nutrient values compilation, and the documentation and degree of detail.</p>
+<p>Other quality checks that can be performed are: calculating sum of proximate and re-calculating the values of: Carbohydrates available by difference, energy, etc. These is covered in the visualisation and QC section.</p>
+</section>
+</section>
+<section id="saving-the-output" class="level3" data-number="9.0.5">
+<h3 data-number="9.0.5" class="anchored" data-anchor-id="saving-the-output"><span class="header-section-number">9.0.5</span> Saving the output</h3>
+<p>We are saving the standardised FCT into the data folder, for use in the future.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Output </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data.df, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste0</span>(FCT_id, <span class="st">"_FCT_FAO_Tags.csv"</span>)), </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>) <span class="co">#Saves the newly-created data table to the Output folder</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Run this to clean the environment</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="further-readings" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">9.1</span> Further readings</h2>
+<ol type="1">
+<li>Charrondiere, U.R., Stadlmayr, B., Grande, F., Vincent, A., Oseredczuk, M., Sivakumaran, S., Puwastien, P., Judprasong, K., Haytowitz, D., Gnagnarella, P. 2023. FAO/INFOODS Evaluation framework to assess the quality of published food composition tables and databases - User guide. Rome, FAO. https://doi.org/10.4060/cc5371en</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./hcesNutR-package.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><code>hcesNutR</code> Package</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./fct_harmonisation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Food composition harmonisation and food matching</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

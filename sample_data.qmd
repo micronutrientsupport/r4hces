@@ -1,0 +1,286 @@
+# Appendix A: Sample Data
+
+## Introduction
+The sample data used in this book was generated from the Malawi Intergrated Household Survey Fifth Edition 2018-2019 downloaded from [here](https://microdata.worldbank.org/index.php/catalog/3818).
+
+The data was generated randomly using the following code:
+
+## Define functions used 
+
+### Create case_id generation
+```{r}
+generate_case_ids <- function(n) {
+    start_id <- 201011000001
+    end_id <- start_id + n-1
+    case_ids <- as.character(seq(start_id, end_id, by = 1))
+    return(case_ids)
+}
+```
+
+### Create HHID generation function
+```{r}
+generate_HHIDs <- function(n) {
+  hhids <- sapply(1:n, function(x) {
+    paste(sample(c(0:9, letters[1:6]), 32, replace = TRUE), collapse = "")
+  })
+  return(hhids)
+}
+```
+
+## Set seed and number of households to generate
+```{r}
+# Set seed
+set.seed(123)
+# Set number of households to generate
+households <- 100
+```
+
+## Load Original data and extract food and unit lists
+```{r}
+# Import Malawi IHS5 HCES consumption module data
+original_data <-
+  haven::read_dta(here::here("data-ignore", "IHS5", "HH_MOD_G1.dta"))
+
+# Extract "standard" food list from the original data
+food_list <-
+  original_data |> 
+  dplyr::select(hh_g02) |> 
+  dplyr::distinct()
+
+# Extract "non-standard" food lists from the original data
+other_food_list_codes <-
+  original_data |> 
+  dplyr::distinct(hh_g02, hh_g01_oth) |> 
+  dplyr::filter(hh_g01_oth != "") |> 
+  dplyr::distinct(hh_g02) |> 
+  dplyr::arrange()
+other_food_list_options <-
+  original_data |> 
+  dplyr::distinct(hh_g02, hh_g01_oth) |> 
+  dplyr::filter(hh_g01_oth != "")
+
+# Extract Food unit lists from the original data
+food_unit_lists <-
+  original_data |> 
+  dplyr::distinct(hh_g03b, hh_g03b_label, hh_g03b_oth, hh_g03c, hh_g03c_1)
+
+# Extract the length of Number of foods from the food list
+n_foods <- length(food_list$hh_g02)
+```
+
+
+## Data creation 
+### Create HHIDs
+```{r}
+
+# Creeate case_ids
+case_id <- generate_case_ids(households)
+# Generate HHIDs
+hhids <- generate_HHIDs(households)
+```
+
+### Create data
+```{r}
+sample_data <- tibble::tibble(
+  case_id = rep(case_id, each = n_foods),
+  HHID = rep(hhids, each = n_foods),
+      hh_g00_1 = 2,
+    hh_g00_2 = 2,
+  food_list |> dplyr::slice(rep(1:dplyr::n(), households)),
+      hh_g01 = sample(
+      original_data$hh_g01,
+      # replace = T,
+      size = households * 142
+    )
+  ) |>
+
+# Add "other food items"
+
+  dplyr::rowwise() |>
+  dplyr::mutate(
+    hh_g01_oth = dplyr::case_when(
+      hh_g02 == 414 &
+        hh_g01 == 1 ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 414) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 515 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 515) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 117 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 117) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 830 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 830) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 310 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 310) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 412 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 412) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 610 &
+        hh_g01 == 1  ~ sample(
+         dplyr::filter( other_food_list_options,hh_g02 == 610) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 916 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 916) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 209 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 209) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 709 &
+        hh_g01 == 1  ~ sample(
+          dplyr::filter(other_food_list_options,hh_g02 == 709) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 818 &
+        hh_g01 == 1  ~ sample(
+           dplyr::filter(other_food_list_options,hh_g02 == 818) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      hh_g02 == 804 &
+        hh_g01 == 1  ~ sample(dplyr::filter(other_food_list_options,hh_g02 == 804) |> dplyr::pull(hh_g01_oth),
+          1
+        ),
+      TRUE ~ ""
+    )
+  ) |>
+  dplyr::mutate(hh_g03a = dplyr::case_when(hh_g01 == 1 ~ sample(c(1:10, 0.5:10), 1),
+                                           TRUE ~ NA)) |>
+  dplyr::rowwise() |>
+  dplyr::mutate(unit_key = dplyr::case_when(hh_g01 == 1 ~ sample(1:214, 1), TRUE ~
+                                              NA)) |>
+  dplyr::mutate(
+    hh_g03b = food_unit_lists$hh_g03b[unit_key],
+    hh_g03b_label = food_unit_lists$hh_g03b_label[unit_key],
+    hh_g03b_oth = food_unit_lists$hh_g03b_oth[unit_key],
+    hh_g03c = food_unit_lists$hh_g03c[unit_key],
+    hh_g03c_1 = food_unit_lists$hh_g03c_1[unit_key]
+  ) |>
+  dplyr::select(
+    -unit_key,
+    "case_id",
+    "HHID",
+    "hh_g00_1",
+    "hh_g00_2",
+    "hh_g01",
+    "hh_g01_oth",
+    "hh_g02",
+    "hh_g03a",
+    "hh_g03b",
+    "hh_g03b_label",
+    "hh_g03b_oth",
+    "hh_g03c",
+    "hh_g03c_1"
+  ) 
+```
+
+
+
+```{r}
+# Add the rest of the columns
+sample_data <- original_data |> dplyr::filter(is.na(case_id)) |> 
+dplyr::bind_rows(sample_data)
+```
+
+```{r}
+# Attach stata column labels
+for (i in names(sample_data)){
+  attr(sample_data[[i]], "label") <- attr(original_data[[i]], "label")
+}
+```
+
+```{r}
+# Export sample data as stata file
+haven::write_dta(sample_data,here::here("data","sample_data","MWI-IHSV","HH_MOD_G1_vMAPS.dta"))
+```
+
+
+### Create `hh_mod_a_filt.dta` file
+```{r}
+sample_data |> 
+dplyr::select(case_id,HHID) |> 
+dplyr::distinct() |> 
+dplyr::rowwise() |>
+dplyr::mutate(region = sample(1:3,1)) |> 
+haven::write_dta(here::here("data","sample_data","MWI-IHSV","hh_mod_a_filt_vMAPS.dta"))
+```
+
+### Create `hh_roster.dta`
+```{r}
+# Import original roster from IHS5
+ihs5_roster <- haven::read_dta(here::here("data-ignore", "IHS5", "HH_MOD_B.dta"))
+
+# create a dataframe with the case_ids and HHIDs of our sample data
+sample_roster <- sample_data |> dplyr::distinct(case_id,HHID)
+
+# replicate each row a random number of times between 1 and 10 to simulate household members
+n <- sample(1:10, nrow(sample_roster), replace = TRUE)
+sample_roster <- sample_roster[rep(seq_len(nrow(sample_roster)), times = n), ]
+
+# Create other variables
+sample_roster <- sample_roster |> 
+dplyr::rowwise() |>
+dplyr::mutate(hh_b03 = sample(ihs5_roster$hh_b03,1),
+hh_b05a = sample(ihs5_roster$hh_b05a,1),
+hh_b05b = dplyr::case_when(hh_b05a < 5~sample(1:11,1),TRUE~NA))
+
+# Add the other blank columns from the original dataset
+sample_roster <- ihs5_roster |>
+dplyr::filter(case_id == "") |>
+dplyr::bind_rows(sample_roster)
+
+# Attach stata column labels
+for (i in names(sample_roster)){
+  attr(sample_roster[[i]], "label") <- attr(ihs5_roster[[i]], "label")
+}
+
+# writeout the sample_ihs5_roster
+haven::write_dta(sample_roster,here::here("data","sample_data","MWI-IHSV","HH_MOD_B_vMAPS.dta"))
+```
+
+
+### Create sample "HH_MOD_D.dta"
+```{r}
+# import original data
+original_health <- haven::read_dta(here::here("data-ignore", "IHS5", "HH_MOD_D.dta"))
+
+# Use the sample_roster to create a sample_health dataset
+sample_health <- sample_roster |>
+dplyr::select(case_id,HHID) |>
+dplyr::rowwise()|>
+dplyr::mutate(hh_d05a = sample(c(original_health$hh_d05a),1),
+hh_d05b = sample(original_health$hh_d05b,1))
+
+# Add the other blank columns from the original dataset
+sample_health <- original_health |>
+dplyr::filter(case_id == "") |>
+dplyr::bind_rows(sample_health)
+
+# Attach stata column labels
+for (i in names(sample_health)){
+  attr(sample_health[[i]], "label") <- attr(sample_health[[i]], "label")
+}
+
+# writeout the sample_ihs5_roster
+haven::write_dta(sample_health,here::here("data","sample_data","MWI-IHSV","HH_MOD_D_vMAPS.dta"))
+
+```
+
+
