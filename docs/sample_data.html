@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R for Household Consumption and Expenditure Surveys - 11&nbsp; Appendix A: Sample Data</title>
+<title>R for Household Consumption and Expenditure Surveys - 10&nbsp; Appendix A: Sample Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./summary.html" rel="prev">
+<link href="./fct_harmonisation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -151,8 +151,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <div class="sidebar-tools-main tools-wide">
     <a href="https://dzvoti.github.io/r4hces/r4hces-data.zip" title="" class="sidebar-tool px-1"><i class="bi bi-cloud-arrow-down"></i></a>
     <a href="https://github.com/dzvoti/r4hces/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./R-for-Household-Consumption-and-Expenditure-Surveys.pdf">
+            <i class="bi bi-bi-file-pdf pe-1"></i>
+          Download PDF
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./R-for-Household-Consumption-and-Expenditure-Surveys.epub">
+            <i class="bi bi-bi-journal pe-1"></i>
+          Download ePub
+          </a>
+        </li>
+    </ul>
+    <a href="" title="Share" id="sidebar-tool-dropdown-1" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-1">
         <li>
           <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
             <i class="bi bi-bi-twitter pe-1"></i>
@@ -228,12 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">summary.html</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./sample_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></a>
+  <a href="./sample_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -250,21 +260,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">11.1</span>  Introduction</a></li>
-  <li><a href="#define-functions-used" id="toc-define-functions-used" class="nav-link" data-scroll-target="#define-functions-used"><span class="toc-section-number">11.2</span>  Define functions used</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">10.1</span>  Introduction</a></li>
+  <li><a href="#define-functions-used" id="toc-define-functions-used" class="nav-link" data-scroll-target="#define-functions-used"><span class="toc-section-number">10.2</span>  Define functions used</a>
   <ul class="collapse">
-  <li><a href="#create-case_id-generation" id="toc-create-case_id-generation" class="nav-link" data-scroll-target="#create-case_id-generation"><span class="toc-section-number">11.2.1</span>  Create case_id generation</a></li>
-  <li><a href="#create-hhid-generation-function" id="toc-create-hhid-generation-function" class="nav-link" data-scroll-target="#create-hhid-generation-function"><span class="toc-section-number">11.2.2</span>  Create HHID generation function</a></li>
+  <li><a href="#create-case_id-generation" id="toc-create-case_id-generation" class="nav-link" data-scroll-target="#create-case_id-generation"><span class="toc-section-number">10.2.1</span>  Create case_id generation</a></li>
+  <li><a href="#create-hhid-generation-function" id="toc-create-hhid-generation-function" class="nav-link" data-scroll-target="#create-hhid-generation-function"><span class="toc-section-number">10.2.2</span>  Create HHID generation function</a></li>
   </ul></li>
-  <li><a href="#set-seed-and-number-of-households-to-generate" id="toc-set-seed-and-number-of-households-to-generate" class="nav-link" data-scroll-target="#set-seed-and-number-of-households-to-generate"><span class="toc-section-number">11.3</span>  Set seed and number of households to generate</a></li>
-  <li><a href="#load-original-data-and-extract-food-and-unit-lists" id="toc-load-original-data-and-extract-food-and-unit-lists" class="nav-link" data-scroll-target="#load-original-data-and-extract-food-and-unit-lists"><span class="toc-section-number">11.4</span>  Load Original data and extract food and unit lists</a></li>
-  <li><a href="#data-creation" id="toc-data-creation" class="nav-link" data-scroll-target="#data-creation"><span class="toc-section-number">11.5</span>  Data creation</a>
+  <li><a href="#set-seed-and-number-of-households-to-generate" id="toc-set-seed-and-number-of-households-to-generate" class="nav-link" data-scroll-target="#set-seed-and-number-of-households-to-generate"><span class="toc-section-number">10.3</span>  Set seed and number of households to generate</a></li>
+  <li><a href="#load-original-data-and-extract-food-and-unit-lists" id="toc-load-original-data-and-extract-food-and-unit-lists" class="nav-link" data-scroll-target="#load-original-data-and-extract-food-and-unit-lists"><span class="toc-section-number">10.4</span>  Load Original data and extract food and unit lists</a></li>
+  <li><a href="#data-creation" id="toc-data-creation" class="nav-link" data-scroll-target="#data-creation"><span class="toc-section-number">10.5</span>  Data creation</a>
   <ul class="collapse">
-  <li><a href="#create-hhids" id="toc-create-hhids" class="nav-link" data-scroll-target="#create-hhids"><span class="toc-section-number">11.5.1</span>  Create HHIDs</a></li>
-  <li><a href="#create-data" id="toc-create-data" class="nav-link" data-scroll-target="#create-data"><span class="toc-section-number">11.5.2</span>  Create data</a></li>
-  <li><a href="#create-hh_mod_a_filt.dta-file" id="toc-create-hh_mod_a_filt.dta-file" class="nav-link" data-scroll-target="#create-hh_mod_a_filt.dta-file"><span class="toc-section-number">11.5.3</span>  Create <code>hh_mod_a_filt.dta</code> file</a></li>
-  <li><a href="#create-hh_roster.dta" id="toc-create-hh_roster.dta" class="nav-link" data-scroll-target="#create-hh_roster.dta"><span class="toc-section-number">11.5.4</span>  Create <code>hh_roster.dta</code></a></li>
-  <li><a href="#create-sample-hh_mod_d.dta" id="toc-create-sample-hh_mod_d.dta" class="nav-link" data-scroll-target="#create-sample-hh_mod_d.dta"><span class="toc-section-number">11.5.5</span>  Create sample “HH_MOD_D.dta”</a></li>
+  <li><a href="#create-hhids" id="toc-create-hhids" class="nav-link" data-scroll-target="#create-hhids"><span class="toc-section-number">10.5.1</span>  Create HHIDs</a></li>
+  <li><a href="#create-data" id="toc-create-data" class="nav-link" data-scroll-target="#create-data"><span class="toc-section-number">10.5.2</span>  Create data</a></li>
+  <li><a href="#create-hh_mod_a_filt.dta-file" id="toc-create-hh_mod_a_filt.dta-file" class="nav-link" data-scroll-target="#create-hh_mod_a_filt.dta-file"><span class="toc-section-number">10.5.3</span>  Create <code>hh_mod_a_filt.dta</code> file</a></li>
+  <li><a href="#create-hh_roster.dta" id="toc-create-hh_roster.dta" class="nav-link" data-scroll-target="#create-hh_roster.dta"><span class="toc-section-number">10.5.4</span>  Create <code>hh_roster.dta</code></a></li>
+  <li><a href="#create-sample-hh_mod_d.dta" id="toc-create-sample-hh_mod_d.dta" class="nav-link" data-scroll-target="#create-sample-hh_mod_d.dta"><span class="toc-section-number">10.5.5</span>  Create sample “HH_MOD_D.dta”</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/r4hces/edit/main/sample_data.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
@@ -274,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Appendix A: Sample Data</span></h1>
 </div>
 
 
@@ -289,15 +299,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="introduction" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
 <p>The sample data used in this book was generated from the Malawi Intergrated Household Survey Fifth Edition 2018-2019 downloaded from <a href="https://microdata.worldbank.org/index.php/catalog/3818">here</a>.</p>
 <p>The data was generated randomly using the following code:</p>
 </section>
-<section id="define-functions-used" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="define-functions-used"><span class="header-section-number">11.2</span> Define functions used</h2>
-<section id="create-case_id-generation" class="level3" data-number="11.2.1">
-<h3 data-number="11.2.1" class="anchored" data-anchor-id="create-case_id-generation"><span class="header-section-number">11.2.1</span> Create case_id generation</h3>
+<section id="define-functions-used" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="define-functions-used"><span class="header-section-number">10.2</span> Define functions used</h2>
+<section id="create-case_id-generation" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="create-case_id-generation"><span class="header-section-number">10.2.1</span> Create case_id generation</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>generate_case_ids <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    start_id <span class="ot">&lt;-</span> <span class="dv">201011000001</span></span>
@@ -307,8 +317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-hhid-generation-function" class="level3" data-number="11.2.2">
-<h3 data-number="11.2.2" class="anchored" data-anchor-id="create-hhid-generation-function"><span class="header-section-number">11.2.2</span> Create HHID generation function</h3>
+<section id="create-hhid-generation-function" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="create-hhid-generation-function"><span class="header-section-number">10.2.2</span> Create HHID generation function</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>generate_HHIDs <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  hhids <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="cf">function</span>(x) {</span>
@@ -319,8 +329,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="set-seed-and-number-of-households-to-generate" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="set-seed-and-number-of-households-to-generate"><span class="header-section-number">11.3</span> Set seed and number of households to generate</h2>
+<section id="set-seed-and-number-of-households-to-generate" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="set-seed-and-number-of-households-to-generate"><span class="header-section-number">10.3</span> Set seed and number of households to generate</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
@@ -328,8 +338,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>households <span class="ot">&lt;-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-original-data-and-extract-food-and-unit-lists" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="load-original-data-and-extract-food-and-unit-lists"><span class="header-section-number">11.4</span> Load Original data and extract food and unit lists</h2>
+<section id="load-original-data-and-extract-food-and-unit-lists" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="load-original-data-and-extract-food-and-unit-lists"><span class="header-section-number">10.4</span> Load Original data and extract food and unit lists</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Malawi IHS5 HCES consumption module data</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>original_data <span class="ot">&lt;-</span></span>
@@ -362,10 +372,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>n_foods <span class="ot">&lt;-</span> <span class="fu">length</span>(food_list<span class="sc">$</span>hh_g02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-creation" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="data-creation"><span class="header-section-number">11.5</span> Data creation</h2>
-<section id="create-hhids" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="create-hhids"><span class="header-section-number">11.5.1</span> Create HHIDs</h3>
+<section id="data-creation" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="data-creation"><span class="header-section-number">10.5</span> Data creation</h2>
+<section id="create-hhids" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="create-hhids"><span class="header-section-number">10.5.1</span> Create HHIDs</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creeate case_ids</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>case_id <span class="ot">&lt;-</span> <span class="fu">generate_case_ids</span>(households)</span>
@@ -373,8 +383,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>hhids <span class="ot">&lt;-</span> <span class="fu">generate_HHIDs</span>(households)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-data" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="create-data"><span class="header-section-number">11.5.2</span> Create data</h3>
+<section id="create-data" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="create-data"><span class="header-section-number">10.5.2</span> Create data</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case_id =</span> <span class="fu">rep</span>(case_id, <span class="at">each =</span> n_foods),</span>
@@ -501,8 +511,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_dta</span>(sample_data,here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"sample_data"</span>,<span class="st">"MWI-IHSV"</span>,<span class="st">"HH_MOD_G1_vMAPS.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-hh_mod_a_filt.dta-file" class="level3" data-number="11.5.3">
-<h3 data-number="11.5.3" class="anchored" data-anchor-id="create-hh_mod_a_filt.dta-file"><span class="header-section-number">11.5.3</span> Create <code>hh_mod_a_filt.dta</code> file</h3>
+<section id="create-hh_mod_a_filt.dta-file" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="create-hh_mod_a_filt.dta-file"><span class="header-section-number">10.5.3</span> Create <code>hh_mod_a_filt.dta</code> file</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_data <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(case_id,HHID) <span class="sc">|&gt;</span> </span>
@@ -512,8 +522,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"sample_data"</span>,<span class="st">"MWI-IHSV"</span>,<span class="st">"hh_mod_a_filt_vMAPS.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-hh_roster.dta" class="level3" data-number="11.5.4">
-<h3 data-number="11.5.4" class="anchored" data-anchor-id="create-hh_roster.dta"><span class="header-section-number">11.5.4</span> Create <code>hh_roster.dta</code></h3>
+<section id="create-hh_roster.dta" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="create-hh_roster.dta"><span class="header-section-number">10.5.4</span> Create <code>hh_roster.dta</code></h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import original roster from IHS5</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ihs5_roster <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data-ignore"</span>, <span class="st">"IHS5"</span>, <span class="st">"HH_MOD_B.dta"</span>))</span>
@@ -546,8 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_dta</span>(sample_roster,here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"sample_data"</span>,<span class="st">"MWI-IHSV"</span>,<span class="st">"HH_MOD_B_vMAPS.dta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-sample-hh_mod_d.dta" class="level3" data-number="11.5.5">
-<h3 data-number="11.5.5" class="anchored" data-anchor-id="create-sample-hh_mod_d.dta"><span class="header-section-number">11.5.5</span> Create sample “HH_MOD_D.dta”</h3>
+<section id="create-sample-hh_mod_d.dta" class="level3" data-number="10.5.5">
+<h3 data-number="10.5.5" class="anchored" data-anchor-id="create-sample-hh_mod_d.dta"><span class="header-section-number">10.5.5</span> Create sample “HH_MOD_D.dta”</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import original data</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>original_health <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data-ignore"</span>, <span class="st">"IHS5"</span>, <span class="st">"HH_MOD_D.dta"</span>))</span>
@@ -713,8 +723,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./summary.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">summary.html</span></span>
+      <a href="./fct_harmonisation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Food composition harmonisation and food matching</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
