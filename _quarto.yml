@@ -9,7 +9,7 @@ book:
   date: "16/10/2023"
   repo-url: https://github.com/dzvoti/r4hces/
   repo-actions: [edit]
-  # downloads: [pdf, epub]
+  downloads: [pdf, epub]
   sharing: [twitter, facebook]
   chapters:
     - index.qmd
