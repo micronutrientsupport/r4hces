@@ -35,7 +35,7 @@ add <- function(x, y) {
 }
 
 # Call the function
-add(2, 3)
+add(5, 3)
 ```
 
 ## Packages {#sec-packages}

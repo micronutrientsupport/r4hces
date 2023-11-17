@@ -1,6 +1,6 @@
 # Data Structures
 
-A data structure in R is an R object which holds one or more data objects, a data object will be a data type, such as we have encountered in section 1 (numeric, character, etc).  In this script we introduce vectors, factors, matrices, data frames and lists. The examples and exercises should help you to understandbetter how R holds and manages data.
+A data structure in R is an R object which holds one or more data objects, a data object will be a data type, such as we have encountered in section 1 (numeric, character, etc).  In this script we introduce vectors, factors, matrices, data frames and lists. The examples and exercises should help you to understandbetter how R holds and manages data. 
 
 ## Vectors
 
