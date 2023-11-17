@@ -161,7 +161,7 @@ ihs5_consumption <- hcesNutR::create_dta_labels(ihs5_consumption)
 # Getting the food list & frequency of HH
 
 food_list <- ihs5_consumption %>%
-  count(food_id, food_item)
+  count(food_item_code, food_item_name)
 
 ```
 
@@ -170,7 +170,7 @@ Then, we will match those food items with their corresponding food dictionary co
 ```{r}
 
 # Food dictionary
-read.csv("https://raw.github.com/LuciaSegovia/fct/repro/metadata/MAPS_food-dictionary_v3.0.3.csv")
+dictionary <- read.csv("https://raw.github.com/LuciaSegovia/fct/repro/metadata/MAPS_food-dictionary_v3.0.3.csv")
 
 
 
@@ -182,7 +182,7 @@ Then, the unique food dictionary codes (`ID_3`) will be used to match the food i
 
 # Matching 
 
-read.csv(here::here("data", "fct_ihs5_v2.2.csv"))
+ihs5 <- read.csv(here::here("data", "fct_ihs5_v2.2.csv"))
 
 ```
 
