@@ -21,7 +21,7 @@ For easy navigation and use of this script it is recommended to use Rstudio. In 
 
 ## Environment Prep
 
-First we need to check what [packages](link-to-packages-explanation) are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.
+First we need to check what [packages](@sec-packages) are installed. If you have run this template before in this RStudio project and are sure these packages are already installed, you can comment out (put a hash at the start of) line 20, and skip it.
 
 ```{r}
 

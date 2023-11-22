@@ -1,4 +1,4 @@
-# Packages and Functions
+# Packages and Functions 
 
 ## Functions
 Functions are a set of instructions that can be called by name. They are useful for automating repetitive tasks and for encapsulating complex tasks. 
@@ -38,7 +38,7 @@ add <- function(x, y) {
 add(5, 3)
 ```
 
-## Packages
+## Packages {#sec-packages}
 A package is a collection of functions, data, and documentation that extends the functionality of R. There are thousands of packages available for R. 
 
 To use a package, you first need to install it using the `install.packages()` function. Once installed, you can load the package using the `library()` function. 

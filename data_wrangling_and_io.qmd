@@ -1,4 +1,4 @@
-# Data I/O and Wrangling
+# Data I/O and Wrangling {#sec-wrangling}
 Up to this point we were creating data to manipulate in R. In this section we will learn how to import data into R, manipulate it and export it. We will use the `readr` and `haven` packages to import data into R, the `dplyr` package to manipulate data and the `readr` package to export data from R. We will also use the `here` package to manage file paths.
 
 ## Data Input/Import
@@ -355,6 +355,7 @@ ihs5_consumption_summary <- ihs5_consumption |>
 In the next section we will learn how to use plots to visualise our data. A basic example of a plot is a bar chart. For example we can visualise the consumption per person by food item using a bar chart. To do this we will use the `ggplot2` package from the `tidyverse` package like so:
 
 ```{r eval=FALSE}
+
 # Load the ggplot2 package
 library(ggplot2)
 
@@ -364,7 +365,9 @@ ihs5_consumption |>
     ggplot(aes(x = region, y = consumption_per_person, group = region)) +
     # Add plot type
     geom_boxplot() 
+
 ```
+
 Here we plotted a `boxplot` of the `consumption_per_person` by `region`. 
 
 
@@ -374,7 +377,7 @@ We can export data from R using the `write_csv()` function from the `readr` pack
 
 ```{r eval=FALSE}
 # Export the data
-write_csv(ihs5_consumption, here::here("data",
+readr::write_csv(ihs5_consumption, here::here("data",
                                        "ihs5_consumption.csv"))
 ```
 
