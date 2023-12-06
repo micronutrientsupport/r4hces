@@ -6,7 +6,7 @@ This manual is designed for absolute beginners who are interested in using R and
 ## Acknowledgements {.unnumbered}
 We would like to thank the following people for their contributions to this manual:
 
-[Liberty Mlambo](), [Lucia Sergovia de la Revilla](), [Thomas Codd](),[Gareth Osman](), [Kevin Tang](), [Tineka Blake](), [Edward Joy](), [Louise E. Ander]()
+[Liberty Mlambo](), [Lucia Segovia de la Revilla](), [Thomas Codd](),[Gareth Osman](), [Kevin Tang](), [Tineka Blake](), [Edward Joy](), [Louise E. Ander]()
 
 
 ## Who is this manual for? {.unnumbered}
