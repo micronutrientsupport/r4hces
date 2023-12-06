@@ -177,17 +177,16 @@ How many rows & columns have the data?
 
 You can use the function `dim()` to answer to check the number of rows and column.
 
-```{r eval= FALSE}
-
-dim(data.df) # rows & columns
-
-```
 
 ::: {.callout-tip collapse="true"}
 
 ## Answer
 
+```{r }
 
+dim(data.df) # rows & columns
+
+```
 
 :::
 
@@ -203,10 +202,12 @@ tail(data.df)
 
 ```
 
+::: {.callout-caution}
+## Using `View()`
 
-For opening the dataframe in a tab, you can use `View(data.df)`. 
+The function `View()` can be use for opening the dataframe in a tab. However, if the dataset is very very big, it may crash the R session.
 
-Note: if the dataset is very very big, may crash the R session.
+:::
 
 After checking that the correct FCT file  have loaded the, then proceed. If not, find the correct file and import it instead.
 
