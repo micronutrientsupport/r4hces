@@ -14,7 +14,7 @@ library(dplyr) # data manipulation
 
 ```
 
-To demostrate the visuals, let us load a dataframe called `ihs5_consumption` which was generated in{@sec-wrangling}.  
+To demonstrate the visuals, let us load a dataframe called `ihs5_consumption` which was generated in{@sec-wrangling}.  
 
 ```{r eval=TRUE}
 
@@ -76,7 +76,7 @@ colors()
 The color name is placed in quotation marks. Let us make our histogram dark blue.
 
 
-```{r eval=TRUE, warning=FALSE}}
+```{r eval=TRUE, warning=FALSE}
 
 # Changing  colour of the histogram
 ihs5_consumption %>% 
@@ -630,7 +630,7 @@ ihs5_consumption %>%
 
 #### Using plot_grid() function
 
-This function is not part of the `ggplot2` package, therefore it has to be intalled and loaded before using it (For more information about packages see @sec-packages. 
+This function is not part of the `ggplot2` package, therefore it has to be installed and loaded before using it (For more information about packages see @sec-packages. 
 
 ```{r}
 
@@ -647,7 +647,7 @@ With thhe `plot_grid` we can set up a graphics using the `nrow` argument. The ar
 
 As an example, let's use some of the graphs that we have been creating, and plote them together. 
 
-First, we are going to plot and save the scatter plot with the faceted region as an object in our enviroment called `graph1`. 
+First, we are going to plot and save the scatter plot with the faceted region as an object in our environment called `graph1`. 
 
 ::: callout-tip
 Note: If you place parenthesis `()` around your code when saving the object the object will be printed.
@@ -658,7 +658,7 @@ Note: If you place parenthesis `()` around your code when saving the object the 
 
 # Saving the graph1: Food consumption per person & hh by region
 
-(graph1 <- ihs5_consumption %>% 
+graph1 <- ihs5_consumption %>% 
   ggplot()+
   geom_point(aes(consumption_quantity, consumption_per_person)) +
   # Adding the variable for splitting the data
@@ -666,7 +666,9 @@ Note: If you place parenthesis `()` around your code when saving the object the 
   xlab("Food consumption per person (g/day)") + # Rename x-axis
   ylab("Food consumption per household (g/day)") + # Rename y-axis
   # Adding a title
-  ggtitle("Variation of the food consumption per person & household by different household size & region"))
+  ggtitle("Variation of the food consumption per person & household by different household size & region")
+
+graph1
    
 ```
 
@@ -701,7 +703,7 @@ Once we have our graphs (objects), let's plot them together into two rows. We ca
 ```{r}
 
 # Plotting the three graph together
-plot_grid(graph1, graph2, graph3, nrow = 2)
+cowplot::plot_grid(graph1, graph2, graph3, nrow = 2)
 
 ```
 
@@ -721,7 +723,7 @@ We can customise the labels by changing the `label` function.
 ```{r}
 
 # Plotting the three graph together
-plot_grid(graph1, graph2, graph3, nrow = 2, 
+cowplot::plot_grid(graph1, graph2, graph3, nrow = 2, 
           labels = c("1)", "2)", "3)"))
 
 ```
@@ -730,16 +732,16 @@ We can also change the way it is structure, by plotting two graphs as it was one
 
 ```{r eval=TRUE}
 
-(top_row <- plot_grid(graph2, graph3, ncol = 2, labels = "AUTO"))
+(top_row <- cowplot::plot_grid(graph2, graph3, ncol = 2, labels = "AUTO"))
 
 ```
 
 Then, we can plot the again using the `top_row` object.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 
 # Re-arragning the plots
-plot_grid(top_row, graph1, nrow = 2, labels = c("", "C"))
+cowplot::plot_grid(top_row, graph1, nrow = 2, labels = c("", "C"))
 
 ```
 
@@ -747,20 +749,21 @@ We can see now that there are two plots are now in the first row (there are cons
 
 In addition, we can change the space that each graph is occupying. For instance, we would like to decrease the size of the histogram and the boxplot (`top_row`). Note that as it is one graph you can not change the size of the histogram or the boxplot indepdently here. 
 
-```{r eval=TRUE}
+```{r  eval=FALSE}
 
-plot_grid(top_row, graph1, nrow = 2, labels = c("", "C"), 
+cowplot::plot_grid(top_row, graph1, nrow = 2, labels = c("", "C"), 
           rel_heights = c(0.7, 1, 1))
 
 ```
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 x <- rnorm(100)
 
-layout(mat)
+#layout(mat)
+layout(x)
 
 hist(x)
-boxplot(x)
+#boxplot(x)
 qqnorm(x)
 plot(x)
 ```

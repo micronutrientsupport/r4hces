@@ -398,10 +398,10 @@ Also, we also assumed that all the variables labelled as "standardised"
 were combined or recalculated variables. In @tbl-tagnames, we provided a list of the most relevant food information and components and their standard variable names, including the Tagnames. It also provides information about the variable name reference (i.e., FAO/INFOODS, 2012) together with the variable source (as it was compiled from the FCT or should be calculated), and the type of variable (e.g., numeric, etc).
 
 
-```{r, eval = TRUE, label = "tbl-tagnames", tbl.cap = "The list of relevant standardised food variable names, including the Tagnames, and other relevant information."}}
+```{r, eval = TRUE, label = "tbl-tagnames", tbl.cap = "The list of relevant standardised food variable names, including the Tagnames, and other relevant information."}
 
-read.csv(here::here("data", "fct_variables_standards.csv")) %>%
-  str_squish() %>% knitr::kable()
+read.csv(here::here("data", "fct_variables_standards.csv")) |>
+  stringr::str_squish() |> knitr::kable()
 
 ```
 

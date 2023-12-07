@@ -263,7 +263,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">9.1</span>  Introduction</a>
   <ul class="collapse">
   <li><a href="#food-matching" id="toc-food-matching" class="nav-link" data-scroll-target="#food-matching"><span class="toc-section-number">9.1.1</span>  Food matching</a></li>
-  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="toc-section-number">9.1.2</span>  Further Readings</a></li>
   </ul></li>
   <li><a href="#harmonising-the-food-composition-tables" id="toc-harmonising-the-food-composition-tables" class="nav-link" data-scroll-target="#harmonising-the-food-composition-tables"><span class="toc-section-number">9.2</span>  Harmonising the Food Composition Tables</a></li>
   <li><a href="#getting-the-nutrition-tools" id="toc-getting-the-nutrition-tools" class="nav-link" data-scroll-target="#getting-the-nutrition-tools"><span class="toc-section-number">9.3</span>  Getting the Nutrition Tools</a>
@@ -279,8 +278,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#combining-tagnames-to-generate-variables" id="toc-combining-tagnames-to-generate-variables" class="nav-link" data-scroll-target="#combining-tagnames-to-generate-variables"><span class="toc-section-number">9.6.1</span>  Combining Tagnames to generate variables</a></li>
   <li><a href="#re-calculating-variables" id="toc-re-calculating-variables" class="nav-link" data-scroll-target="#re-calculating-variables"><span class="toc-section-number">9.6.2</span>  Re-calculating variables</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="toc-section-number">9.6.3</span>  Further Readings</a></li>
   </ul></li>
-  <li><a href="#visualisation-qc" id="toc-visualisation-qc" class="nav-link" data-scroll-target="#visualisation-qc"><span class="toc-section-number">9.7</span>  Visualisation &amp; QC</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dzvoti/r4hces/edit/main/fct_harmonisation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -309,15 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="food-matching" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="food-matching"><span class="header-section-number">9.1.1</span> Food matching</h3>
 <p>After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the Integrated Household Survey, Wave 5, 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called “food dictionary”. As depicted in the <span class="quarto-unresolved-ref">?fig-matching</span>.</p>
-<p><img src="images/food-matching.png" id="fig-matching" class="img-fluid"></p>
-</section>
-<section id="further-readings" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">9.1.2</span> Further Readings</h3>
-<p><br></p>
-<ul>
-<li>Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.</li>
-<li>FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome’. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.</li>
-</ul>
+<p><img src="images/food-matching_ani.gif" id="fig-matching" class="img-fluid"></p>
 </section>
 </section>
 <section id="harmonising-the-food-composition-tables" class="level2" data-number="9.2">
@@ -430,18 +421,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting the food list &amp; frequency of HH</span></span>
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>food_list <span class="ot">&lt;-</span> ihs5_consumption <span class="sc">%&gt;%</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(food_id, food_item)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(food_item_code, food_item_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, we will match those food items with their corresponding food dictionary code(s). There are instances were the matching will be one food reported to many foods in the FCT. For example, wheat flour will be matched to wheat flour refined, and wheat flour wholemeal.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Food dictionary</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"https://raw.github.com/LuciaSegovia/fct/repro/metadata/MAPS_food-dictionary_v3.0.3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dictionary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.github.com/LuciaSegovia/fct/repro/metadata/MAPS_food-dictionary_v3.0.3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, the unique food dictionary codes (<code>ID_3</code>) will be used to match the food in the food list to the FCTs.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matching </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"fct_ihs5_v2.2.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ihs5 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"fct_ihs5_v2.2.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -494,11 +485,16 @@ Activity:
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">VITAmcg_std_creator</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="further-readings" class="level3" data-number="9.6.3">
+<h3 data-number="9.6.3" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">9.6.3</span> Further Readings</h3>
+<p><br></p>
+<ul>
+<li>Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.</li>
+<li>FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome’. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.</li>
+</ul>
+
+
 </section>
-<section id="visualisation-qc" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="visualisation-qc"><span class="header-section-number">9.7</span> Visualisation &amp; QC</h2>
-
-
 </section>
 
 </main> <!-- /main -->

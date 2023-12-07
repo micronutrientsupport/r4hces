@@ -286,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></h1>
+<h1 class="title"><span id="sec-wrangling" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data I/O and Wrangling</span></span></h1>
 </div>
 
 
@@ -771,7 +771,7 @@ Excercise
 <p>We can export data from R using the <code>write_csv()</code> function from the <code>readr</code> package. For example, to export the <code>ihs5_consumption</code> data to a csv file called <code>ihs5_consumption.csv</code> stored in our working directory we run:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export the data</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(ihs5_consumption, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"ihs5_consumption.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We recommend exporting files to csv as this allows interoperability between various software. If you prefer exporting your data to excel, you can use the <code>write_xlsx()</code> function from the <code>writexl</code> package. For example, to export the <code>ihs5_consumption</code> data to an excel file called <code>ihs5_consumption.xlsx</code> stored in our working directory we run:</p>
