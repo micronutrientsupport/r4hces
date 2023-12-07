@@ -8,15 +8,7 @@
 
 After the FCTs are standardised and harmonised and the food list (i.e., food reported as consumed in the Integrated Household Survey, Wave 5, 2019-2020), we can proceed to match them together. To do so, we are using a standardised list of foods that we called "food dictionary". As depicted in the @fig-matching.
 
-![](images/food-matching.png){#fig-matching}
-
-
-### Further Readings
-
-<br>
-
--   Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.
--   FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome'. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.
+![](images/food-matching_ani.gif){#fig-matching}
 
 
 ## Harmonising the Food Composition Tables
@@ -244,8 +236,12 @@ data.df %>%
 ```
 
 
-## Visualisation & QC
+### Further Readings
 
+<br>
+
+-   Greenfield, Heather, and D. A. T. Southgate. Food Composition Data: Production, Management, and Use. Rome: FAO, 2003.
+-   FAO/INFOODS (2012). FAO/INFOODS Guidelines for Checking Food Composition Data Prior to the Publication of a User Table/Database-Version 1.0. FAO, Rome'. Accessed 22 January 2022. https://www.fao.org/3/ap810e/ap810e.pdf.
 
 
 
