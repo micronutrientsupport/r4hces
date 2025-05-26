@@ -1,8 +1,11 @@
 # Data Visualisation
 
+The objective of this section is to provide information on the topic under consideration, along with examples and exercises.
+
 ## Plots and Graphs
 
-The objective of this section is to provide information on the topic under consideration, along with examples and exercises. You should be able to work through it in R studio. This section requires some packages to be loaded.
+ You should be able to work through it in R studio. This section requires some packages to be loaded.
+ 
 
 
 ```{r set-up, eval=TRUE}
@@ -14,7 +17,7 @@ library(dplyr) # data manipulation
 
 ```
 
-To demonstrate the visuals, let us load a dataframe called `ihs5_consumption` which was generated in{@sec-wrangling}.  
+To demonstrate the visuals, let us load a dataframe called `ihs5_consumption` which was generated in {@sec-wrangling}.  
 
 ```{r eval=TRUE}
 

@@ -9,3 +9,7 @@
 # Data file
 
 WA19/*.xlsx
+
+# Ignore files work-in-progress
+
+implausible.qmd
