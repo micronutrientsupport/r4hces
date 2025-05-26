@@ -4,10 +4,10 @@ The objective of this section is to provide information on the topic under consi
 
 ## Plots and Graphs
 
- You should be able to work through it in R studio. This section requires some packages to be loaded.
+You should be able to work through it in R studio. This section requires some packages to be loaded.
+
+As the rest of this book and following the the principles of the tydiverse, we use `ggplot2` for data visualisation.
  
-
-
 ```{r set-up, eval=TRUE}
 
 # Loading libraries
@@ -26,6 +26,9 @@ To demonstrate the visuals, let us load a dataframe called `ihs5_consumption` wh
 ihs5_consumption <- read.csv(here::here("data", "ihs5_consumption.csv")) %>% 
   mutate(region = as.factor(region))
 
+# Checking the data
+str(ihs5_consumption)
+
 ```
 
 This dataframe contains `r ncol(ihs5_consumption)` variables, of which we will be focusing on  `food_item`, `consumption_per_person`, and `region`. 
@@ -41,8 +44,7 @@ The **specific objective** of the material in this script is to introduce you to
 
 In this section, we look at graphics that we may create with a single variable. This includes histograms, boxplots, bar charts, as well as QQ plots. These are usually important in checking the distribution of variables in your dataset or checking the residuals of a fitted model.
 
-### Histogram
-
+First we need to create a base for our plot.
 
 ```{r eval=TRUE}
 
@@ -53,8 +55,10 @@ ihs5_consumption %>%
 
 ```
 
+### Histogram
 
 ```{r eval=TRUE, warning=FALSE}
+
 # Creating the histogram
 
 ihs5_consumption %>% 
@@ -168,23 +172,18 @@ The second type of plot we can look at is the QQ plot. This plot is used to chec
 
 ```{r eval=TRUE}
 
-# Starting with the empty plot 
-ihs5_consumption %>% 
-  ggplot() 
-
-```
-
-
-```{r eval=TRUE}
-
 # QQ plot
 ihs5_consumption %>% 
+  # This generates the empty plot...
   ggplot() +
-  stat_qq(aes(sample = consumption_per_person))
+  # Here info on the type of plot and the variable 
+    stat_qq(aes(sample = consumption_per_person))
 
 ```
 
-The argument for this function is the soil moisture data. The sample quantiles are just the data values, plotted in increasing order. The theoretical quantiles are the corresponding values for an ordered set of the same number of variables with the standard normal distribution (mean zero variance 1). This means that, if the data are normal, the QQ plot should lie on a straight line. The `stat_qq_line()` command adds this line to the plot to help your interpretation.
+The argument for this function is the food consumption per person. The sample quantiles are just the data values, plotted in increasing order.
+
+The theoretical quantiles are the corresponding values for an ordered set of the same number of variables with the standard normal distribution (mean zero variance 1). This means that, if the data are normal, the QQ plot should lie on a straight line. The `stat_qq_line()` command adds this line to the plot to help your interpretation.
 
 ```{r eval=TRUE}
 
@@ -196,7 +195,7 @@ ihs5_consumption %>%
 
 ```
 
-You can add a plot title using `ggtitle("")` as in "histogram and you can change the `stat_qq_line()` color if you so wish by adding the `col=""` argument.
+You can add a plot title using `ggtitle("")` as in "histogram and you can change the `stat_qq_line()` color if you so wish by adding the `colour=""` argument.
 
 ```{r eval=TRUE}
 
@@ -209,6 +208,24 @@ ihs5_consumption %>%
 
 ```
 
+Now, let's see how it is seen when a normal distrubutied variable is plotted with this type of graphs...
+
+
+```{r eval=TRUE}
+
+# Normally distributed dataset
+x <- rnorm(nrow(ihs5_consumption))
+
+# Normal QQ plot + QQ line (in red)
+ihs5_consumption %>% 
+  ggplot() +
+  stat_qq(aes(sample = x)) +
+  stat_qq_line(aes(sample = x), colour = "red") +
+  ggtitle("Normal QQ-plot")
+
+```
+
+
 ::: callout-note
 ## Exercise: qq plot
 
@@ -218,7 +235,9 @@ ii) Label it appropriately assuming that these are data for *Food consumption pe
 
 ### Box plot
 
-Box plots give summary of the minimum, first quartile, median, third quartile inter quartile range, maximum and outlier values in your dataset. They are used for univariate data but can be split based on a factorial variable e.g gender or region. The function that is used to call for a boxplot is `geom_boxplot()` and the argument is vector data. Let us try plotting using the data we generated earlier.
+Box plots give summary of the minimum, first quartile, median, third quartile inter quartile range, maximum and outlier values in your dataset.
+
+They are used for univariate data but can be split based on a factorial variable e.g gender or region. The function that is used to call for a boxplot is `geom_boxplot()` and the argument is vector data. Let us try plotting using the data we generated earlier.
 
 
 ```{r eval=TRUE}
@@ -230,7 +249,7 @@ ihs5_consumption %>%
 
 ```
 
-Let's try a different orientation
+Let's try a different orientation...
 
 ```{r eval=TRUE}
 
@@ -239,9 +258,15 @@ Let's try a different orientation
 ihs5_consumption %>% 
   ggplot() +
   geom_boxplot(aes(consumption_per_person)) +
+  # Change the orientation of the graph
   coord_flip() 
 
 ```
+
+The thick black line in the centre of the boxplot corresponds to the median value of the data (half the values are smaller, half are larger). The bottom of the box is the first quartile of the data, Q1 (25% of the values are smaller), and the top of the box is the third quartile of the data, Q3 (25% of the values are larger). This plot provides good information about the distribution of the data.
+
+In exploratory data analysis we call the quantity H = Q3-Q1 the "h-spread". R calculates what are known as "inner fences" of the data which are at `Q1-1.5*H` and `Q3+1.5*H`. The "whiskers" above and below the box join the Q1 to the smallest data value inside the inner fences, and Q3 to the largest value inside the inner fences. If there are values outside the inner fences then these appear as points on the plot (outliers).
+
 
 You can choose to label your boxplot with main title, color and label the axis similar to what we did for histograms. This time however, we label y-axis using `ylab()` argument.
 
@@ -258,11 +283,9 @@ ihs5_consumption %>%
 
 ```
 
-The thick black line in the centre of the boxplot corresponds to the median value of the data (half the values are smaller, half are larger). The bottom of the box (the blue shaded area) is the first quartile of the data, Q1 (25% of the values are smaller), and the top of the box is the third quartile of the data, Q3 (25% of the values are larger).
 
-In exploratory data analysis we call the quantity H = Q3-Q1 the "h-spread". R calculates what are known as "inner fences" of the data which are at `Q1-1.5*H` and `Q3+1.5*H` The "whiskers" above and below the box join the Q1 to the smallest data value inside the inner fences, and Q3 to the largest value inside the inner fences. If there are values outside the inner fences then these appear as points on the plot.
 
-It is possible to produce a graph in which separate boxplots are produced for different levels of a factor. As an example, we would like to understand how food is consumed in the three regions in Malawi. The values are stored in the variable called `region`.
+It is possible to produce a graph in which separate boxplots are produced for different levels of a factor. As an example, we would like to understand how food is consumed in the three regions in the country. The values are stored in the variable called `region`.
 
 We then want to plot our data split by the corresponding region we have sampled. We use the function `geom_boxplot()` but this time we add a new variable.
 
@@ -292,7 +315,21 @@ Now, we can delete the x-axis label using the `xlab()`, label the y-axis and cha
 
 ```
 
+We can also reorder the boxplots from the lower to the higher median values.
 
+
+```{r}
+
+# Boxplot - by region 
+
+ ihs5_consumption %>% 
+  ggplot() +
+  geom_boxplot(aes(x=reorder(region, consumption_per_person), y = consumption_per_person), colour = "dark blue") +
+  xlab("") +
+  ylab("Food consumption (g/day)") +
+  ggtitle("Boxplot of food consumption per person per region") 
+
+```
 
 ::: callout-note
 ## Exercise: Box plot
@@ -308,7 +345,9 @@ iv) are there any outliers in your data?
 
 ### Bar plot
 
-This allows us to create a bar chart where the heights of the bars are based on the values given by the vector input. The argument that is used to call for a barplot is `geom_bar()` and the argument is our region data. There are additional options for giving names to each of the bars, for instance, and for coloring the bars, as you have seen for other earlier plots. This function usually works well when you have tabular data. The simplest form for the function `geom_bar()` is given below.
+In the bar chart, the heights of the bars are based on the values given by the vector input, in this case it count. The argument that is used to call for a barplot is `geom_bar()` and the argument is our region data. 
+
+This function usually works well when you have tabular data. The simplest form for the function `geom_bar()` is given below.
 
 ```{r eval=TRUE}
 
@@ -324,13 +363,16 @@ table(ihs5_consumption$region)
 
 You can check the results by using the function `table()`, which provide you a count per each variable. 
 
-Also, you can choose to add labels to bar plot as earlier mentioned for the previous plots. You can as well change the color of the bars.
+There are additional options for giving names to each of the bars, for instance using `labels=`, and for coloring the bars, as you have seen for other earlier plots.
+
 
 ```{r eval=TRUE}
 
   ihs5_consumption %>% 
   ggplot() +
   geom_bar(aes(region)) +
+  # Changing the label of the variable
+  scale_x_discrete(labels =c(`1` = "Northern", `2` = "Central", `3` = "Southern")) +
   xlab("Regions") +
   ylab("count") +
   ggtitle("Number of foods reported per region") 
@@ -345,6 +387,8 @@ You can also change the axis, by using the `ylim()` function
   ihs5_consumption %>% 
   ggplot() +
   geom_bar(aes(region),  fill = "light blue") +
+    # Changing the label of the variable
+  scale_x_discrete(labels =c(`1` = "Northern", `2` = "Central", `3` = "Southern")) +
   ylim(0,810) +
    xlab("Regions") +
   ylab("count") +
@@ -367,10 +411,11 @@ You can also change the colour by each site, that will provide a distinct colour
 ```{r eval=TRUE}
 
 # Changing limits and colour by region
-
   ihs5_consumption %>% 
   ggplot() +
   geom_bar(aes(region,  fill = region)) +
+    # Changing the label of the variable
+  scale_fill_discrete(labels =c(`1` = "Northern", `2` = "Central", `3` = "Southern")) +
   ylim(0,810) +
    xlab("Regions") +
   ylab("count") +
@@ -384,6 +429,7 @@ You can also change the colour by each site, that will provide a distinct colour
 
 i)  Create a bar plot to show the frequency of the food consumed by region in the sample,
 ii) label it and adjust the axis and colour appropriately.
+
 :::
 
 ## Multivariate graphs
@@ -410,7 +456,7 @@ The list below shows arguments that can be added to the plot function as discuss
 
 -   `xlab("Region")`
 -   `ylab("Food compsumption (g/day")`
--   `ggtitle("Food consumption by different regions in Malawi")`
+-   `ggtitle("Food consumption by different regions in the country")`
 
 ```{r eval=TRUE}
 
@@ -759,39 +805,43 @@ cowplot::plot_grid(top_row, graph1, nrow = 2, labels = c("", "C"),
 
 ```
 
-```{r eval=FALSE}
-x <- rnorm(100)
-
-#layout(mat)
-layout(x)
-
-hist(x)
-#boxplot(x)
-qqnorm(x)
-plot(x)
-```
-
-::: callout-note
-## Exercise 3.10
-
-Using the `iris` data, generate
-
-i)  `histogram` of `Sepal Length`,
-ii) `boxplot` of `Petal Length`,
-iii) `qq plot` of `Petal Width` and
-iv) a plot of `Sepal Length` against `Petal Length` on the same plot area with equal dimensions.
-
-:::
 
 ::: callout-note
 ## Exercise 3.11
 
 Adjust, the plot in the previous exercise so that histogram occupies the whole bottom of the plot area and the other three occupy the top of the plot area in equal dimensions.
+
 :::
 
 ### Saving/Printing plots
 
-Now that we have known how to create graphics, one thing remaining is to print out the output. A number of graphics devices are available, including **PDF**, **PNG**, **JPEG**, and **bitmap**. If we do not specify the device to use, the default device will be opened, and in R this is the Plot tab.
+Now that we have known how to create graphics, one thing remaining is to save the output. 
+
+The easiest way is to print the graph you want to save, and then save it using the function in `ggsave()`.
+
+```{r}
+# Printing the graph
+print(graph2)
+
+#Saving into a pdf
+ggsave("graph2.pdf")
+
+```
+
+The funtion also allow for defining the height and width.
+
+```{r}
+# Printing the graph
+print(graph2)
+
+#Saving into a pdf
+ggsave("graph2.pdf",  width = 4, height = 4)
+
+```
+
+In addition, another option is to print into a new tab, and then save it. 
+
+A number of graphics devices are available, including **PDF**, **PNG**, **JPEG**, and **bitmap**. If we do not specify the device to use, the default device will be opened, and in R this is the Plot tab.
 
 To print a graph to **pdf** ,**png** and **jpeg**, one must create the device before plotting the graph. This is done by using the functions
 
@@ -816,6 +866,7 @@ hist(rnorm(100))
 
 # Close the device
 dev.off() 
+
 ```
 
 Remember to close the device when done using the `dev.off()` function, otherwise all your graphics onward will be pdf documents and not any other device e.g the R plot tab.
@@ -823,5 +874,16 @@ Remember to close the device when done using the `dev.off()` function, otherwise
 ::: callout-note
 ## Exercise 3.12
 
-Print the plot you generated in EXERCISE to a PDF, PNG and JPEG giving it an appropriate name. Remember to close the device
+Print the plot you generated in EXERCISE to a PDF, PNG and JPEG giving it an appropriate name. Remember to close the device.
+
 :::
+
+## Resources
+
+Here's some website with more information, ideas and code for awesome graphs!
+
+-   [Intro to gglot2](https://ggplot2.tidyverse.org/articles/ggplot2.html) 
+-   [Gglot2 book](https://ggplot2-book.org/) 
+-   [R Graph Gallery](https://r-graph-gallery.com/index.html)
+
+
