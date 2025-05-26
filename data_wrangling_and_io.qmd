@@ -1,7 +1,9 @@
 # Data I/O and Wrangling {#sec-wrangling}
+
 Up to this point we were creating data to manipulate in R. In this section we will learn how to import data into R, manipulate it and export it. We will use the `readr` and `haven` packages to import data into R, the `dplyr` package to manipulate data and the `readr` package to export data from R. We will also use the `here` package to manage file paths.
 
 ## Data Input/Import
+
 There are many ways to import data into R. In this section we will look at how to import data from a CSV file, an Excel file and Stata file. In the sample data folder there are `*.csv` files and stata files `*.dta`. Foe example to import the health data from a survey stored in `hh_mod_a_filt_vMAPS.dta` stored in the `mwi-ihs5-sample-data` folder within our working directory we run:
     
 ```{r eval=FALSE}
